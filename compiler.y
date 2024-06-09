@@ -1,5 +1,3 @@
-
-
 /* Definition section */
 %{
     #include "compiler_common.h"
@@ -17,12 +15,19 @@
 
     bool b_var;
     int i_var;
+    char c_var;
+    int32_t i_var;
+    int64_t l_var;
     float f_var;
+    double d_var;
     char *s_var;
 
-    Object object_val;
-}
+    Object obj_val;
 
+
+    // LinkList<Object*>
+    LinkedList* array_subscript;
+}
 
 /* Token without return */
 %token COUT ENDL VAR_FLAG_DEFAULT // TODO:我宣告的的VAR_FLAG_DEFAULT
@@ -33,13 +38,17 @@
 
 
 /* Token with return, which need to sepcify type */
-%token <var_type> VARIABLE_T BOOL_LIT  
-%token <s_var> IDENT STR_LIT 
-%token <i_var> INT_LIT 
-%token <f_var> FLOAT_LIT 
+%token <var_type> VARIABLE_T
+%token <b_var> BOOL_LIT
+%token <c_var> CHAR_LIT
+%token <i_var> INT_LIT
+%token <f_var> FLOAT_LIT
+%token <s_var> STR_LIT
+%token <s_var> IDENT
 
 /* Nonterminal with return, which need to sepcify type */
-%type <object_val> Expression
+%type <obj_val> Expression
+%type <array_subscript> ArraySubscriptStmtList
 %type <s_var> IDENTS ForThrid 
 %type <i_var> InArr
 
@@ -51,8 +60,9 @@
 %left BAN
 %right NOT BNT
 
-
 %nonassoc UMINUS
+%nonassoc THEN
+%nonassoc ELSE
 
 /* Yacc will start at this nonterminal */
 %start Program
@@ -82,11 +92,11 @@ DefineVariableStmt
 ;
 
 IDENTS
-    : IDENTS ',' IDENT { pushFunParm(autoType , $<s_var>3); autoType = 100; }    // 傳入100是為了對付 int a , b 這種狀況
-    | IDENT {  pushFunParm(autoType, $<s_var>1); autoType = 100; }
-    | IDENTS ',' IDENT Assign2 { pushFunParm(autoType, $<s_var>3); autoType = 100; }
-    | IDENT  Assign2 { pushFunParm(autoType, $<s_var>1); autoType = 100; }  //// d 走這邊
-    | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushFunParm(autoType, $<s_var>1); autoType = 100;} 
+    : IDENTS ',' IDENT { pushSymbleData(autoType , $<s_var>3); autoType = 100; }    // 傳入100是為了對付 int a , b 這種狀況
+    | IDENT {  pushSymbleData(autoType, $<s_var>1); autoType = 100; }
+    | IDENTS ',' IDENT Assign2 { pushSymbleData(autoType, $<s_var>3); autoType = 100; }
+    | IDENT  Assign2 { pushSymbleData(autoType, $<s_var>1); autoType = 100; }  //// d 走這邊
+    | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, $<s_var>1); autoType = 100;} 
                                                                         ///  這邊要改成實際幾個數字
 
 ;
@@ -115,6 +125,16 @@ FunctionParameterStmt
 ;
 
 /* Scope */
+ScopeStmt
+    : '{' { pushScope(); } StmtList '}' { dumpScope(); }
+    | '{' { pushScope(); } '}' { dumpScope(); }
+    | BodyStmt
+;
+ManualScopeStmt
+    : '{' StmtList '}'
+    | '{' '}'
+    | BodyStmt
+;
 StmtList 
     :  StmtList  Stmt {}
     |  Stmt {}
@@ -130,7 +150,8 @@ Stmt
     | BREAK ';' {printf("BREAK\n");}
 ;
 
-
+BodyStmt
+    : ';'
 
 /* IF scope */
 IfStmt
@@ -245,5 +266,3 @@ Assign2
 ;    
 %%
 /* C code section */
-
-// IDENT '[' INT_LIT ']' Assign2 
