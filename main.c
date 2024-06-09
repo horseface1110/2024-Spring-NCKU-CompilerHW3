@@ -341,6 +341,7 @@ int main(int argc, char* argv[]) {
 
     codeRaw(".class public Main");
     codeRaw(".super java/lang/Object");
+    codeRaw(".method public static main([Ljava/lang/String;)V");
     scopeLevel = -1;
 
     yyparse();
