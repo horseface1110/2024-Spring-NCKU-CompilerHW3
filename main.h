@@ -91,5 +91,8 @@ void assignIDENT(ObjectType target);
 void changePSD(ObjectType variableType);
 void castTo( ObjectType variableType );
 void resetPushsym();
+void record_JNI(char* variableName);
+char* change_JNI(int main);
+
 
 #endif

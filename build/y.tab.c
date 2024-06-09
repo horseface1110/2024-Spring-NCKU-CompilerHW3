@@ -1452,25 +1452,25 @@ yyreduce:
 
   case 11: /* IDENTS: IDENTS ',' IDENT  */
 #line 85 "./compiler.y"
-                       { pushFunParm(autoType , (yyvsp[0].s_var), VAR_FLAG_DEFAULT); autoType = 100; }
+                       { pushFunParm(autoType , (yyvsp[0].s_var)); autoType = 100; }
 #line 1457 "./build/y.tab.c"
     break;
 
   case 12: /* IDENTS: IDENT  */
 #line 86 "./compiler.y"
-            {  pushFunParm(autoType, (yyvsp[0].s_var), VAR_FLAG_DEFAULT); autoType = 100; }
+            {  pushFunParm(autoType, (yyvsp[0].s_var)); autoType = 100; }
 #line 1463 "./build/y.tab.c"
     break;
 
   case 13: /* IDENTS: IDENTS ',' IDENT Assign2  */
 #line 87 "./compiler.y"
-                               { pushFunParm(autoType, (yyvsp[-1].s_var), VAR_FLAG_DEFAULT); autoType = 100; }
+                               { pushFunParm(autoType, (yyvsp[-1].s_var)); autoType = 100; }
 #line 1469 "./build/y.tab.c"
     break;
 
   case 14: /* IDENTS: IDENT Assign2  */
 #line 88 "./compiler.y"
-                     { pushFunParm(autoType, (yyvsp[-1].s_var), VAR_FLAG_DEFAULT); autoType = 100; }
+                     { pushFunParm(autoType, (yyvsp[-1].s_var)); autoType = 100; }
 #line 1475 "./build/y.tab.c"
     break;
 
@@ -1482,7 +1482,7 @@ yyreduce:
 
   case 16: /* IDENTS: IDENT '[' INT_LIT $@2 ']' InArr  */
 #line 89 "./compiler.y"
-                                                                  { printf("create array: %d\n",arrNum); arrNum = 0; pushFunParm(autoType, (yyvsp[-5].s_var), VAR_FLAG_DEFAULT); autoType = 100;}
+                                                                  { printf("create array: %d\n",arrNum); arrNum = 0; pushFunParm(autoType, (yyvsp[-5].s_var)); autoType = 100;}
 #line 1487 "./build/y.tab.c"
     break;
 

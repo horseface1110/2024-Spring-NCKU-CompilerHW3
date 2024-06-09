@@ -82,11 +82,11 @@ DefineVariableStmt
 ;
 
 IDENTS
-    : IDENTS ',' IDENT { pushFunParm(autoType , $<s_var>3, VAR_FLAG_DEFAULT); autoType = 100; }    // 傳入100是為了對付 int a , b 這種狀況
-    | IDENT {  pushFunParm(autoType, $<s_var>1, VAR_FLAG_DEFAULT); autoType = 100; }
-    | IDENTS ',' IDENT Assign2 { pushFunParm(autoType, $<s_var>3, VAR_FLAG_DEFAULT); autoType = 100; }
-    | IDENT  Assign2 { pushFunParm(autoType, $<s_var>1, VAR_FLAG_DEFAULT); autoType = 100; }  //// d 走這邊
-    | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushFunParm(autoType, $<s_var>1, VAR_FLAG_DEFAULT); autoType = 100;} 
+    : IDENTS ',' IDENT { pushFunParm(autoType , $<s_var>3); autoType = 100; }    // 傳入100是為了對付 int a , b 這種狀況
+    | IDENT {  pushFunParm(autoType, $<s_var>1); autoType = 100; }
+    | IDENTS ',' IDENT Assign2 { pushFunParm(autoType, $<s_var>3); autoType = 100; }
+    | IDENT  Assign2 { pushFunParm(autoType, $<s_var>1); autoType = 100; }  //// d 走這邊
+    | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushFunParm(autoType, $<s_var>1); autoType = 100;} 
                                                                         ///  這邊要改成實際幾個數字
 
 ;
