@@ -226,7 +226,10 @@ void pushSymbleData(ObjectType variableType, char* Name){
     }else{
         
         symbols[scopeLevel][symbolsLevel[scopeLevel]].addr = variableAddress;
-        printf("> Insert `%s` (addr: %d) to scope level %d\n",Name,symbols[scopeLevel][symbolsLevel[scopeLevel]].addr,scopeLevel,symbols[scopeLevel][symbolsLevel[scopeLevel]].func_var);
+        printf("> Insert `%s` (addr: %ld) to scope level %d\n",
+            Name,
+            symbols[scopeLevel][symbolsLevel[scopeLevel]].addr,
+            scopeLevel);
         variableAddress++;
     }
     
@@ -243,7 +246,9 @@ int findObjectType(char* target){
         for(int i = 0 ; i < symbolsLevel[j] ; i++){     ///  有可能在 scope = 2 時使用scope = 1 的東西，會壞掉
             // printf("symbols[%d][%d].name = %s\n",j,i,symbols[j][i].name);
             if( strcmp(symbols[j][i].name, target)==0 ){
-                printf("IDENT (name=%s, address=%d)\n",symbols[j][i].name,symbols[j][i].addr);
+                printf("IDENT (name=%s, address=%ld)\n",
+                    symbols[j][i].name,
+                    symbols[j][i].addr);
                 return symbols[j][i].func_var;
             }
         }

@@ -239,7 +239,7 @@ Assign
     | DIV_ASSIGN Expression { printf("DIV_ASSIGN\n"); } 
 ;     
 Assign2
-    : EQL_ASSIGN Expression { autoType = $<s_var>2 ;}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);
+    : EQL_ASSIGN Expression { autoType = $<i_var>2 ;}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);
     | EQL_ASSIGN IDENT  '(' Func')' {  findObjectType($<s_var>2);printf("call: check(IILjava/lang/String;B)B\n");}
     | EQL_ASSIGN '{'Arr'}' 
 ;    

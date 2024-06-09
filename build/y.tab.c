@@ -1932,7 +1932,7 @@ yyreduce:
 
   case 108: /* Assign2: EQL_ASSIGN Expression  */
 #line 242 "./compiler.y"
-                            { autoType = (yyvsp[0].s_var) ;}
+                            { autoType = (yyvsp[0].i_var) ;}
 #line 1937 "./build/y.tab.c"
     break;
 

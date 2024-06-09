@@ -74,5 +74,22 @@ bool arraySubscriptPush(LinkedList* arraySubscripts, Object* index);
 bool arraySubscriptEnd(LinkedList* arraySubscripts);
 
 char* ObjectTypeToString(ObjectType type);
+void resetPushsym();
+void pushSymbleData(ObjectType variableType, char* Name);
+void changePSD(ObjectType variableType);
+void createFunction(ObjectType variableType, char* funcName);
+void pushFunInParm(Object* variable); 
+void pushFunParm(ObjectType variableType, char* variableName, int variableFlag);
+
+void stdoutPrint();
+
+char* ObjectTypeToString(ObjectType type);
+void pushFun();
+void pushSymbleData();
+int  findObjectType(char* target);
+void assignIDENT(ObjectType target);
+void changePSD(ObjectType variableType);
+void castTo( ObjectType variableType );
+void resetPushsym();
 
 #endif
