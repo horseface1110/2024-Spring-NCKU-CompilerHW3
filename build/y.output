@@ -1,0 +1,4770 @@
+Terminals unused in grammar
+
+    VAR_FLAG_DEFAULT
+    LEQ
+    VAL_ASSIGN
+    CONTINUE
+
+
+Rules useless in parser due to conflicts
+
+   77 Expression: Expression LOR Expression
+
+
+State 2 conflicts: 1 shift/reduce
+State 4 conflicts: 1 shift/reduce
+State 5 conflicts: 1 shift/reduce
+State 6 conflicts: 1 shift/reduce
+State 7 conflicts: 1 shift/reduce
+State 10 conflicts: 1 shift/reduce
+State 14 conflicts: 1 shift/reduce
+State 19 conflicts: 4 shift/reduce
+State 20 conflicts: 4 shift/reduce
+State 21 conflicts: 4 shift/reduce
+State 28 conflicts: 1 shift/reduce
+State 29 conflicts: 1 shift/reduce
+State 30 conflicts: 1 shift/reduce
+State 31 conflicts: 1 shift/reduce
+State 32 conflicts: 1 shift/reduce
+State 33 conflicts: 1 shift/reduce
+State 34 conflicts: 1 shift/reduce
+State 35 conflicts: 1 shift/reduce
+State 36 conflicts: 1 shift/reduce
+State 37 conflicts: 1 shift/reduce
+State 38 conflicts: 1 shift/reduce
+State 39 conflicts: 1 shift/reduce
+State 40 conflicts: 1 shift/reduce
+State 41 conflicts: 1 shift/reduce
+State 42 conflicts: 1 shift/reduce
+State 43 conflicts: 1 shift/reduce
+State 44 conflicts: 1 shift/reduce
+State 45 conflicts: 1 shift/reduce
+State 46 conflicts: 1 shift/reduce
+State 47 conflicts: 1 shift/reduce
+State 48 conflicts: 1 shift/reduce
+State 49 conflicts: 1 shift/reduce
+State 50 conflicts: 1 shift/reduce
+State 51 conflicts: 1 shift/reduce
+State 52 conflicts: 1 shift/reduce
+State 53 conflicts: 1 shift/reduce
+State 54 conflicts: 1 shift/reduce
+State 55 conflicts: 1 shift/reduce
+State 56 conflicts: 1 shift/reduce
+State 57 conflicts: 1 shift/reduce
+State 59 conflicts: 1 shift/reduce
+State 61 conflicts: 1 shift/reduce
+State 68 conflicts: 17 shift/reduce
+State 69 conflicts: 17 shift/reduce
+State 70 conflicts: 4 shift/reduce
+State 71 conflicts: 17 shift/reduce
+State 72 conflicts: 17 shift/reduce
+State 73 conflicts: 4 shift/reduce
+State 74 conflicts: 4 shift/reduce
+State 75 conflicts: 4 shift/reduce
+State 76 conflicts: 4 shift/reduce
+State 77 conflicts: 4 shift/reduce
+State 78 conflicts: 4 shift/reduce
+State 79 conflicts: 4 shift/reduce
+State 80 conflicts: 4 shift/reduce
+State 81 conflicts: 4 shift/reduce
+State 82 conflicts: 4 shift/reduce
+State 83 conflicts: 4 shift/reduce
+State 84 conflicts: 4 shift/reduce, 25 reduce/reduce
+State 99 conflicts: 4 shift/reduce
+State 100 conflicts: 1 shift/reduce
+State 101 conflicts: 1 shift/reduce, 2 reduce/reduce
+State 107 conflicts: 1 shift/reduce
+State 117 conflicts: 1 shift/reduce
+State 125 conflicts: 1 shift/reduce
+State 134 conflicts: 1 shift/reduce
+State 138 conflicts: 1 shift/reduce
+State 142 conflicts: 1 shift/reduce
+State 147 conflicts: 1 shift/reduce
+State 151 conflicts: 1 shift/reduce
+State 153 conflicts: 1 shift/reduce
+State 166 conflicts: 1 shift/reduce
+State 170 conflicts: 1 shift/reduce
+State 172 conflicts: 1 shift/reduce
+State 180 conflicts: 1 shift/reduce
+State 184 conflicts: 1 shift/reduce
+State 186 conflicts: 1 shift/reduce
+State 189 conflicts: 1 shift/reduce
+State 191 conflicts: 1 shift/reduce
+State 192 conflicts: 1 shift/reduce
+State 193 conflicts: 1 shift/reduce
+State 198 conflicts: 1 shift/reduce
+State 201 conflicts: 1 shift/reduce
+State 203 conflicts: 1 shift/reduce
+State 207 conflicts: 1 shift/reduce
+
+
+Grammar
+
+    0 $accept: Program $end
+
+    1 $@1: ε
+
+    2 Program: $@1 GlobalStmtList
+    3        | ε
+
+    4 GlobalStmtList: GlobalStmtList GlobalStmt
+    5               | GlobalStmt
+
+    6 GlobalStmt: DefineVariableStmt
+    7           | FunctionDefStmt
+
+    8 DefineVariableStmt: VARIABLE_T IDENTS ';'
+    9                   | Expression Assign ';'
+
+   10 IDENTS: IDENTS ',' IDENT
+   11       | IDENT
+   12       | IDENTS ',' IDENT Assign2
+   13       | IDENT Assign2
+
+   14 $@2: ε
+
+   15 IDENTS: IDENT '[' INT_LIT $@2 ']' InArr
+
+   16 $@3: ε
+
+   17 $@4: ε
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst ')' '{' $@4 StmtList '}'
+
+   19 $@5: ε
+
+   20 FunctionParameterStmtListFirst: $@5 FunctionParameterStmtList
+
+   21 FunctionParameterStmtList: FunctionParameterStmtList ',' FunctionParameterStmt
+   22                          | FunctionParameterStmt
+   23                          | ε
+
+   24 FunctionParameterStmt: VARIABLE_T IDENT '[' ']'
+   25                      | VARIABLE_T IDENT
+
+   26 StmtList: StmtList Stmt
+   27         | Stmt
+
+   28 Stmt: ';'
+   29     | DefineVariableStmt
+   30     | COUT CoutParmListStmt ';'
+   31     | RETURN Expression ';'
+   32     | IF IfStmt
+   33     | WHILE WhileStmt
+   34     | FOR ForStmt
+   35     | BREAK ';'
+
+   36 $@6: ε
+
+   37 IfStmt: '(' Expression ')' $@6 '{' StmtList '}'
+
+   38 $@7: ε
+
+   39 IfStmt: IfStmt ELSE $@7 '{' StmtList '}'
+
+   40 $@8: ε
+
+   41 IfStmt: '(' Expression ')' $@8 RETURN Expression ';'
+
+   42 $@9: ε
+
+   43 $@10: ε
+
+   44 WhileStmt: $@9 '(' Expression ')' $@10 '{' StmtList '}'
+
+   45 $@11: ε
+
+   46 ForStmt: $@11 ForThrid '{' StmtList '}'
+
+   47 ForSecond: VARIABLE_T IDENTS
+   48          | Expression Assign
+   49          | ε
+
+   50 ForThrid: '(' ForSecond ';' Expression ';' ForSecond ')'
+   51         | '(' ForSecond ':' IDENT ')'
+
+   52 Func: Func ',' Expression
+   53     | Expression
+
+   54 Arr: Arr ',' Expression
+   55    | Expression
+   56    | ε
+
+   57 $@12: ε
+
+   58 InArr: InArr '[' INT_LIT $@12 ']'
+   59      | Assign2
+
+   60 CoutParmListStmt: CoutParmListStmt SHL Expression
+   61                 | SHL Expression
+   62                 | ε
+
+   63 Expression: Expression ENDL Expression
+   64           | Expression ADD Expression
+   65           | Expression SUB Expression
+   66           | Expression MUL Expression
+   67           | Expression DIV Expression
+   68           | Expression REM Expression
+   69           | SUB Expression
+   70           | Expression GTR Expression
+   71           | Expression LES Expression
+   72           | Expression LOR Expression
+   73           | Expression GEQ Expression
+   74           | Expression EQL Expression
+   75           | Expression NEQ Expression
+   76           | Expression LAN Expression
+   77           | Expression LOR Expression
+   78           | Expression BAN Expression
+   79           | BNT Expression
+   80           | Expression BOR Expression
+   81           | Expression BXO Expression
+   82           | Expression SHR Expression
+   83           | NOT Expression
+   84           | INT_LIT
+   85           | STR_LIT
+   86           | '(' Expression ')'
+   87           | BOOL_LIT
+   88           | '(' VARIABLE_T ')' Expression
+   89           | FLOAT_LIT
+   90           | IDENT
+
+   91 $@13: ε
+
+   92 Expression: IDENT '[' INT_LIT $@13 ']'
+   93           | ε
+
+   94 Assign: ADD_ASSIGN Expression
+   95       | EQL_ASSIGN Expression
+   96       | SUB_ASSIGN Expression
+   97       | MUL_ASSIGN Expression
+   98       | REM_ASSIGN Expression
+   99       | SHR_ASSIGN Expression
+  100       | SHL_ASSIGN Expression
+  101       | BAN_ASSIGN Expression
+  102       | BOR_ASSIGN Expression
+  103       | BXO_ASSIGN Expression
+  104       | INC_ASSIGN Expression
+  105       | DEC_ASSIGN Expression
+  106       | DIV_ASSIGN Expression
+
+  107 Assign2: EQL_ASSIGN Expression
+  108        | EQL_ASSIGN IDENT '(' Func ')'
+  109        | EQL_ASSIGN '{' Arr '}'
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40) 18 37 41 44 50 51 86 88 108
+    ')' (41) 18 37 41 44 50 51 86 88 108
+    ',' (44) 10 12 21 52 54
+    ':' (58) 51
+    ';' (59) 8 9 28 30 31 35 41 50
+    '[' (91) 15 24 58 92
+    ']' (93) 15 24 58 92
+    '{' (123) 18 37 39 44 46 109
+    '}' (125) 18 37 39 44 46 109
+    error (256)
+    COUT (258) 30
+    ENDL (259) 63
+    VAR_FLAG_DEFAULT (260)
+    SHR (261) 82
+    SHL (262) 60 61
+    BAN (263) 78
+    BOR (264) 80
+    BNT (265) 79
+    BXO (266) 81
+    ADD (267) 64
+    SUB (268) 65 69
+    MUL (269) 66
+    DIV (270) 67
+    REM (271) 68
+    NOT (272) 83
+    GTR (273) 70
+    LES (274) 71
+    GEQ (275) 73
+    LEQ (276)
+    EQL (277) 74
+    NEQ (278) 75
+    LAN (279) 76
+    LOR (280) 72 77
+    VAL_ASSIGN (281)
+    ADD_ASSIGN (282) 94
+    SUB_ASSIGN (283) 96
+    MUL_ASSIGN (284) 97
+    DIV_ASSIGN (285) 106
+    REM_ASSIGN (286) 98
+    BAN_ASSIGN (287) 101
+    BOR_ASSIGN (288) 102
+    BXO_ASSIGN (289) 103
+    SHR_ASSIGN (290) 99
+    SHL_ASSIGN (291) 100
+    INC_ASSIGN (292) 104
+    DEC_ASSIGN (293) 105
+    EQL_ASSIGN (294) 95 107 108 109
+    IF (295) 32
+    ELSE (296) 39
+    FOR (297) 34
+    WHILE (298) 33
+    RETURN (299) 31 41
+    BREAK (300) 35
+    CONTINUE (301)
+    VARIABLE_T <var_type> (302) 8 18 24 25 47 88
+    BOOL_LIT <var_type> (303) 87
+    IDENT <s_var> (304) 10 11 12 13 15 18 24 25 51 90 92 108
+    STR_LIT <s_var> (305) 85
+    INT_LIT <i_var> (306) 15 58 84 92
+    FLOAT_LIT <f_var> (307) 89
+    UMINUS (308)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (63)
+        on left: 0
+    Program (64)
+        on left: 2 3
+        on right: 0
+    $@1 (65)
+        on left: 1
+        on right: 2
+    GlobalStmtList (66)
+        on left: 4 5
+        on right: 2 4
+    GlobalStmt (67)
+        on left: 6 7
+        on right: 4 5
+    DefineVariableStmt (68)
+        on left: 8 9
+        on right: 6 29
+    IDENTS <s_var> (69)
+        on left: 10 11 12 13 15
+        on right: 8 10 12 47
+    $@2 (70)
+        on left: 14
+        on right: 15
+    FunctionDefStmt (71)
+        on left: 18
+        on right: 7
+    $@3 (72)
+        on left: 16
+        on right: 18
+    $@4 (73)
+        on left: 17
+        on right: 18
+    FunctionParameterStmtListFirst (74)
+        on left: 20
+        on right: 18
+    $@5 (75)
+        on left: 19
+        on right: 20
+    FunctionParameterStmtList (76)
+        on left: 21 22 23
+        on right: 20 21
+    FunctionParameterStmt (77)
+        on left: 24 25
+        on right: 21 22
+    StmtList (78)
+        on left: 26 27
+        on right: 18 26 37 39 44 46
+    Stmt (79)
+        on left: 28 29 30 31 32 33 34 35
+        on right: 26 27
+    IfStmt (80)
+        on left: 37 39 41
+        on right: 32 39
+    $@6 (81)
+        on left: 36
+        on right: 37
+    $@7 (82)
+        on left: 38
+        on right: 39
+    $@8 (83)
+        on left: 40
+        on right: 41
+    WhileStmt (84)
+        on left: 44
+        on right: 33
+    $@9 (85)
+        on left: 42
+        on right: 44
+    $@10 (86)
+        on left: 43
+        on right: 44
+    ForStmt (87)
+        on left: 46
+        on right: 34
+    $@11 (88)
+        on left: 45
+        on right: 46
+    ForSecond (89)
+        on left: 47 48 49
+        on right: 50 51
+    ForThrid <s_var> (90)
+        on left: 50 51
+        on right: 46
+    Func (91)
+        on left: 52 53
+        on right: 52 108
+    Arr (92)
+        on left: 54 55 56
+        on right: 54 109
+    InArr <i_var> (93)
+        on left: 58 59
+        on right: 15 58
+    $@12 (94)
+        on left: 57
+        on right: 58
+    CoutParmListStmt (95)
+        on left: 60 61 62
+        on right: 30 60
+    Expression <object_val> (96)
+        on left: 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 92 93
+        on right: 9 31 37 41 44 48 50 52 53 54 55 60 61 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 86 88 94 95 96 97 98 99 100 101 102 103 104 105 106 107
+    $@13 (97)
+        on left: 91
+        on right: 92
+    Assign (98)
+        on left: 94 95 96 97 98 99 100 101 102 103 104 105 106
+        on right: 9 48
+    Assign2 (99)
+        on left: 107 108 109
+        on right: 12 13 59
+
+
+State 0
+
+    0 $accept: • Program $end
+
+    $end      reduce using rule 3 (Program)
+    $default  reduce using rule 1 ($@1)
+
+    Program  go to state 1
+    $@1      go to state 2
+
+
+State 1
+
+    0 $accept: Program • $end
+
+    $end  shift, and go to state 3
+
+
+State 2
+
+    2 Program: $@1 • GlobalStmtList
+
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 8
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    GlobalStmtList      go to state 14
+    GlobalStmt          go to state 15
+    DefineVariableStmt  go to state 16
+    FunctionDefStmt     go to state 17
+    Expression          go to state 18
+
+
+State 3
+
+    0 $accept: Program $end •
+
+    $default  accept
+
+
+State 4
+
+   79 Expression: BNT • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 19
+
+
+State 5
+
+   69 Expression: SUB • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 20
+
+
+State 6
+
+   83 Expression: NOT • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 21
+
+
+State 7
+
+   86 Expression: '(' • Expression ')'
+   88           | '(' • VARIABLE_T ')' Expression
+
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 22
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 23
+
+
+State 8
+
+    8 DefineVariableStmt: VARIABLE_T • IDENTS ';'
+   18 FunctionDefStmt: VARIABLE_T • IDENT $@3 '(' FunctionParameterStmtListFirst ')' '{' $@4 StmtList '}'
+
+    IDENT  shift, and go to state 24
+
+    IDENTS  go to state 25
+
+
+State 9
+
+   87 Expression: BOOL_LIT •
+
+    $default  reduce using rule 87 (Expression)
+
+
+State 10
+
+   90 Expression: IDENT •
+   92           | IDENT • '[' INT_LIT $@13 ']'
+
+    '['  shift, and go to state 26
+
+    '['       [reduce using rule 90 (Expression)]
+    $default  reduce using rule 90 (Expression)
+
+
+State 11
+
+   85 Expression: STR_LIT •
+
+    $default  reduce using rule 85 (Expression)
+
+
+State 12
+
+   84 Expression: INT_LIT •
+
+    $default  reduce using rule 84 (Expression)
+
+
+State 13
+
+   89 Expression: FLOAT_LIT •
+
+    $default  reduce using rule 89 (Expression)
+
+
+State 14
+
+    2 Program: $@1 GlobalStmtList •
+    4 GlobalStmtList: GlobalStmtList • GlobalStmt
+
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 8
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+
+    $end      reduce using rule 2 (Program)
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    GlobalStmt          go to state 27
+    DefineVariableStmt  go to state 16
+    FunctionDefStmt     go to state 17
+    Expression          go to state 18
+
+
+State 15
+
+    5 GlobalStmtList: GlobalStmt •
+
+    $default  reduce using rule 5 (GlobalStmtList)
+
+
+State 16
+
+    6 GlobalStmt: DefineVariableStmt •
+
+    $default  reduce using rule 6 (GlobalStmt)
+
+
+State 17
+
+    7 GlobalStmt: FunctionDefStmt •
+
+    $default  reduce using rule 7 (GlobalStmt)
+
+
+State 18
+
+    9 DefineVariableStmt: Expression • Assign ';'
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL        shift, and go to state 28
+    SHR         shift, and go to state 29
+    BAN         shift, and go to state 30
+    BOR         shift, and go to state 31
+    BXO         shift, and go to state 32
+    ADD         shift, and go to state 33
+    SUB         shift, and go to state 34
+    MUL         shift, and go to state 35
+    DIV         shift, and go to state 36
+    REM         shift, and go to state 37
+    GTR         shift, and go to state 38
+    LES         shift, and go to state 39
+    GEQ         shift, and go to state 40
+    EQL         shift, and go to state 41
+    NEQ         shift, and go to state 42
+    LAN         shift, and go to state 43
+    LOR         shift, and go to state 44
+    ADD_ASSIGN  shift, and go to state 45
+    SUB_ASSIGN  shift, and go to state 46
+    MUL_ASSIGN  shift, and go to state 47
+    DIV_ASSIGN  shift, and go to state 48
+    REM_ASSIGN  shift, and go to state 49
+    BAN_ASSIGN  shift, and go to state 50
+    BOR_ASSIGN  shift, and go to state 51
+    BXO_ASSIGN  shift, and go to state 52
+    SHR_ASSIGN  shift, and go to state 53
+    SHL_ASSIGN  shift, and go to state 54
+    INC_ASSIGN  shift, and go to state 55
+    DEC_ASSIGN  shift, and go to state 56
+    EQL_ASSIGN  shift, and go to state 57
+
+    Assign  go to state 58
+
+
+State 19
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   79           | BNT Expression •
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+
+    ENDL      [reduce using rule 79 (Expression)]
+    SHR       [reduce using rule 79 (Expression)]
+    BOR       [reduce using rule 79 (Expression)]
+    BXO       [reduce using rule 79 (Expression)]
+    $default  reduce using rule 79 (Expression)
+
+
+State 20
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   69           | SUB Expression •
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+
+    ENDL      [reduce using rule 69 (Expression)]
+    SHR       [reduce using rule 69 (Expression)]
+    BOR       [reduce using rule 69 (Expression)]
+    BXO       [reduce using rule 69 (Expression)]
+    $default  reduce using rule 69 (Expression)
+
+
+State 21
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   83           | NOT Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+
+    ENDL      [reduce using rule 83 (Expression)]
+    SHR       [reduce using rule 83 (Expression)]
+    BOR       [reduce using rule 83 (Expression)]
+    BXO       [reduce using rule 83 (Expression)]
+    $default  reduce using rule 83 (Expression)
+
+
+State 22
+
+   88 Expression: '(' VARIABLE_T • ')' Expression
+
+    ')'  shift, and go to state 59
+
+
+State 23
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   86           | '(' Expression • ')'
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+    ')'   shift, and go to state 60
+
+
+State 24
+
+   11 IDENTS: IDENT •
+   13       | IDENT • Assign2
+   15       | IDENT • '[' INT_LIT $@2 ']' InArr
+   18 FunctionDefStmt: VARIABLE_T IDENT • $@3 '(' FunctionParameterStmtListFirst ')' '{' $@4 StmtList '}'
+
+    EQL_ASSIGN  shift, and go to state 61
+    '['         shift, and go to state 62
+
+    '('       reduce using rule 16 ($@3)
+    $default  reduce using rule 11 (IDENTS)
+
+    $@3      go to state 63
+    Assign2  go to state 64
+
+
+State 25
+
+    8 DefineVariableStmt: VARIABLE_T IDENTS • ';'
+   10 IDENTS: IDENTS • ',' IDENT
+   12       | IDENTS • ',' IDENT Assign2
+
+    ';'  shift, and go to state 65
+    ','  shift, and go to state 66
+
+
+State 26
+
+   92 Expression: IDENT '[' • INT_LIT $@13 ']'
+
+    INT_LIT  shift, and go to state 67
+
+
+State 27
+
+    4 GlobalStmtList: GlobalStmtList GlobalStmt •
+
+    $default  reduce using rule 4 (GlobalStmtList)
+
+
+State 28
+
+   63 Expression: Expression ENDL • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 68
+
+
+State 29
+
+   82 Expression: Expression SHR • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 69
+
+
+State 30
+
+   78 Expression: Expression BAN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 70
+
+
+State 31
+
+   80 Expression: Expression BOR • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 71
+
+
+State 32
+
+   81 Expression: Expression BXO • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 72
+
+
+State 33
+
+   64 Expression: Expression ADD • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 73
+
+
+State 34
+
+   65 Expression: Expression SUB • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 74
+
+
+State 35
+
+   66 Expression: Expression MUL • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 75
+
+
+State 36
+
+   67 Expression: Expression DIV • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 76
+
+
+State 37
+
+   68 Expression: Expression REM • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 77
+
+
+State 38
+
+   70 Expression: Expression GTR • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 78
+
+
+State 39
+
+   71 Expression: Expression LES • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 79
+
+
+State 40
+
+   73 Expression: Expression GEQ • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 80
+
+
+State 41
+
+   74 Expression: Expression EQL • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 81
+
+
+State 42
+
+   75 Expression: Expression NEQ • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 82
+
+
+State 43
+
+   76 Expression: Expression LAN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 83
+
+
+State 44
+
+   72 Expression: Expression LOR • Expression
+   77           | Expression LOR • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 84
+
+
+State 45
+
+   94 Assign: ADD_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 85
+
+
+State 46
+
+   96 Assign: SUB_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 86
+
+
+State 47
+
+   97 Assign: MUL_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 87
+
+
+State 48
+
+  106 Assign: DIV_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 88
+
+
+State 49
+
+   98 Assign: REM_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 89
+
+
+State 50
+
+  101 Assign: BAN_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 90
+
+
+State 51
+
+  102 Assign: BOR_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 91
+
+
+State 52
+
+  103 Assign: BXO_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 92
+
+
+State 53
+
+   99 Assign: SHR_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 93
+
+
+State 54
+
+  100 Assign: SHL_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 94
+
+
+State 55
+
+  104 Assign: INC_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 95
+
+
+State 56
+
+  105 Assign: DEC_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 96
+
+
+State 57
+
+   95 Assign: EQL_ASSIGN • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 97
+
+
+State 58
+
+    9 DefineVariableStmt: Expression Assign • ';'
+
+    ';'  shift, and go to state 98
+
+
+State 59
+
+   88 Expression: '(' VARIABLE_T ')' • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 99
+
+
+State 60
+
+   86 Expression: '(' Expression ')' •
+
+    $default  reduce using rule 86 (Expression)
+
+
+State 61
+
+  107 Assign2: EQL_ASSIGN • Expression
+  108        | EQL_ASSIGN • IDENT '(' Func ')'
+  109        | EQL_ASSIGN • '{' Arr '}'
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 100
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+    '{'        shift, and go to state 101
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 102
+
+
+State 62
+
+   15 IDENTS: IDENT '[' • INT_LIT $@2 ']' InArr
+
+    INT_LIT  shift, and go to state 103
+
+
+State 63
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 • '(' FunctionParameterStmtListFirst ')' '{' $@4 StmtList '}'
+
+    '('  shift, and go to state 104
+
+
+State 64
+
+   13 IDENTS: IDENT Assign2 •
+
+    $default  reduce using rule 13 (IDENTS)
+
+
+State 65
+
+    8 DefineVariableStmt: VARIABLE_T IDENTS ';' •
+
+    $default  reduce using rule 8 (DefineVariableStmt)
+
+
+State 66
+
+   10 IDENTS: IDENTS ',' • IDENT
+   12       | IDENTS ',' • IDENT Assign2
+
+    IDENT  shift, and go to state 105
+
+
+State 67
+
+   92 Expression: IDENT '[' INT_LIT • $@13 ']'
+
+    $default  reduce using rule 91 ($@13)
+
+    $@13  go to state 106
+
+
+State 68
+
+   63 Expression: Expression • ENDL Expression
+   63           | Expression ENDL Expression •
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    ENDL      [reduce using rule 63 (Expression)]
+    SHR       [reduce using rule 63 (Expression)]
+    BAN       [reduce using rule 63 (Expression)]
+    BOR       [reduce using rule 63 (Expression)]
+    BXO       [reduce using rule 63 (Expression)]
+    ADD       [reduce using rule 63 (Expression)]
+    SUB       [reduce using rule 63 (Expression)]
+    MUL       [reduce using rule 63 (Expression)]
+    DIV       [reduce using rule 63 (Expression)]
+    REM       [reduce using rule 63 (Expression)]
+    GTR       [reduce using rule 63 (Expression)]
+    LES       [reduce using rule 63 (Expression)]
+    GEQ       [reduce using rule 63 (Expression)]
+    EQL       [reduce using rule 63 (Expression)]
+    NEQ       [reduce using rule 63 (Expression)]
+    LAN       [reduce using rule 63 (Expression)]
+    LOR       [reduce using rule 63 (Expression)]
+    $default  reduce using rule 63 (Expression)
+
+
+State 69
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   82           | Expression SHR Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    ENDL      [reduce using rule 82 (Expression)]
+    SHR       [reduce using rule 82 (Expression)]
+    BAN       [reduce using rule 82 (Expression)]
+    BOR       [reduce using rule 82 (Expression)]
+    BXO       [reduce using rule 82 (Expression)]
+    ADD       [reduce using rule 82 (Expression)]
+    SUB       [reduce using rule 82 (Expression)]
+    MUL       [reduce using rule 82 (Expression)]
+    DIV       [reduce using rule 82 (Expression)]
+    REM       [reduce using rule 82 (Expression)]
+    GTR       [reduce using rule 82 (Expression)]
+    LES       [reduce using rule 82 (Expression)]
+    GEQ       [reduce using rule 82 (Expression)]
+    EQL       [reduce using rule 82 (Expression)]
+    NEQ       [reduce using rule 82 (Expression)]
+    LAN       [reduce using rule 82 (Expression)]
+    LOR       [reduce using rule 82 (Expression)]
+    $default  reduce using rule 82 (Expression)
+
+
+State 70
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   78           | Expression BAN Expression •
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+
+    ENDL      [reduce using rule 78 (Expression)]
+    SHR       [reduce using rule 78 (Expression)]
+    BOR       [reduce using rule 78 (Expression)]
+    BXO       [reduce using rule 78 (Expression)]
+    $default  reduce using rule 78 (Expression)
+
+
+State 71
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   80           | Expression BOR Expression •
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    ENDL      [reduce using rule 80 (Expression)]
+    SHR       [reduce using rule 80 (Expression)]
+    BAN       [reduce using rule 80 (Expression)]
+    BOR       [reduce using rule 80 (Expression)]
+    BXO       [reduce using rule 80 (Expression)]
+    ADD       [reduce using rule 80 (Expression)]
+    SUB       [reduce using rule 80 (Expression)]
+    MUL       [reduce using rule 80 (Expression)]
+    DIV       [reduce using rule 80 (Expression)]
+    REM       [reduce using rule 80 (Expression)]
+    GTR       [reduce using rule 80 (Expression)]
+    LES       [reduce using rule 80 (Expression)]
+    GEQ       [reduce using rule 80 (Expression)]
+    EQL       [reduce using rule 80 (Expression)]
+    NEQ       [reduce using rule 80 (Expression)]
+    LAN       [reduce using rule 80 (Expression)]
+    LOR       [reduce using rule 80 (Expression)]
+    $default  reduce using rule 80 (Expression)
+
+
+State 72
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   81           | Expression BXO Expression •
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    ENDL      [reduce using rule 81 (Expression)]
+    SHR       [reduce using rule 81 (Expression)]
+    BAN       [reduce using rule 81 (Expression)]
+    BOR       [reduce using rule 81 (Expression)]
+    BXO       [reduce using rule 81 (Expression)]
+    ADD       [reduce using rule 81 (Expression)]
+    SUB       [reduce using rule 81 (Expression)]
+    MUL       [reduce using rule 81 (Expression)]
+    DIV       [reduce using rule 81 (Expression)]
+    REM       [reduce using rule 81 (Expression)]
+    GTR       [reduce using rule 81 (Expression)]
+    LES       [reduce using rule 81 (Expression)]
+    GEQ       [reduce using rule 81 (Expression)]
+    EQL       [reduce using rule 81 (Expression)]
+    NEQ       [reduce using rule 81 (Expression)]
+    LAN       [reduce using rule 81 (Expression)]
+    LOR       [reduce using rule 81 (Expression)]
+    $default  reduce using rule 81 (Expression)
+
+
+State 73
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   64           | Expression ADD Expression •
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+
+    ENDL      [reduce using rule 64 (Expression)]
+    SHR       [reduce using rule 64 (Expression)]
+    BOR       [reduce using rule 64 (Expression)]
+    BXO       [reduce using rule 64 (Expression)]
+    $default  reduce using rule 64 (Expression)
+
+
+State 74
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   65           | Expression SUB Expression •
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+
+    ENDL      [reduce using rule 65 (Expression)]
+    SHR       [reduce using rule 65 (Expression)]
+    BOR       [reduce using rule 65 (Expression)]
+    BXO       [reduce using rule 65 (Expression)]
+    $default  reduce using rule 65 (Expression)
+
+
+State 75
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   66           | Expression MUL Expression •
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+
+    ENDL      [reduce using rule 66 (Expression)]
+    SHR       [reduce using rule 66 (Expression)]
+    BOR       [reduce using rule 66 (Expression)]
+    BXO       [reduce using rule 66 (Expression)]
+    $default  reduce using rule 66 (Expression)
+
+
+State 76
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   67           | Expression DIV Expression •
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+
+    ENDL      [reduce using rule 67 (Expression)]
+    SHR       [reduce using rule 67 (Expression)]
+    BOR       [reduce using rule 67 (Expression)]
+    BXO       [reduce using rule 67 (Expression)]
+    $default  reduce using rule 67 (Expression)
+
+
+State 77
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   68           | Expression REM Expression •
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+
+    ENDL      [reduce using rule 68 (Expression)]
+    SHR       [reduce using rule 68 (Expression)]
+    BOR       [reduce using rule 68 (Expression)]
+    BXO       [reduce using rule 68 (Expression)]
+    $default  reduce using rule 68 (Expression)
+
+
+State 78
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   70           | Expression GTR Expression •
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+
+    ENDL      [reduce using rule 70 (Expression)]
+    SHR       [reduce using rule 70 (Expression)]
+    BOR       [reduce using rule 70 (Expression)]
+    BXO       [reduce using rule 70 (Expression)]
+    $default  reduce using rule 70 (Expression)
+
+
+State 79
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   71           | Expression LES Expression •
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+
+    ENDL      [reduce using rule 71 (Expression)]
+    SHR       [reduce using rule 71 (Expression)]
+    BOR       [reduce using rule 71 (Expression)]
+    BXO       [reduce using rule 71 (Expression)]
+    $default  reduce using rule 71 (Expression)
+
+
+State 80
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   73           | Expression GEQ Expression •
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+
+    ENDL      [reduce using rule 73 (Expression)]
+    SHR       [reduce using rule 73 (Expression)]
+    BOR       [reduce using rule 73 (Expression)]
+    BXO       [reduce using rule 73 (Expression)]
+    $default  reduce using rule 73 (Expression)
+
+
+State 81
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   74           | Expression EQL Expression •
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+
+    ENDL      [reduce using rule 74 (Expression)]
+    SHR       [reduce using rule 74 (Expression)]
+    BOR       [reduce using rule 74 (Expression)]
+    BXO       [reduce using rule 74 (Expression)]
+    $default  reduce using rule 74 (Expression)
+
+
+State 82
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   75           | Expression NEQ Expression •
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+
+    ENDL      [reduce using rule 75 (Expression)]
+    SHR       [reduce using rule 75 (Expression)]
+    BOR       [reduce using rule 75 (Expression)]
+    BXO       [reduce using rule 75 (Expression)]
+    $default  reduce using rule 75 (Expression)
+
+
+State 83
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   76           | Expression LAN Expression •
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+
+    ENDL      [reduce using rule 76 (Expression)]
+    SHR       [reduce using rule 76 (Expression)]
+    BOR       [reduce using rule 76 (Expression)]
+    BXO       [reduce using rule 76 (Expression)]
+    $default  reduce using rule 76 (Expression)
+
+
+State 84
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   72           | Expression LOR Expression •
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   77           | Expression LOR Expression •
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+
+    ENDL        [reduce using rule 72 (Expression)]
+    ENDL        [reduce using rule 77 (Expression)]
+    SHR         [reduce using rule 72 (Expression)]
+    SHR         [reduce using rule 77 (Expression)]
+    SHL         reduce using rule 72 (Expression)
+    SHL         [reduce using rule 77 (Expression)]
+    BOR         [reduce using rule 72 (Expression)]
+    BOR         [reduce using rule 77 (Expression)]
+    BXO         [reduce using rule 72 (Expression)]
+    BXO         [reduce using rule 77 (Expression)]
+    LOR         reduce using rule 72 (Expression)
+    LOR         [reduce using rule 77 (Expression)]
+    ADD_ASSIGN  reduce using rule 72 (Expression)
+    ADD_ASSIGN  [reduce using rule 77 (Expression)]
+    SUB_ASSIGN  reduce using rule 72 (Expression)
+    SUB_ASSIGN  [reduce using rule 77 (Expression)]
+    MUL_ASSIGN  reduce using rule 72 (Expression)
+    MUL_ASSIGN  [reduce using rule 77 (Expression)]
+    DIV_ASSIGN  reduce using rule 72 (Expression)
+    DIV_ASSIGN  [reduce using rule 77 (Expression)]
+    REM_ASSIGN  reduce using rule 72 (Expression)
+    REM_ASSIGN  [reduce using rule 77 (Expression)]
+    BAN_ASSIGN  reduce using rule 72 (Expression)
+    BAN_ASSIGN  [reduce using rule 77 (Expression)]
+    BOR_ASSIGN  reduce using rule 72 (Expression)
+    BOR_ASSIGN  [reduce using rule 77 (Expression)]
+    BXO_ASSIGN  reduce using rule 72 (Expression)
+    BXO_ASSIGN  [reduce using rule 77 (Expression)]
+    SHR_ASSIGN  reduce using rule 72 (Expression)
+    SHR_ASSIGN  [reduce using rule 77 (Expression)]
+    SHL_ASSIGN  reduce using rule 72 (Expression)
+    SHL_ASSIGN  [reduce using rule 77 (Expression)]
+    INC_ASSIGN  reduce using rule 72 (Expression)
+    INC_ASSIGN  [reduce using rule 77 (Expression)]
+    DEC_ASSIGN  reduce using rule 72 (Expression)
+    DEC_ASSIGN  [reduce using rule 77 (Expression)]
+    EQL_ASSIGN  reduce using rule 72 (Expression)
+    EQL_ASSIGN  [reduce using rule 77 (Expression)]
+    ')'         reduce using rule 72 (Expression)
+    ')'         [reduce using rule 77 (Expression)]
+    ';'         reduce using rule 72 (Expression)
+    ';'         [reduce using rule 77 (Expression)]
+    ','         reduce using rule 72 (Expression)
+    ','         [reduce using rule 77 (Expression)]
+    '['         reduce using rule 72 (Expression)
+    '['         [reduce using rule 77 (Expression)]
+    '}'         reduce using rule 72 (Expression)
+    '}'         [reduce using rule 77 (Expression)]
+    ':'         reduce using rule 72 (Expression)
+    ':'         [reduce using rule 77 (Expression)]
+    $default    reduce using rule 72 (Expression)
+
+
+State 85
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   94 Assign: ADD_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 94 (Assign)
+
+
+State 86
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   96 Assign: SUB_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 96 (Assign)
+
+
+State 87
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   97 Assign: MUL_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 97 (Assign)
+
+
+State 88
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+  106 Assign: DIV_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 106 (Assign)
+
+
+State 89
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   98 Assign: REM_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 98 (Assign)
+
+
+State 90
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+  101 Assign: BAN_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 101 (Assign)
+
+
+State 91
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+  102 Assign: BOR_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 102 (Assign)
+
+
+State 92
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+  103 Assign: BXO_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 103 (Assign)
+
+
+State 93
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   99 Assign: SHR_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 99 (Assign)
+
+
+State 94
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+  100 Assign: SHL_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 100 (Assign)
+
+
+State 95
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+  104 Assign: INC_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 104 (Assign)
+
+
+State 96
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+  105 Assign: DEC_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 105 (Assign)
+
+
+State 97
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   95 Assign: EQL_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 95 (Assign)
+
+
+State 98
+
+    9 DefineVariableStmt: Expression Assign ';' •
+
+    $default  reduce using rule 9 (DefineVariableStmt)
+
+
+State 99
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+   88           | '(' VARIABLE_T ')' Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+
+    ENDL      [reduce using rule 88 (Expression)]
+    SHR       [reduce using rule 88 (Expression)]
+    BOR       [reduce using rule 88 (Expression)]
+    BXO       [reduce using rule 88 (Expression)]
+    $default  reduce using rule 88 (Expression)
+
+
+State 100
+
+   90 Expression: IDENT •
+   92           | IDENT • '[' INT_LIT $@13 ']'
+  108 Assign2: EQL_ASSIGN IDENT • '(' Func ')'
+
+    '('  shift, and go to state 107
+    '['  shift, and go to state 26
+
+    '['       [reduce using rule 90 (Expression)]
+    $default  reduce using rule 90 (Expression)
+
+
+State 101
+
+  109 Assign2: EQL_ASSIGN '{' • Arr '}'
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    ','       reduce using rule 56 (Arr)
+    ','       [reduce using rule 93 (Expression)]
+    '}'       reduce using rule 56 (Arr)
+    '}'       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Arr         go to state 108
+    Expression  go to state 109
+
+
+State 102
+
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+  107 Assign2: EQL_ASSIGN Expression •
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 107 (Assign2)
+
+
+State 103
+
+   15 IDENTS: IDENT '[' INT_LIT • $@2 ']' InArr
+
+    $default  reduce using rule 14 ($@2)
+
+    $@2  go to state 110
+
+
+State 104
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 '(' • FunctionParameterStmtListFirst ')' '{' $@4 StmtList '}'
+
+    $default  reduce using rule 19 ($@5)
+
+    FunctionParameterStmtListFirst  go to state 111
+    $@5                             go to state 112
+
+
+State 105
+
+   10 IDENTS: IDENTS ',' IDENT •
+   12       | IDENTS ',' IDENT • Assign2
+
+    EQL_ASSIGN  shift, and go to state 61
+
+    $default  reduce using rule 10 (IDENTS)
+
+    Assign2  go to state 113
+
+
+State 106
+
+   92 Expression: IDENT '[' INT_LIT $@13 • ']'
+
+    ']'  shift, and go to state 114
+
+
+State 107
+
+  108 Assign2: EQL_ASSIGN IDENT '(' • Func ')'
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Func        go to state 115
+    Expression  go to state 116
+
+
+State 108
+
+   54 Arr: Arr • ',' Expression
+  109 Assign2: EQL_ASSIGN '{' Arr • '}'
+
+    ','  shift, and go to state 117
+    '}'  shift, and go to state 118
+
+
+State 109
+
+   55 Arr: Expression •
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 55 (Arr)
+
+
+State 110
+
+   15 IDENTS: IDENT '[' INT_LIT $@2 • ']' InArr
+
+    ']'  shift, and go to state 119
+
+
+State 111
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst • ')' '{' $@4 StmtList '}'
+
+    ')'  shift, and go to state 120
+
+
+State 112
+
+   20 FunctionParameterStmtListFirst: $@5 • FunctionParameterStmtList
+
+    VARIABLE_T  shift, and go to state 121
+
+    $default  reduce using rule 23 (FunctionParameterStmtList)
+
+    FunctionParameterStmtList  go to state 122
+    FunctionParameterStmt      go to state 123
+
+
+State 113
+
+   12 IDENTS: IDENTS ',' IDENT Assign2 •
+
+    $default  reduce using rule 12 (IDENTS)
+
+
+State 114
+
+   92 Expression: IDENT '[' INT_LIT $@13 ']' •
+
+    $default  reduce using rule 92 (Expression)
+
+
+State 115
+
+   52 Func: Func • ',' Expression
+  108 Assign2: EQL_ASSIGN IDENT '(' Func • ')'
+
+    ')'  shift, and go to state 124
+    ','  shift, and go to state 125
+
+
+State 116
+
+   53 Func: Expression •
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 53 (Func)
+
+
+State 117
+
+   54 Arr: Arr ',' • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 126
+
+
+State 118
+
+  109 Assign2: EQL_ASSIGN '{' Arr '}' •
+
+    $default  reduce using rule 109 (Assign2)
+
+
+State 119
+
+   15 IDENTS: IDENT '[' INT_LIT $@2 ']' • InArr
+
+    EQL_ASSIGN  shift, and go to state 61
+
+    InArr    go to state 127
+    Assign2  go to state 128
+
+
+State 120
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst ')' • '{' $@4 StmtList '}'
+
+    '{'  shift, and go to state 129
+
+
+State 121
+
+   24 FunctionParameterStmt: VARIABLE_T • IDENT '[' ']'
+   25                      | VARIABLE_T • IDENT
+
+    IDENT  shift, and go to state 130
+
+
+State 122
+
+   20 FunctionParameterStmtListFirst: $@5 FunctionParameterStmtList •
+   21 FunctionParameterStmtList: FunctionParameterStmtList • ',' FunctionParameterStmt
+
+    ','  shift, and go to state 131
+
+    $default  reduce using rule 20 (FunctionParameterStmtListFirst)
+
+
+State 123
+
+   22 FunctionParameterStmtList: FunctionParameterStmt •
+
+    $default  reduce using rule 22 (FunctionParameterStmtList)
+
+
+State 124
+
+  108 Assign2: EQL_ASSIGN IDENT '(' Func ')' •
+
+    $default  reduce using rule 108 (Assign2)
+
+
+State 125
+
+   52 Func: Func ',' • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 132
+
+
+State 126
+
+   54 Arr: Arr ',' Expression •
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 54 (Arr)
+
+
+State 127
+
+   15 IDENTS: IDENT '[' INT_LIT $@2 ']' InArr •
+   58 InArr: InArr • '[' INT_LIT $@12 ']'
+
+    '['  shift, and go to state 133
+
+    $default  reduce using rule 15 (IDENTS)
+
+
+State 128
+
+   59 InArr: Assign2 •
+
+    $default  reduce using rule 59 (InArr)
+
+
+State 129
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst ')' '{' • $@4 StmtList '}'
+
+    $default  reduce using rule 17 ($@4)
+
+    $@4  go to state 134
+
+
+State 130
+
+   24 FunctionParameterStmt: VARIABLE_T IDENT • '[' ']'
+   25                      | VARIABLE_T IDENT •
+
+    '['  shift, and go to state 135
+
+    $default  reduce using rule 25 (FunctionParameterStmt)
+
+
+State 131
+
+   21 FunctionParameterStmtList: FunctionParameterStmtList ',' • FunctionParameterStmt
+
+    VARIABLE_T  shift, and go to state 121
+
+    FunctionParameterStmt  go to state 136
+
+
+State 132
+
+   52 Func: Func ',' Expression •
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 52 (Func)
+
+
+State 133
+
+   58 InArr: InArr '[' • INT_LIT $@12 ']'
+
+    INT_LIT  shift, and go to state 137
+
+
+State 134
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst ')' '{' $@4 • StmtList '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    StmtList            go to state 147
+    Stmt                go to state 148
+    Expression          go to state 18
+
+
+State 135
+
+   24 FunctionParameterStmt: VARIABLE_T IDENT '[' • ']'
+
+    ']'  shift, and go to state 149
+
+
+State 136
+
+   21 FunctionParameterStmtList: FunctionParameterStmtList ',' FunctionParameterStmt •
+
+    $default  reduce using rule 21 (FunctionParameterStmtList)
+
+
+State 137
+
+   58 InArr: InArr '[' INT_LIT • $@12 ']'
+
+    $default  reduce using rule 57 ($@12)
+
+    $@12  go to state 150
+
+
+State 138
+
+   30 Stmt: COUT • CoutParmListStmt ';'
+
+    SHL  shift, and go to state 151
+
+    SHL       [reduce using rule 62 (CoutParmListStmt)]
+    $default  reduce using rule 62 (CoutParmListStmt)
+
+    CoutParmListStmt  go to state 152
+
+
+State 139
+
+   32 Stmt: IF • IfStmt
+
+    '('  shift, and go to state 153
+
+    IfStmt  go to state 154
+
+
+State 140
+
+   34 Stmt: FOR • ForStmt
+
+    $default  reduce using rule 45 ($@11)
+
+    ForStmt  go to state 155
+    $@11     go to state 156
+
+
+State 141
+
+   33 Stmt: WHILE • WhileStmt
+
+    $default  reduce using rule 42 ($@9)
+
+    WhileStmt  go to state 157
+    $@9        go to state 158
+
+
+State 142
+
+   31 Stmt: RETURN • Expression ';'
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 159
+
+
+State 143
+
+   35 Stmt: BREAK • ';'
+
+    ';'  shift, and go to state 160
+
+
+State 144
+
+    8 DefineVariableStmt: VARIABLE_T • IDENTS ';'
+
+    IDENT  shift, and go to state 161
+
+    IDENTS  go to state 25
+
+
+State 145
+
+   28 Stmt: ';' •
+
+    $default  reduce using rule 28 (Stmt)
+
+
+State 146
+
+   29 Stmt: DefineVariableStmt •
+
+    $default  reduce using rule 29 (Stmt)
+
+
+State 147
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst ')' '{' $@4 StmtList • '}'
+   26 StmtList: StmtList • Stmt
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+    '}'         shift, and go to state 162
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    Stmt                go to state 163
+    Expression          go to state 18
+
+
+State 148
+
+   27 StmtList: Stmt •
+
+    $default  reduce using rule 27 (StmtList)
+
+
+State 149
+
+   24 FunctionParameterStmt: VARIABLE_T IDENT '[' ']' •
+
+    $default  reduce using rule 24 (FunctionParameterStmt)
+
+
+State 150
+
+   58 InArr: InArr '[' INT_LIT $@12 • ']'
+
+    ']'  shift, and go to state 164
+
+
+State 151
+
+   61 CoutParmListStmt: SHL • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 165
+
+
+State 152
+
+   30 Stmt: COUT CoutParmListStmt • ';'
+   60 CoutParmListStmt: CoutParmListStmt • SHL Expression
+
+    SHL  shift, and go to state 166
+    ';'  shift, and go to state 167
+
+
+State 153
+
+   37 IfStmt: '(' • Expression ')' $@6 '{' StmtList '}'
+   41       | '(' • Expression ')' $@8 RETURN Expression ';'
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 168
+
+
+State 154
+
+   32 Stmt: IF IfStmt •
+   39 IfStmt: IfStmt • ELSE $@7 '{' StmtList '}'
+
+    ELSE  shift, and go to state 169
+
+    $default  reduce using rule 32 (Stmt)
+
+
+State 155
+
+   34 Stmt: FOR ForStmt •
+
+    $default  reduce using rule 34 (Stmt)
+
+
+State 156
+
+   46 ForStmt: $@11 • ForThrid '{' StmtList '}'
+
+    '('  shift, and go to state 170
+
+    ForThrid  go to state 171
+
+
+State 157
+
+   33 Stmt: WHILE WhileStmt •
+
+    $default  reduce using rule 33 (Stmt)
+
+
+State 158
+
+   44 WhileStmt: $@9 • '(' Expression ')' $@10 '{' StmtList '}'
+
+    '('  shift, and go to state 172
+
+
+State 159
+
+   31 Stmt: RETURN Expression • ';'
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+    ';'   shift, and go to state 173
+
+
+State 160
+
+   35 Stmt: BREAK ';' •
+
+    $default  reduce using rule 35 (Stmt)
+
+
+State 161
+
+   11 IDENTS: IDENT •
+   13       | IDENT • Assign2
+   15       | IDENT • '[' INT_LIT $@2 ']' InArr
+
+    EQL_ASSIGN  shift, and go to state 61
+    '['         shift, and go to state 62
+
+    $default  reduce using rule 11 (IDENTS)
+
+    Assign2  go to state 64
+
+
+State 162
+
+   18 FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst ')' '{' $@4 StmtList '}' •
+
+    $default  reduce using rule 18 (FunctionDefStmt)
+
+
+State 163
+
+   26 StmtList: StmtList Stmt •
+
+    $default  reduce using rule 26 (StmtList)
+
+
+State 164
+
+   58 InArr: InArr '[' INT_LIT $@12 ']' •
+
+    $default  reduce using rule 58 (InArr)
+
+
+State 165
+
+   61 CoutParmListStmt: SHL Expression •
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 61 (CoutParmListStmt)
+
+
+State 166
+
+   60 CoutParmListStmt: CoutParmListStmt SHL • Expression
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 174
+
+
+State 167
+
+   30 Stmt: COUT CoutParmListStmt ';' •
+
+    $default  reduce using rule 30 (Stmt)
+
+
+State 168
+
+   37 IfStmt: '(' Expression • ')' $@6 '{' StmtList '}'
+   41       | '(' Expression • ')' $@8 RETURN Expression ';'
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+    ')'   shift, and go to state 175
+
+
+State 169
+
+   39 IfStmt: IfStmt ELSE • $@7 '{' StmtList '}'
+
+    $default  reduce using rule 38 ($@7)
+
+    $@7  go to state 176
+
+
+State 170
+
+   50 ForThrid: '(' • ForSecond ';' Expression ';' ForSecond ')'
+   51         | '(' • ForSecond ':' IDENT ')'
+
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 177
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    ';'       reduce using rule 49 (ForSecond)
+    ':'       reduce using rule 49 (ForSecond)
+    $default  reduce using rule 93 (Expression)
+
+    ForSecond   go to state 178
+    Expression  go to state 179
+
+
+State 171
+
+   46 ForStmt: $@11 ForThrid • '{' StmtList '}'
+
+    '{'  shift, and go to state 180
+
+
+State 172
+
+   44 WhileStmt: $@9 '(' • Expression ')' $@10 '{' StmtList '}'
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 181
+
+
+State 173
+
+   31 Stmt: RETURN Expression ';' •
+
+    $default  reduce using rule 31 (Stmt)
+
+
+State 174
+
+   60 CoutParmListStmt: CoutParmListStmt SHL Expression •
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+
+    $default  reduce using rule 60 (CoutParmListStmt)
+
+
+State 175
+
+   37 IfStmt: '(' Expression ')' • $@6 '{' StmtList '}'
+   41       | '(' Expression ')' • $@8 RETURN Expression ';'
+
+    RETURN    reduce using rule 40 ($@8)
+    $default  reduce using rule 36 ($@6)
+
+    $@6  go to state 182
+    $@8  go to state 183
+
+
+State 176
+
+   39 IfStmt: IfStmt ELSE $@7 • '{' StmtList '}'
+
+    '{'  shift, and go to state 184
+
+
+State 177
+
+   47 ForSecond: VARIABLE_T • IDENTS
+
+    IDENT  shift, and go to state 161
+
+    IDENTS  go to state 185
+
+
+State 178
+
+   50 ForThrid: '(' ForSecond • ';' Expression ';' ForSecond ')'
+   51         | '(' ForSecond • ':' IDENT ')'
+
+    ';'  shift, and go to state 186
+    ':'  shift, and go to state 187
+
+
+State 179
+
+   48 ForSecond: Expression • Assign
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL        shift, and go to state 28
+    SHR         shift, and go to state 29
+    BAN         shift, and go to state 30
+    BOR         shift, and go to state 31
+    BXO         shift, and go to state 32
+    ADD         shift, and go to state 33
+    SUB         shift, and go to state 34
+    MUL         shift, and go to state 35
+    DIV         shift, and go to state 36
+    REM         shift, and go to state 37
+    GTR         shift, and go to state 38
+    LES         shift, and go to state 39
+    GEQ         shift, and go to state 40
+    EQL         shift, and go to state 41
+    NEQ         shift, and go to state 42
+    LAN         shift, and go to state 43
+    LOR         shift, and go to state 44
+    ADD_ASSIGN  shift, and go to state 45
+    SUB_ASSIGN  shift, and go to state 46
+    MUL_ASSIGN  shift, and go to state 47
+    DIV_ASSIGN  shift, and go to state 48
+    REM_ASSIGN  shift, and go to state 49
+    BAN_ASSIGN  shift, and go to state 50
+    BOR_ASSIGN  shift, and go to state 51
+    BXO_ASSIGN  shift, and go to state 52
+    SHR_ASSIGN  shift, and go to state 53
+    SHL_ASSIGN  shift, and go to state 54
+    INC_ASSIGN  shift, and go to state 55
+    DEC_ASSIGN  shift, and go to state 56
+    EQL_ASSIGN  shift, and go to state 57
+
+    Assign  go to state 188
+
+
+State 180
+
+   46 ForStmt: $@11 ForThrid '{' • StmtList '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    StmtList            go to state 189
+    Stmt                go to state 148
+    Expression          go to state 18
+
+
+State 181
+
+   44 WhileStmt: $@9 '(' Expression • ')' $@10 '{' StmtList '}'
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+    ')'   shift, and go to state 190
+
+
+State 182
+
+   37 IfStmt: '(' Expression ')' $@6 • '{' StmtList '}'
+
+    '{'  shift, and go to state 191
+
+
+State 183
+
+   41 IfStmt: '(' Expression ')' $@8 • RETURN Expression ';'
+
+    RETURN  shift, and go to state 192
+
+
+State 184
+
+   39 IfStmt: IfStmt ELSE $@7 '{' • StmtList '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    StmtList            go to state 193
+    Stmt                go to state 148
+    Expression          go to state 18
+
+
+State 185
+
+   10 IDENTS: IDENTS • ',' IDENT
+   12       | IDENTS • ',' IDENT Assign2
+   47 ForSecond: VARIABLE_T IDENTS •
+
+    ','  shift, and go to state 66
+
+    $default  reduce using rule 47 (ForSecond)
+
+
+State 186
+
+   50 ForThrid: '(' ForSecond ';' • Expression ';' ForSecond ')'
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 194
+
+
+State 187
+
+   51 ForThrid: '(' ForSecond ':' • IDENT ')'
+
+    IDENT  shift, and go to state 195
+
+
+State 188
+
+   48 ForSecond: Expression Assign •
+
+    $default  reduce using rule 48 (ForSecond)
+
+
+State 189
+
+   26 StmtList: StmtList • Stmt
+   46 ForStmt: $@11 ForThrid '{' StmtList • '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+    '}'         shift, and go to state 196
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    Stmt                go to state 163
+    Expression          go to state 18
+
+
+State 190
+
+   44 WhileStmt: $@9 '(' Expression ')' • $@10 '{' StmtList '}'
+
+    $default  reduce using rule 43 ($@10)
+
+    $@10  go to state 197
+
+
+State 191
+
+   37 IfStmt: '(' Expression ')' $@6 '{' • StmtList '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    StmtList            go to state 198
+    Stmt                go to state 148
+    Expression          go to state 18
+
+
+State 192
+
+   41 IfStmt: '(' Expression ')' $@8 RETURN • Expression ';'
+
+    BNT        shift, and go to state 4
+    SUB        shift, and go to state 5
+    NOT        shift, and go to state 6
+    '('        shift, and go to state 7
+    BOOL_LIT   shift, and go to state 9
+    IDENT      shift, and go to state 10
+    STR_LIT    shift, and go to state 11
+    INT_LIT    shift, and go to state 12
+    FLOAT_LIT  shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    Expression  go to state 199
+
+
+State 193
+
+   26 StmtList: StmtList • Stmt
+   39 IfStmt: IfStmt ELSE $@7 '{' StmtList • '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+    '}'         shift, and go to state 200
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    Stmt                go to state 163
+    Expression          go to state 18
+
+
+State 194
+
+   50 ForThrid: '(' ForSecond ';' Expression • ';' ForSecond ')'
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+    ';'   shift, and go to state 201
+
+
+State 195
+
+   51 ForThrid: '(' ForSecond ':' IDENT • ')'
+
+    ')'  shift, and go to state 202
+
+
+State 196
+
+   46 ForStmt: $@11 ForThrid '{' StmtList '}' •
+
+    $default  reduce using rule 46 (ForStmt)
+
+
+State 197
+
+   44 WhileStmt: $@9 '(' Expression ')' $@10 • '{' StmtList '}'
+
+    '{'  shift, and go to state 203
+
+
+State 198
+
+   26 StmtList: StmtList • Stmt
+   37 IfStmt: '(' Expression ')' $@6 '{' StmtList • '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+    '}'         shift, and go to state 204
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    Stmt                go to state 163
+    Expression          go to state 18
+
+
+State 199
+
+   41 IfStmt: '(' Expression ')' $@8 RETURN Expression • ';'
+   63 Expression: Expression • ENDL Expression
+   64           | Expression • ADD Expression
+   65           | Expression • SUB Expression
+   66           | Expression • MUL Expression
+   67           | Expression • DIV Expression
+   68           | Expression • REM Expression
+   70           | Expression • GTR Expression
+   71           | Expression • LES Expression
+   72           | Expression • LOR Expression
+   73           | Expression • GEQ Expression
+   74           | Expression • EQL Expression
+   75           | Expression • NEQ Expression
+   76           | Expression • LAN Expression
+   77           | Expression • LOR Expression
+   78           | Expression • BAN Expression
+   80           | Expression • BOR Expression
+   81           | Expression • BXO Expression
+   82           | Expression • SHR Expression
+
+    ENDL  shift, and go to state 28
+    SHR   shift, and go to state 29
+    BAN   shift, and go to state 30
+    BOR   shift, and go to state 31
+    BXO   shift, and go to state 32
+    ADD   shift, and go to state 33
+    SUB   shift, and go to state 34
+    MUL   shift, and go to state 35
+    DIV   shift, and go to state 36
+    REM   shift, and go to state 37
+    GTR   shift, and go to state 38
+    LES   shift, and go to state 39
+    GEQ   shift, and go to state 40
+    EQL   shift, and go to state 41
+    NEQ   shift, and go to state 42
+    LAN   shift, and go to state 43
+    LOR   shift, and go to state 44
+    ';'   shift, and go to state 205
+
+
+State 200
+
+   39 IfStmt: IfStmt ELSE $@7 '{' StmtList '}' •
+
+    $default  reduce using rule 39 (IfStmt)
+
+
+State 201
+
+   50 ForThrid: '(' ForSecond ';' Expression ';' • ForSecond ')'
+
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 177
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+
+    SUB       [reduce using rule 93 (Expression)]
+    ')'       reduce using rule 49 (ForSecond)
+    $default  reduce using rule 93 (Expression)
+
+    ForSecond   go to state 206
+    Expression  go to state 179
+
+
+State 202
+
+   51 ForThrid: '(' ForSecond ':' IDENT ')' •
+
+    $default  reduce using rule 51 (ForThrid)
+
+
+State 203
+
+   44 WhileStmt: $@9 '(' Expression ')' $@10 '{' • StmtList '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    StmtList            go to state 207
+    Stmt                go to state 148
+    Expression          go to state 18
+
+
+State 204
+
+   37 IfStmt: '(' Expression ')' $@6 '{' StmtList '}' •
+
+    $default  reduce using rule 37 (IfStmt)
+
+
+State 205
+
+   41 IfStmt: '(' Expression ')' $@8 RETURN Expression ';' •
+
+    $default  reduce using rule 41 (IfStmt)
+
+
+State 206
+
+   50 ForThrid: '(' ForSecond ';' Expression ';' ForSecond • ')'
+
+    ')'  shift, and go to state 208
+
+
+State 207
+
+   26 StmtList: StmtList • Stmt
+   44 WhileStmt: $@9 '(' Expression ')' $@10 '{' StmtList • '}'
+
+    COUT        shift, and go to state 138
+    BNT         shift, and go to state 4
+    SUB         shift, and go to state 5
+    NOT         shift, and go to state 6
+    IF          shift, and go to state 139
+    FOR         shift, and go to state 140
+    WHILE       shift, and go to state 141
+    RETURN      shift, and go to state 142
+    BREAK       shift, and go to state 143
+    '('         shift, and go to state 7
+    VARIABLE_T  shift, and go to state 144
+    BOOL_LIT    shift, and go to state 9
+    IDENT       shift, and go to state 10
+    STR_LIT     shift, and go to state 11
+    INT_LIT     shift, and go to state 12
+    FLOAT_LIT   shift, and go to state 13
+    ';'         shift, and go to state 145
+    '}'         shift, and go to state 209
+
+    SUB       [reduce using rule 93 (Expression)]
+    $default  reduce using rule 93 (Expression)
+
+    DefineVariableStmt  go to state 146
+    Stmt                go to state 163
+    Expression          go to state 18
+
+
+State 208
+
+   50 ForThrid: '(' ForSecond ';' Expression ';' ForSecond ')' •
+
+    $default  reduce using rule 50 (ForThrid)
+
+
+State 209
+
+   44 WhileStmt: $@9 '(' Expression ')' $@10 '{' StmtList '}' •
+
+    $default  reduce using rule 44 (WhileStmt)
