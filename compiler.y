@@ -14,7 +14,6 @@
     ObjectType var_type;
 
     bool b_var;
-    int i_var;
     char c_var;
     int32_t i_var;
     int64_t l_var;
@@ -205,41 +204,41 @@ InArr
 
 /*SHL : <<*/     
 CoutParmListStmt
-    : CoutParmListStmt SHL Expression { pushFunInParm(&$<object_val>3); } // 後
-    | SHL Expression { pushFunInParm(&$<object_val>2); } // 先
+    : CoutParmListStmt SHL Expression { pushFunInParm(&$<obj_val>3); } // 後
+    | SHL Expression { pushFunInParm(&$<obj_val>2); } // 先
     |
 ;
 // IDENT => 變數的意思
 Expression
-    : Expression ENDL Expression { printf("IDENT (name=endl, address=-1)\n");$$ = $<object_val>2; $$.type = 9;} 
+    : Expression ENDL Expression { printf("IDENT (name=endl, address=-1)\n");$$ = $<obj_val>2; $$.type = 9;} 
     | Expression ADD Expression { printf("ADD\n"); /* 處理加法運算 */ }
     | Expression SUB Expression { printf("SUB\n"); /* 處理減法運算 */ }    
     | Expression MUL Expression { printf("MUL\n"); /* 處理乘法運算 */ }
     | Expression DIV Expression { printf("DIV\n"); /* 處理除法運算 */ }
     | Expression REM Expression { printf("REM\n"); /* 處理取餘運算 */ }
     | SUB Expression %prec UMINUS { printf("NEG\n");  } 
-    | Expression GTR Expression { printf("GTR\n"); $$ = $<object_val>2; $$.type = 8; }
-    | Expression LES Expression { printf("LES\n"); $$ = $<object_val>2; $$.type = 8;/* 小於 */ }
-    | Expression LOR Expression { printf("LOR\n"); $$ = $<object_val>2; $$.type = 8; }
-    | Expression GEQ Expression { printf("GEQ\n"); $$ = $<object_val>2; $$.type = 8;}
-    | Expression EQL Expression { printf("EQL\n"); $$ = $<object_val>2; $$.type = 8;/* 處理取餘運算 */ }
-    | Expression NEQ Expression { printf("NEQ\n"); $$ = $<object_val>2; $$.type = 8;/* 處理取餘運算 */ } 
-    | Expression LAN Expression { printf("LAN\n"); $$ = $<object_val>2; $$.type = 8;/* 處理取餘運算 */ }
-    | Expression LOR Expression { printf("LOR\n"); $$ = $<object_val>2; $$.type = 8;} 
-    | Expression BAN Expression { printf("BAN\n"); $$ = $<object_val>2; $$.type = 8;/* and & */} 
-    | BNT Expression %prec UMINUS { printf("BNT\n"); /*$$ = $<object_val>2; $$.type = 8; not ~ */}    
-    | Expression BOR Expression { printf("BOR\n"); $$ = $<object_val>2; $$.type = 8;} 
-    | Expression BXO Expression { printf("BXO\n"); $$ = $<object_val>2; $$.type = 8;} 
-    | Expression SHR Expression { printf("SHR\n"); $$ = $<object_val>2; $$.type = 8;} 
-    | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<object_val>2; $$.type = 8;/* 處理取餘運算 */ }
-    | INT_LIT  {printf("INT_LIT %d\n",$1); $$ = $<object_val>1; $$.type = 4;}
-    | STR_LIT  { $$ = $<object_val>1; $$.type = 9; printf("STR_LIT \"%s\"\n", $1);}
-    | '(' Expression ')'  { $$ = $<object_val>2; }
-    | BOOL_LIT  {printf("BOOL_LIT %s\n",($1 %2 == 1)?"TRUE":"FALSE"); $$ = $<object_val>1; $$.type = 8;}
+    | Expression GTR Expression { printf("GTR\n"); $$ = $<obj_val>2; $$.type = 8; }
+    | Expression LES Expression { printf("LES\n"); $$ = $<obj_val>2; $$.type = 8;/* 小於 */ }
+    | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8; }
+    | Expression GEQ Expression { printf("GEQ\n"); $$ = $<obj_val>2; $$.type = 8;}
+    | Expression EQL Expression { printf("EQL\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ }
+    | Expression NEQ Expression { printf("NEQ\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ } 
+    | Expression LAN Expression { printf("LAN\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ }
+    | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8;} 
+    | Expression BAN Expression { printf("BAN\n"); $$ = $<obj_val>2; $$.type = 8;/* and & */} 
+    | BNT Expression %prec UMINUS { printf("BNT\n"); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}    
+    | Expression BOR Expression { printf("BOR\n"); $$ = $<obj_val>2; $$.type = 8;} 
+    | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8;} 
+    | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;} 
+    | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ }
+    | INT_LIT  {printf("INT_LIT %d\n",$1); $$ = $<obj_val>1; $$.type = 4;}
+    | STR_LIT  { $$ = $<obj_val>1; $$.type = 9; printf("STR_LIT \"%s\"\n", $1);}
+    | '(' Expression ')'  { $$ = $<obj_val>2; }
+    | BOOL_LIT  {printf("BOOL_LIT %s\n",($1 %2 == 1)?"TRUE":"FALSE"); $$ = $<obj_val>1; $$.type = 8;}
     | '(' VARIABLE_T ')' Expression %prec UMINUS { castTo($<var_type>2); }    /// 提高它的優先權 使之較 ( exp ) 更早執行
-    | FLOAT_LIT {printf("FLOAT_LIT %f\n",$1); $$ = $<object_val>1; $$.type = 6;}
-    | IDENT {  $$ = $<object_val>1; $$.type = findObjectType($<s_var>1);}
-    | IDENT '['INT_LIT { printf("INT_LIT %d\n",$3);} ']' {$$ = $<object_val>1; $$.type = findObjectType($<s_var>1); }
+    | FLOAT_LIT {printf("FLOAT_LIT %f\n",$1); $$ = $<obj_val>1; $$.type = 6;}
+    | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);}
+    | IDENT '['INT_LIT { printf("INT_LIT %d\n",$3);} ']' {$$ = $<obj_val>1; $$.type = findObjectType($<s_var>1); }
     |
 ;
 

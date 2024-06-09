@@ -1,9 +1,39 @@
+Nonterminals useless in grammar
+
+    ArraySubscriptStmtList
+    ScopeStmt
+    $@6
+    $@7
+    ManualScopeStmt
+    BodyStmt
+
+
 Terminals unused in grammar
 
     VAR_FLAG_DEFAULT
     LEQ
     VAL_ASSIGN
     CONTINUE
+    CHAR_LIT
+    THEN
+
+
+Rules useless in grammar
+
+  110 $@6: ε
+
+  111 ScopeStmt: '{' $@6 StmtList '}'
+
+  112 $@7: ε
+
+  113 ScopeStmt: '{' $@7 '}'
+  114          | BodyStmt
+
+  115 ManualScopeStmt: '{' StmtList '}'
+  116                | '{' '}'
+  117                | BodyStmt
+
+  118 BodyStmt: ';'
 
 
 Rules useless in parser due to conflicts
@@ -16,7 +46,7 @@ State 4 conflicts: 1 shift/reduce
 State 5 conflicts: 1 shift/reduce
 State 6 conflicts: 1 shift/reduce
 State 7 conflicts: 1 shift/reduce
-State 10 conflicts: 1 shift/reduce
+State 13 conflicts: 1 shift/reduce
 State 14 conflicts: 1 shift/reduce
 State 19 conflicts: 4 shift/reduce
 State 20 conflicts: 4 shift/reduce
@@ -154,27 +184,27 @@ Grammar
    34     | FOR ForStmt
    35     | BREAK ';'
 
-   36 $@6: ε
+   36 $@8: ε
 
-   37 IfStmt: '(' Expression ')' $@6 '{' StmtList '}'
+   37 IfStmt: '(' Expression ')' $@8 '{' StmtList '}'
 
-   38 $@7: ε
+   38 $@9: ε
 
-   39 IfStmt: IfStmt ELSE $@7 '{' StmtList '}'
+   39 IfStmt: IfStmt ELSE $@9 '{' StmtList '}'
 
-   40 $@8: ε
+   40 $@10: ε
 
-   41 IfStmt: '(' Expression ')' $@8 RETURN Expression ';'
+   41 IfStmt: '(' Expression ')' $@10 RETURN Expression ';'
 
-   42 $@9: ε
+   42 $@11: ε
 
-   43 $@10: ε
+   43 $@12: ε
 
-   44 WhileStmt: $@9 '(' Expression ')' $@10 '{' StmtList '}'
+   44 WhileStmt: $@11 '(' Expression ')' $@12 '{' StmtList '}'
 
-   45 $@11: ε
+   45 $@13: ε
 
-   46 ForStmt: $@11 ForThrid '{' StmtList '}'
+   46 ForStmt: $@13 ForThrid '{' StmtList '}'
 
    47 ForSecond: VARIABLE_T IDENTS
    48          | Expression Assign
@@ -190,9 +220,9 @@ Grammar
    55    | Expression
    56    | ε
 
-   57 $@12: ε
+   57 $@14: ε
 
-   58 InArr: InArr '[' INT_LIT $@12 ']'
+   58 InArr: InArr '[' INT_LIT $@14 ']'
    59      | Assign2
 
    60 CoutParmListStmt: CoutParmListStmt SHL Expression
@@ -228,9 +258,9 @@ Grammar
    89           | FLOAT_LIT
    90           | IDENT
 
-   91 $@13: ε
+   91 $@15: ε
 
-   92 Expression: IDENT '[' INT_LIT $@13 ']'
+   92 Expression: IDENT '[' INT_LIT $@15 ']'
    93           | ε
 
    94 Assign: ADD_ASSIGN Expression
@@ -310,124 +340,126 @@ Terminals, with rules where they appear
     BREAK (300) 35
     CONTINUE (301)
     VARIABLE_T <var_type> (302) 8 18 24 25 47 88
-    BOOL_LIT <var_type> (303) 87
-    IDENT <s_var> (304) 10 11 12 13 15 18 24 25 51 90 92 108
-    STR_LIT <s_var> (305) 85
-    INT_LIT <i_var> (306) 15 58 84 92
-    FLOAT_LIT <f_var> (307) 89
-    UMINUS (308)
+    BOOL_LIT <b_var> (303) 87
+    CHAR_LIT <c_var> (304)
+    INT_LIT <i_var> (305) 15 58 84 92
+    FLOAT_LIT <f_var> (306) 89
+    STR_LIT <s_var> (307) 85
+    IDENT <s_var> (308) 10 11 12 13 15 18 24 25 51 90 92 108
+    UMINUS (309)
+    THEN (310)
 
 
 Nonterminals, with rules where they appear
 
-    $accept (63)
+    $accept (65)
         on left: 0
-    Program (64)
+    Program (66)
         on left: 2 3
         on right: 0
-    $@1 (65)
+    $@1 (67)
         on left: 1
         on right: 2
-    GlobalStmtList (66)
+    GlobalStmtList (68)
         on left: 4 5
         on right: 2 4
-    GlobalStmt (67)
+    GlobalStmt (69)
         on left: 6 7
         on right: 4 5
-    DefineVariableStmt (68)
+    DefineVariableStmt (70)
         on left: 8 9
         on right: 6 29
-    IDENTS <s_var> (69)
+    IDENTS <s_var> (71)
         on left: 10 11 12 13 15
         on right: 8 10 12 47
-    $@2 (70)
+    $@2 (72)
         on left: 14
         on right: 15
-    FunctionDefStmt (71)
+    FunctionDefStmt (73)
         on left: 18
         on right: 7
-    $@3 (72)
+    $@3 (74)
         on left: 16
         on right: 18
-    $@4 (73)
+    $@4 (75)
         on left: 17
         on right: 18
-    FunctionParameterStmtListFirst (74)
+    FunctionParameterStmtListFirst (76)
         on left: 20
         on right: 18
-    $@5 (75)
+    $@5 (77)
         on left: 19
         on right: 20
-    FunctionParameterStmtList (76)
+    FunctionParameterStmtList (78)
         on left: 21 22 23
         on right: 20 21
-    FunctionParameterStmt (77)
+    FunctionParameterStmt (79)
         on left: 24 25
         on right: 21 22
-    StmtList (78)
+    StmtList (80)
         on left: 26 27
         on right: 18 26 37 39 44 46
-    Stmt (79)
+    Stmt (81)
         on left: 28 29 30 31 32 33 34 35
         on right: 26 27
-    IfStmt (80)
+    IfStmt (82)
         on left: 37 39 41
         on right: 32 39
-    $@6 (81)
+    $@8 (83)
         on left: 36
         on right: 37
-    $@7 (82)
+    $@9 (84)
         on left: 38
         on right: 39
-    $@8 (83)
+    $@10 (85)
         on left: 40
         on right: 41
-    WhileStmt (84)
+    WhileStmt (86)
         on left: 44
         on right: 33
-    $@9 (85)
+    $@11 (87)
         on left: 42
         on right: 44
-    $@10 (86)
+    $@12 (88)
         on left: 43
         on right: 44
-    ForStmt (87)
+    ForStmt (89)
         on left: 46
         on right: 34
-    $@11 (88)
+    $@13 (90)
         on left: 45
         on right: 46
-    ForSecond (89)
+    ForSecond (91)
         on left: 47 48 49
         on right: 50 51
-    ForThrid <s_var> (90)
+    ForThrid <s_var> (92)
         on left: 50 51
         on right: 46
-    Func (91)
+    Func (93)
         on left: 52 53
         on right: 52 108
-    Arr (92)
+    Arr (94)
         on left: 54 55 56
         on right: 54 109
-    InArr <i_var> (93)
+    InArr <i_var> (95)
         on left: 58 59
         on right: 15 58
-    $@12 (94)
+    $@14 (96)
         on left: 57
         on right: 58
-    CoutParmListStmt (95)
+    CoutParmListStmt (97)
         on left: 60 61 62
         on right: 30 60
-    Expression <object_val> (96)
+    Expression <obj_val> (98)
         on left: 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 92 93
         on right: 9 31 37 41 44 48 50 52 53 54 55 60 61 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 86 88 94 95 96 97 98 99 100 101 102 103 104 105 106 107
-    $@13 (97)
+    $@15 (99)
         on left: 91
         on right: 92
-    Assign (98)
+    Assign (100)
         on left: 94 95 96 97 98 99 100 101 102 103 104 105 106
         on right: 9 48
-    Assign2 (99)
+    Assign2 (101)
         on left: 107 108 109
         on right: 12 13 59
 
@@ -460,10 +492,10 @@ State 2
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 8
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -491,10 +523,10 @@ State 4
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -511,10 +543,10 @@ State 5
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -531,10 +563,10 @@ State 6
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -553,10 +585,10 @@ State 7
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 22
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -583,34 +615,34 @@ State 9
 
 State 10
 
-   90 Expression: IDENT •
-   92           | IDENT • '[' INT_LIT $@13 ']'
+   84 Expression: INT_LIT •
 
-    '['  shift, and go to state 26
-
-    '['       [reduce using rule 90 (Expression)]
-    $default  reduce using rule 90 (Expression)
+    $default  reduce using rule 84 (Expression)
 
 
 State 11
+
+   89 Expression: FLOAT_LIT •
+
+    $default  reduce using rule 89 (Expression)
+
+
+State 12
 
    85 Expression: STR_LIT •
 
     $default  reduce using rule 85 (Expression)
 
 
-State 12
-
-   84 Expression: INT_LIT •
-
-    $default  reduce using rule 84 (Expression)
-
-
 State 13
 
-   89 Expression: FLOAT_LIT •
+   90 Expression: IDENT •
+   92           | IDENT • '[' INT_LIT $@15 ']'
 
-    $default  reduce using rule 89 (Expression)
+    '['  shift, and go to state 26
+
+    '['       [reduce using rule 90 (Expression)]
+    $default  reduce using rule 90 (Expression)
 
 
 State 14
@@ -624,10 +656,10 @@ State 14
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 8
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
 
     $end      reduce using rule 2 (Program)
     SUB       [reduce using rule 93 (Expression)]
@@ -896,7 +928,7 @@ State 25
 
 State 26
 
-   92 Expression: IDENT '[' • INT_LIT $@13 ']'
+   92 Expression: IDENT '[' • INT_LIT $@15 ']'
 
     INT_LIT  shift, and go to state 67
 
@@ -917,10 +949,10 @@ State 28
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -937,10 +969,10 @@ State 29
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -957,10 +989,10 @@ State 30
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -977,10 +1009,10 @@ State 31
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -997,10 +1029,10 @@ State 32
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1017,10 +1049,10 @@ State 33
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1037,10 +1069,10 @@ State 34
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1057,10 +1089,10 @@ State 35
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1077,10 +1109,10 @@ State 36
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1097,10 +1129,10 @@ State 37
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1117,10 +1149,10 @@ State 38
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1137,10 +1169,10 @@ State 39
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1157,10 +1189,10 @@ State 40
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1177,10 +1209,10 @@ State 41
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1197,10 +1229,10 @@ State 42
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1217,10 +1249,10 @@ State 43
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1238,10 +1270,10 @@ State 44
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1258,10 +1290,10 @@ State 45
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1278,10 +1310,10 @@ State 46
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1298,10 +1330,10 @@ State 47
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1318,10 +1350,10 @@ State 48
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1338,10 +1370,10 @@ State 49
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1358,10 +1390,10 @@ State 50
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1378,10 +1410,10 @@ State 51
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1398,10 +1430,10 @@ State 52
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1418,10 +1450,10 @@ State 53
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1438,10 +1470,10 @@ State 54
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1458,10 +1490,10 @@ State 55
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1478,10 +1510,10 @@ State 56
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1498,10 +1530,10 @@ State 57
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1525,10 +1557,10 @@ State 59
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -1554,10 +1586,10 @@ State 61
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
     IDENT      shift, and go to state 100
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
     '{'        shift, and go to state 101
 
     SUB       [reduce using rule 93 (Expression)]
@@ -1604,11 +1636,11 @@ State 66
 
 State 67
 
-   92 Expression: IDENT '[' INT_LIT • $@13 ']'
+   92 Expression: IDENT '[' INT_LIT • $@15 ']'
 
-    $default  reduce using rule 91 ($@13)
+    $default  reduce using rule 91 ($@15)
 
-    $@13  go to state 106
+    $@15  go to state 106
 
 
 State 68
@@ -3007,7 +3039,7 @@ State 99
 State 100
 
    90 Expression: IDENT •
-   92           | IDENT • '[' INT_LIT $@13 ']'
+   92           | IDENT • '[' INT_LIT $@15 ']'
   108 Assign2: EQL_ASSIGN IDENT • '(' Func ')'
 
     '('  shift, and go to state 107
@@ -3026,10 +3058,10 @@ State 101
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     ','       reduce using rule 56 (Arr)
@@ -3118,7 +3150,7 @@ State 105
 
 State 106
 
-   92 Expression: IDENT '[' INT_LIT $@13 • ']'
+   92 Expression: IDENT '[' INT_LIT $@15 • ']'
 
     ']'  shift, and go to state 114
 
@@ -3132,10 +3164,10 @@ State 107
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -3231,7 +3263,7 @@ State 113
 
 State 114
 
-   92 Expression: IDENT '[' INT_LIT $@13 ']' •
+   92 Expression: IDENT '[' INT_LIT $@15 ']' •
 
     $default  reduce using rule 92 (Expression)
 
@@ -3297,10 +3329,10 @@ State 117
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -3373,10 +3405,10 @@ State 125
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -3430,7 +3462,7 @@ State 126
 State 127
 
    15 IDENTS: IDENT '[' INT_LIT $@2 ']' InArr •
-   58 InArr: InArr • '[' INT_LIT $@12 ']'
+   58 InArr: InArr • '[' INT_LIT $@14 ']'
 
     '['  shift, and go to state 133
 
@@ -3517,7 +3549,7 @@ State 132
 
 State 133
 
-   58 InArr: InArr '[' • INT_LIT $@12 ']'
+   58 InArr: InArr '[' • INT_LIT $@14 ']'
 
     INT_LIT  shift, and go to state 137
 
@@ -3538,10 +3570,10 @@ State 134
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
 
     SUB       [reduce using rule 93 (Expression)]
@@ -3569,11 +3601,11 @@ State 136
 
 State 137
 
-   58 InArr: InArr '[' INT_LIT • $@12 ']'
+   58 InArr: InArr '[' INT_LIT • $@14 ']'
 
-    $default  reduce using rule 57 ($@12)
+    $default  reduce using rule 57 ($@14)
 
-    $@12  go to state 150
+    $@14  go to state 150
 
 
 State 138
@@ -3601,20 +3633,20 @@ State 140
 
    34 Stmt: FOR • ForStmt
 
-    $default  reduce using rule 45 ($@11)
+    $default  reduce using rule 45 ($@13)
 
     ForStmt  go to state 155
-    $@11     go to state 156
+    $@13     go to state 156
 
 
 State 141
 
    33 Stmt: WHILE • WhileStmt
 
-    $default  reduce using rule 42 ($@9)
+    $default  reduce using rule 42 ($@11)
 
     WhileStmt  go to state 157
-    $@9        go to state 158
+    $@11       go to state 158
 
 
 State 142
@@ -3626,10 +3658,10 @@ State 142
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -3684,10 +3716,10 @@ State 147
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
     '}'         shift, and go to state 162
 
@@ -3715,7 +3747,7 @@ State 149
 
 State 150
 
-   58 InArr: InArr '[' INT_LIT $@12 • ']'
+   58 InArr: InArr '[' INT_LIT $@14 • ']'
 
     ']'  shift, and go to state 164
 
@@ -3729,10 +3761,10 @@ State 151
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -3751,18 +3783,18 @@ State 152
 
 State 153
 
-   37 IfStmt: '(' • Expression ')' $@6 '{' StmtList '}'
-   41       | '(' • Expression ')' $@8 RETURN Expression ';'
+   37 IfStmt: '(' • Expression ')' $@8 '{' StmtList '}'
+   41       | '(' • Expression ')' $@10 RETURN Expression ';'
 
     BNT        shift, and go to state 4
     SUB        shift, and go to state 5
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -3773,7 +3805,7 @@ State 153
 State 154
 
    32 Stmt: IF IfStmt •
-   39 IfStmt: IfStmt • ELSE $@7 '{' StmtList '}'
+   39 IfStmt: IfStmt • ELSE $@9 '{' StmtList '}'
 
     ELSE  shift, and go to state 169
 
@@ -3789,7 +3821,7 @@ State 155
 
 State 156
 
-   46 ForStmt: $@11 • ForThrid '{' StmtList '}'
+   46 ForStmt: $@13 • ForThrid '{' StmtList '}'
 
     '('  shift, and go to state 170
 
@@ -3805,7 +3837,7 @@ State 157
 
 State 158
 
-   44 WhileStmt: $@9 • '(' Expression ')' $@10 '{' StmtList '}'
+   44 WhileStmt: $@11 • '(' Expression ')' $@12 '{' StmtList '}'
 
     '('  shift, and go to state 172
 
@@ -3889,7 +3921,7 @@ State 163
 
 State 164
 
-   58 InArr: InArr '[' INT_LIT $@12 ']' •
+   58 InArr: InArr '[' INT_LIT $@14 ']' •
 
     $default  reduce using rule 58 (InArr)
 
@@ -3946,10 +3978,10 @@ State 166
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -3966,8 +3998,8 @@ State 167
 
 State 168
 
-   37 IfStmt: '(' Expression • ')' $@6 '{' StmtList '}'
-   41       | '(' Expression • ')' $@8 RETURN Expression ';'
+   37 IfStmt: '(' Expression • ')' $@8 '{' StmtList '}'
+   41       | '(' Expression • ')' $@10 RETURN Expression ';'
    63 Expression: Expression • ENDL Expression
    64           | Expression • ADD Expression
    65           | Expression • SUB Expression
@@ -4009,11 +4041,11 @@ State 168
 
 State 169
 
-   39 IfStmt: IfStmt ELSE • $@7 '{' StmtList '}'
+   39 IfStmt: IfStmt ELSE • $@9 '{' StmtList '}'
 
-    $default  reduce using rule 38 ($@7)
+    $default  reduce using rule 38 ($@9)
 
-    $@7  go to state 176
+    $@9  go to state 176
 
 
 State 170
@@ -4027,10 +4059,10 @@ State 170
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 177
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     ';'       reduce using rule 49 (ForSecond)
@@ -4043,24 +4075,24 @@ State 170
 
 State 171
 
-   46 ForStmt: $@11 ForThrid • '{' StmtList '}'
+   46 ForStmt: $@13 ForThrid • '{' StmtList '}'
 
     '{'  shift, and go to state 180
 
 
 State 172
 
-   44 WhileStmt: $@9 '(' • Expression ')' $@10 '{' StmtList '}'
+   44 WhileStmt: $@11 '(' • Expression ')' $@12 '{' StmtList '}'
 
     BNT        shift, and go to state 4
     SUB        shift, and go to state 5
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -4120,19 +4152,19 @@ State 174
 
 State 175
 
-   37 IfStmt: '(' Expression ')' • $@6 '{' StmtList '}'
-   41       | '(' Expression ')' • $@8 RETURN Expression ';'
+   37 IfStmt: '(' Expression ')' • $@8 '{' StmtList '}'
+   41       | '(' Expression ')' • $@10 RETURN Expression ';'
 
-    RETURN    reduce using rule 40 ($@8)
-    $default  reduce using rule 36 ($@6)
+    RETURN    reduce using rule 40 ($@10)
+    $default  reduce using rule 36 ($@8)
 
-    $@6  go to state 182
-    $@8  go to state 183
+    $@8   go to state 182
+    $@10  go to state 183
 
 
 State 176
 
-   39 IfStmt: IfStmt ELSE $@7 • '{' StmtList '}'
+   39 IfStmt: IfStmt ELSE $@9 • '{' StmtList '}'
 
     '{'  shift, and go to state 184
 
@@ -4213,7 +4245,7 @@ State 179
 
 State 180
 
-   46 ForStmt: $@11 ForThrid '{' • StmtList '}'
+   46 ForStmt: $@13 ForThrid '{' • StmtList '}'
 
     COUT        shift, and go to state 138
     BNT         shift, and go to state 4
@@ -4227,10 +4259,10 @@ State 180
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
 
     SUB       [reduce using rule 93 (Expression)]
@@ -4244,7 +4276,7 @@ State 180
 
 State 181
 
-   44 WhileStmt: $@9 '(' Expression • ')' $@10 '{' StmtList '}'
+   44 WhileStmt: $@11 '(' Expression • ')' $@12 '{' StmtList '}'
    63 Expression: Expression • ENDL Expression
    64           | Expression • ADD Expression
    65           | Expression • SUB Expression
@@ -4286,21 +4318,21 @@ State 181
 
 State 182
 
-   37 IfStmt: '(' Expression ')' $@6 • '{' StmtList '}'
+   37 IfStmt: '(' Expression ')' $@8 • '{' StmtList '}'
 
     '{'  shift, and go to state 191
 
 
 State 183
 
-   41 IfStmt: '(' Expression ')' $@8 • RETURN Expression ';'
+   41 IfStmt: '(' Expression ')' $@10 • RETURN Expression ';'
 
     RETURN  shift, and go to state 192
 
 
 State 184
 
-   39 IfStmt: IfStmt ELSE $@7 '{' • StmtList '}'
+   39 IfStmt: IfStmt ELSE $@9 '{' • StmtList '}'
 
     COUT        shift, and go to state 138
     BNT         shift, and go to state 4
@@ -4314,10 +4346,10 @@ State 184
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
 
     SUB       [reduce using rule 93 (Expression)]
@@ -4349,10 +4381,10 @@ State 186
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -4377,7 +4409,7 @@ State 188
 State 189
 
    26 StmtList: StmtList • Stmt
-   46 ForStmt: $@11 ForThrid '{' StmtList • '}'
+   46 ForStmt: $@13 ForThrid '{' StmtList • '}'
 
     COUT        shift, and go to state 138
     BNT         shift, and go to state 4
@@ -4391,10 +4423,10 @@ State 189
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
     '}'         shift, and go to state 196
 
@@ -4408,16 +4440,16 @@ State 189
 
 State 190
 
-   44 WhileStmt: $@9 '(' Expression ')' • $@10 '{' StmtList '}'
+   44 WhileStmt: $@11 '(' Expression ')' • $@12 '{' StmtList '}'
 
-    $default  reduce using rule 43 ($@10)
+    $default  reduce using rule 43 ($@12)
 
-    $@10  go to state 197
+    $@12  go to state 197
 
 
 State 191
 
-   37 IfStmt: '(' Expression ')' $@6 '{' • StmtList '}'
+   37 IfStmt: '(' Expression ')' $@8 '{' • StmtList '}'
 
     COUT        shift, and go to state 138
     BNT         shift, and go to state 4
@@ -4431,10 +4463,10 @@ State 191
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
 
     SUB       [reduce using rule 93 (Expression)]
@@ -4448,17 +4480,17 @@ State 191
 
 State 192
 
-   41 IfStmt: '(' Expression ')' $@8 RETURN • Expression ';'
+   41 IfStmt: '(' Expression ')' $@10 RETURN • Expression ';'
 
     BNT        shift, and go to state 4
     SUB        shift, and go to state 5
     NOT        shift, and go to state 6
     '('        shift, and go to state 7
     BOOL_LIT   shift, and go to state 9
-    IDENT      shift, and go to state 10
-    STR_LIT    shift, and go to state 11
-    INT_LIT    shift, and go to state 12
-    FLOAT_LIT  shift, and go to state 13
+    INT_LIT    shift, and go to state 10
+    FLOAT_LIT  shift, and go to state 11
+    STR_LIT    shift, and go to state 12
+    IDENT      shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     $default  reduce using rule 93 (Expression)
@@ -4469,7 +4501,7 @@ State 192
 State 193
 
    26 StmtList: StmtList • Stmt
-   39 IfStmt: IfStmt ELSE $@7 '{' StmtList • '}'
+   39 IfStmt: IfStmt ELSE $@9 '{' StmtList • '}'
 
     COUT        shift, and go to state 138
     BNT         shift, and go to state 4
@@ -4483,10 +4515,10 @@ State 193
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
     '}'         shift, and go to state 200
 
@@ -4549,14 +4581,14 @@ State 195
 
 State 196
 
-   46 ForStmt: $@11 ForThrid '{' StmtList '}' •
+   46 ForStmt: $@13 ForThrid '{' StmtList '}' •
 
     $default  reduce using rule 46 (ForStmt)
 
 
 State 197
 
-   44 WhileStmt: $@9 '(' Expression ')' $@10 • '{' StmtList '}'
+   44 WhileStmt: $@11 '(' Expression ')' $@12 • '{' StmtList '}'
 
     '{'  shift, and go to state 203
 
@@ -4564,7 +4596,7 @@ State 197
 State 198
 
    26 StmtList: StmtList • Stmt
-   37 IfStmt: '(' Expression ')' $@6 '{' StmtList • '}'
+   37 IfStmt: '(' Expression ')' $@8 '{' StmtList • '}'
 
     COUT        shift, and go to state 138
     BNT         shift, and go to state 4
@@ -4578,10 +4610,10 @@ State 198
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
     '}'         shift, and go to state 204
 
@@ -4595,7 +4627,7 @@ State 198
 
 State 199
 
-   41 IfStmt: '(' Expression ')' $@8 RETURN Expression • ';'
+   41 IfStmt: '(' Expression ')' $@10 RETURN Expression • ';'
    63 Expression: Expression • ENDL Expression
    64           | Expression • ADD Expression
    65           | Expression • SUB Expression
@@ -4637,7 +4669,7 @@ State 199
 
 State 200
 
-   39 IfStmt: IfStmt ELSE $@7 '{' StmtList '}' •
+   39 IfStmt: IfStmt ELSE $@9 '{' StmtList '}' •
 
     $default  reduce using rule 39 (IfStmt)
 
@@ -4652,10 +4684,10 @@ State 201
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 177
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
 
     SUB       [reduce using rule 93 (Expression)]
     ')'       reduce using rule 49 (ForSecond)
@@ -4674,7 +4706,7 @@ State 202
 
 State 203
 
-   44 WhileStmt: $@9 '(' Expression ')' $@10 '{' • StmtList '}'
+   44 WhileStmt: $@11 '(' Expression ')' $@12 '{' • StmtList '}'
 
     COUT        shift, and go to state 138
     BNT         shift, and go to state 4
@@ -4688,10 +4720,10 @@ State 203
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
 
     SUB       [reduce using rule 93 (Expression)]
@@ -4705,14 +4737,14 @@ State 203
 
 State 204
 
-   37 IfStmt: '(' Expression ')' $@6 '{' StmtList '}' •
+   37 IfStmt: '(' Expression ')' $@8 '{' StmtList '}' •
 
     $default  reduce using rule 37 (IfStmt)
 
 
 State 205
 
-   41 IfStmt: '(' Expression ')' $@8 RETURN Expression ';' •
+   41 IfStmt: '(' Expression ')' $@10 RETURN Expression ';' •
 
     $default  reduce using rule 41 (IfStmt)
 
@@ -4727,7 +4759,7 @@ State 206
 State 207
 
    26 StmtList: StmtList • Stmt
-   44 WhileStmt: $@9 '(' Expression ')' $@10 '{' StmtList • '}'
+   44 WhileStmt: $@11 '(' Expression ')' $@12 '{' StmtList • '}'
 
     COUT        shift, and go to state 138
     BNT         shift, and go to state 4
@@ -4741,10 +4773,10 @@ State 207
     '('         shift, and go to state 7
     VARIABLE_T  shift, and go to state 144
     BOOL_LIT    shift, and go to state 9
-    IDENT       shift, and go to state 10
-    STR_LIT     shift, and go to state 11
-    INT_LIT     shift, and go to state 12
-    FLOAT_LIT   shift, and go to state 13
+    INT_LIT     shift, and go to state 10
+    FLOAT_LIT   shift, and go to state 11
+    STR_LIT     shift, and go to state 12
+    IDENT       shift, and go to state 13
     ';'         shift, and go to state 145
     '}'         shift, and go to state 209
 
@@ -4765,6 +4797,6 @@ State 208
 
 State 209
 
-   44 WhileStmt: $@9 '(' Expression ')' $@10 '{' StmtList '}' •
+   44 WhileStmt: $@11 '(' Expression ')' $@12 '{' StmtList '}' •
 
     $default  reduce using rule 44 (WhileStmt)
