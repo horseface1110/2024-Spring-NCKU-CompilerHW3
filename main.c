@@ -169,7 +169,7 @@ void record_JNI(char* variableName){
         }
 
         printf("JNI[%d][1] = %d\n",i, JNI[i][1]);
-        strcat(str, change_JNI(JNI[i][1]));      // FIXME: 發現問題！！這行導致記憶體錯誤
+        strcat(str, change_JNI(JNI[i][1]));      
         JNI[i][1] = 0;
     }
     JNI_count = 0;
@@ -195,11 +195,16 @@ void record_JNI(char* variableName){
         case 7: strcat(str, "D"); break;
         case 8: strcat(str, "B"); break;
         case 9: strcat(str, "Ljava/lang/String;"); break;
-        default: break;
+        default:  return ("WTFFFFFF");
     }    
 
     tmp = symbolsLevel[scopeLevel -1] -1 ;
     strcpy(symbols[scopeLevel - 1][tmp].func_sig,str);
+
+    // 作業三中 初始化該涵式
+    codeRaw(".method public static %s%s", symbols[scopeLevel - 1][tmp].name, symbols[scopeLevel - 1][tmp].func_sig);
+    codeRaw(".limit stack 100     ; 設定這個函式的最大堆疊大小\n
+          .limit locals 100    ; 設定區域變數大小(symbol table)");
 
 }
 
@@ -213,7 +218,7 @@ char* change_JNI(int main){       // 回傳字串的話就要 char*
         case 7: return("D");
         case 8: return("B");
         case 9: return("Ljava/lang/String;");
-        default: return NULL;
+        default: return ("WTFFFFFF");
     }
 }
 
@@ -421,7 +426,6 @@ int main(int argc, char* argv[]) {
 
     codeRaw(".class public Main");
     codeRaw(".super java/lang/Object");
-    codeRaw(".method public static main([Ljava/lang/String;)V");
     scopeLevel = -1;
 
     yyparse();
