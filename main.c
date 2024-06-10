@@ -108,7 +108,7 @@ void dumpScope() {
                 tmp,
                 symbols[scopeLevel][i].addr,
                 symbols[scopeLevel][i].lineno,
-                symbols[scopeLevel][i].func_sig   // TODO：func_sig修理
+                symbols[scopeLevel][i].func_sig  
                 
         ); 
         
@@ -153,7 +153,7 @@ void pushFunParm(ObjectType variableType, char* Name, int variableFlag) {
 
     pushsym++;
     JNI_count++;
-    symbolsLevel[scopeLevel]++;              // TODO:改成可以記錄function的JNI
+    symbolsLevel[scopeLevel]++;             
     // printf("symbolsLevel[%d] = %d, pushsym = %d\n",scopeLevel,symbolsLevel[scopeLevel],pushsym);
 }
 
@@ -168,7 +168,6 @@ void record_JNI(char* variableName){
             JNI[i][0] = 0;
         }
 
-        printf("JNI[%d][1] = %d\n",i, JNI[i][1]);
         strcat(str, change_JNI(JNI[i][1]));      
         JNI[i][1] = 0;
     }
@@ -195,16 +194,17 @@ void record_JNI(char* variableName){
         case 7: strcat(str, "D"); break;
         case 8: strcat(str, "B"); break;
         case 9: strcat(str, "Ljava/lang/String;"); break;
-        default:  return ("WTFFFFFF");
-    }    
+        default:  strcat(str, "WTFFFF"); break;
+    }   
 
     tmp = symbolsLevel[scopeLevel -1] -1 ;
     strcpy(symbols[scopeLevel - 1][tmp].func_sig,str);
+   
 
-    // 作業三中 初始化該涵式
-    codeRaw(".method public static %s%s", symbols[scopeLevel - 1][tmp].name, symbols[scopeLevel - 1][tmp].func_sig);
-    codeRaw(".limit stack 100     ; 設定這個函式的最大堆疊大小\n
-          .limit locals 100    ; 設定區域變數大小(symbol table)");
+    // // 作業三中 初始化該涵式
+    // code(".method public static %s%s", symbols[scopeLevel - 1][tmp].name, symbols[scopeLevel - 1][tmp].func_sig);  // TODO: codeRaw 首發
+    // codeRaw(".limit stack 100\n.limit locals 100");
+    // printf("dddd\n");
 
 }
 

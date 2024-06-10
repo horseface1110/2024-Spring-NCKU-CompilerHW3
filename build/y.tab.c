@@ -1493,25 +1493,25 @@ yyreduce:
 
   case 17: /* $@3: %empty  */
 #line 109 "./compiler.y"
-                       {  createFunction(10, (yyvsp[0].s_var)); }
+                       { createFunction((yyvsp[-1].var_type), (yyvsp[0].s_var)); }
 #line 1498 "./build/y.tab.c"
     break;
 
   case 18: /* $@4: %empty  */
 #line 109 "./compiler.y"
-                                                                                                   { record_JNI((yyvsp[-4].s_var));}
+                                                                                                            { record_JNI((yyvsp[-4].s_var));}
 #line 1504 "./build/y.tab.c"
     break;
 
   case 19: /* $@5: %empty  */
 #line 109 "./compiler.y"
-                                                                                                                                 {resetPushsym();}
+                                                                                                                                          {resetPushsym();}
 #line 1510 "./build/y.tab.c"
     break;
 
   case 20: /* FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst ')' $@4 '{' $@5 StmtList '}'  */
 #line 109 "./compiler.y"
-                                                                                                                                                                { dumpScope(); }
+                                                                                                                                                                         { dumpScope(); }
 #line 1516 "./build/y.tab.c"
     break;
 
