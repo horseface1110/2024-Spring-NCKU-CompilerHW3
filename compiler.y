@@ -7,6 +7,7 @@
     int yydebug = 1;
     int arrNum = 0;
     int autoType = 100;   // 為了對付auto型別，平時為100，用完回歸100
+
 %}
 
 /* Variable or self-defined structure */
@@ -141,7 +142,7 @@ StmtList
 Stmt
     : ';'
     | DefineVariableStmt
-    | COUT CoutParmListStmt ';' {stdoutPrint(); resetPushsym();}
+    | COUT {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;");} CoutParmListStmt ';' {stdoutPrint(); resetPushsym();}
     | RETURN Expression ';' { printf("RETURN\n"); }
     | IF IfStmt 
     | WHILE WhileStmt
@@ -232,7 +233,7 @@ Expression
     | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;} 
     | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ }
     | INT_LIT  {printf("INT_LIT %d\n",$1); $$ = $<obj_val>1; $$.type = 4;}
-    | STR_LIT  { $$ = $<obj_val>1; $$.type = 9; printf("STR_LIT \"%s\"\n", $1);}
+    | STR_LIT  { $$ = $<obj_val>1; $$.type = 9; printf("STR_LIT \"%s\"\n", $1); code("ldc \"%s\"",$1);}
     | '(' Expression ')'  { $$ = $<obj_val>2; }
     | BOOL_LIT  {printf("BOOL_LIT %s\n",($1 %2 == 1)?"TRUE":"FALSE"); $$ = $<obj_val>1; $$.type = 8;}
     | '(' VARIABLE_T ')' Expression %prec UMINUS { castTo($<var_type>2); }    /// 提高它的優先權 使之較 ( exp ) 更早執行

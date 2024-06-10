@@ -307,6 +307,7 @@ void stdoutPrint() {
     }
     coutCount = 0;
     printf("\n");
+    codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V");
 }
 
 char* ObjectTypeToString(ObjectType type) {
@@ -429,9 +430,12 @@ int main(int argc, char* argv[]) {
     scopeLevel = -1;
 
     yyparse();
+    codeRaw("return");
+    codeRaw(".end method");
     printf("Total lines: %d\n", yylineno);
     fclose(yyin);
 
     yylex_destroy();
+
     return 0;
 }
