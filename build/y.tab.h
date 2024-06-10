@@ -100,11 +100,13 @@ extern int yydebug;
     CONTINUE = 301,                /* CONTINUE  */
     VARIABLE_T = 302,              /* VARIABLE_T  */
     BOOL_LIT = 303,                /* BOOL_LIT  */
-    IDENT = 304,                   /* IDENT  */
-    STR_LIT = 305,                 /* STR_LIT  */
-    INT_LIT = 306,                 /* INT_LIT  */
-    FLOAT_LIT = 307,               /* FLOAT_LIT  */
-    UMINUS = 308                   /* UMINUS  */
+    CHAR_LIT = 304,                /* CHAR_LIT  */
+    INT_LIT = 305,                 /* INT_LIT  */
+    FLOAT_LIT = 306,               /* FLOAT_LIT  */
+    STR_LIT = 307,                 /* STR_LIT  */
+    IDENT = 308,                   /* IDENT  */
+    UMINUS = 309,                  /* UMINUS  */
+    THEN = 310                     /* THEN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -159,28 +161,37 @@ extern int yydebug;
 #define CONTINUE 301
 #define VARIABLE_T 302
 #define BOOL_LIT 303
-#define IDENT 304
-#define STR_LIT 305
-#define INT_LIT 306
-#define FLOAT_LIT 307
-#define UMINUS 308
+#define CHAR_LIT 304
+#define INT_LIT 305
+#define FLOAT_LIT 306
+#define STR_LIT 307
+#define IDENT 308
+#define UMINUS 309
+#define THEN 310
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "./compiler.y"
+#line 13 "./compiler.y"
 
     ObjectType var_type;
 
     bool b_var;
-    int i_var;
+    char c_var;
+    int32_t i_var;
+    int64_t l_var;
     float f_var;
+    double d_var;
     char *s_var;
 
-    Object object_val;
+    Object obj_val;
 
-#line 184 "./build/y.tab.h"
+
+    // LinkList<Object*>
+    LinkedList* array_subscript;
+
+#line 195 "./build/y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
