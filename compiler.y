@@ -106,7 +106,7 @@ Assign2
 
 /* Function */
 FunctionDefStmt
-    : VARIABLE_T IDENT {  createFunction(10, $<s_var>2); } '(' FunctionParameterStmtListFirst ')'  '{' {resetPushsym();} StmtList '}' { dumpScope(); }
+    : VARIABLE_T IDENT {  createFunction(10, $<s_var>2); } '(' FunctionParameterStmtListFirst ')'  { record_JNI($<s_var>2);} '{' {resetPushsym();} StmtList '}' { dumpScope(); }
 ;
 
 FunctionParameterStmtListFirst
