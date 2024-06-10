@@ -201,10 +201,10 @@ void record_JNI(char* variableName){
     strcpy(symbols[scopeLevel - 1][tmp].func_sig,str);
    
 
-    // // 作業三中 初始化該涵式
-    // code(".method public static %s%s", symbols[scopeLevel - 1][tmp].name, symbols[scopeLevel - 1][tmp].func_sig);  // TODO: codeRaw 首發
-    // codeRaw(".limit stack 100\n.limit locals 100");
-    // printf("dddd\n");
+    // 作業三中 初始化該涵式
+    code(".method public static %s%s", symbols[scopeLevel - 1][tmp].name, symbols[scopeLevel - 1][tmp].func_sig);  // TODO: codeRaw 首發
+    codeRaw(".limit stack 100");
+    codeRaw(".limit locals 100");
 
 }
 
