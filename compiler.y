@@ -206,7 +206,7 @@ InArr
 /*SHL : <<*/     
 CoutParmListStmt
     : CoutParmListStmt {codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V");} SHL Expression { pushFunInParm(&$<obj_val>3); } // 後
-    | SHL {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;");} Expression { pushFunInParm(&$<obj_val>2); } // 先
+    | SHL Expression { pushFunInParm(&$<obj_val>2); } // 先
     |
 ;
 // IDENT => 變數的意思
@@ -233,7 +233,15 @@ Expression
     | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;} 
     | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ }
     | INT_LIT  {printf("INT_LIT %d\n",$1); $$ = $<obj_val>1; $$.type = 4;}
-    | STR_LIT  { $$ = $<obj_val>1; $$.type = 9; printf("STR_LIT \"%s\"\n", $1); code("ldc \"%s\"",$1);}
+    | STR_LIT  { 
+        $$ = $<obj_val>1; 
+        $$.type = 9; 
+        printf("STR_LIT \"%s\"\n", $1); 
+        if(strcmp($1,"endl")){
+            codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;");
+        }
+        code("ldc \"%s\"",$1);
+        }
     | '(' Expression ')'  { $$ = $<obj_val>2; }
     | BOOL_LIT  {printf("BOOL_LIT %s\n",($1 %2 == 1)?"TRUE":"FALSE"); $$ = $<obj_val>1; $$.type = 8;}
     | '(' VARIABLE_T ')' Expression %prec UMINUS { castTo($<var_type>2); }    /// 提高它的優先權 使之較 ( exp ) 更早執行
