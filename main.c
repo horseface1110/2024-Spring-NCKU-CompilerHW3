@@ -202,7 +202,8 @@ void record_JNI(char* variableName){
    
 
     // 作業三中 初始化該涵式
-    code(".method public static %s%s", symbols[scopeLevel - 1][tmp].name, symbols[scopeLevel - 1][tmp].func_sig);  // TODO: codeRaw 首發
+    // code(".method public static %s%s", symbols[scopeLevel - 1][tmp].name, symbols[scopeLevel - 1][tmp].func_sig);  // TODO: codeRaw 首發
+    codeRaw(".method public static main([Ljava/lang/String;)V"); // TODO: 為什麼是void？？？
     codeRaw(".limit stack 100");
     codeRaw(".limit locals 100");
 
@@ -424,7 +425,7 @@ int main(int argc, char* argv[]) {
         printf("file `%s` doesn't exists or cannot be opened\n", outputFileName);
         exit(1);
     }
-
+    codeRaw(".source Main.j");
     codeRaw(".class public Main");
     codeRaw(".super java/lang/Object");
     scopeLevel = -1;
