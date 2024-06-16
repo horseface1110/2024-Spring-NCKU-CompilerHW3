@@ -307,7 +307,7 @@ void stdoutPrint() {
     }
     coutCount = 0;
     printf("\n");
-    codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V");
+    
 }
 
 char* ObjectTypeToString(ObjectType type) {

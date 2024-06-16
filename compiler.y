@@ -142,7 +142,7 @@ StmtList
 Stmt
     : ';'
     | DefineVariableStmt
-    | COUT {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;");} CoutParmListStmt ';' {stdoutPrint(); resetPushsym();}
+    | COUT  CoutParmListStmt ';' {stdoutPrint(); resetPushsym();}
     | RETURN Expression ';' { printf("RETURN\n"); }
     | IF IfStmt 
     | WHILE WhileStmt
@@ -205,8 +205,8 @@ InArr
 
 /*SHL : <<*/     
 CoutParmListStmt
-    : CoutParmListStmt SHL Expression { pushFunInParm(&$<obj_val>3); } // 後
-    | SHL Expression { pushFunInParm(&$<obj_val>2); } // 先
+    : CoutParmListStmt {codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V");} SHL Expression { pushFunInParm(&$<obj_val>3); } // 後
+    | SHL {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;");} Expression { pushFunInParm(&$<obj_val>2); } // 先
     |
 ;
 // IDENT => 變數的意思
