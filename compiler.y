@@ -221,27 +221,35 @@ Expression
         $$.type = 9;
         $$.name = "endl";
         codeRaw("invokevirtual java/io/PrintStream/println()V");} 
-    | Expression ADD Expression { printf("ADD\n"); /* 處理加法運算 */ }
-    | Expression SUB Expression { printf("SUB\n"); /* 處理減法運算 */ }    
-    | Expression MUL Expression { printf("MUL\n"); /* 處理乘法運算 */ }
-    | Expression DIV Expression { printf("DIV\n"); /* 處理除法運算 */ }
-    | Expression REM Expression { printf("REM\n"); /* 處理取餘運算 */ }
-    | SUB Expression %prec UMINUS { printf("NEG\n");  } 
-    | Expression GTR Expression { printf("GTR\n"); $$ = $<obj_val>2; $$.type = 8; }
-    | Expression LES Expression { printf("LES\n"); $$ = $<obj_val>2; $$.type = 8;/* 小於 */ }
+    | Expression ADD Expression { printf("ADD\n"); codeRaw("iadd"); /* 處理加法運算 */ }
+    | Expression SUB Expression { printf("SUB\n"); codeRaw("isub"); /* 處理減法運算 */ }    
+    | Expression MUL Expression { printf("MUL\n"); codeRaw("imul"); /* 處理乘法運算 */ }
+    | Expression DIV Expression { printf("DIV\n"); codeRaw("idiv"); /* 處理除法運算 */ }
+    | Expression REM Expression { printf("REM\n"); codeRaw("irem"); /* 處理取餘運算 */ }
+    | SUB Expression %prec UMINUS { printf("NEG\n"); codeRaw("ineg");  } // 處理負號
+    | Expression GTR Expression { printf("GTR\n"); /*大於*/
+        $$ = $<obj_val>2; 
+        $$.type = 8; 
+        codeRaw("if_icmpgt greaterThanLabel0");  //如果大於就跳
+        codeRaw("iconst_0");
+        codeRaw("goto endLable0");
+        codeRaw("greaterThanLable0:");           //大於的話做這邊
+        codeRaw("iconst_1");
+        codeRaw("endLabel0:");  }                // 大於的處理結束
+    | Expression LES Expression { printf("LES\n"); $$ = $<obj_val>2; $$.type = 8; /* 小於 */ }
     | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8; }
     | Expression GEQ Expression { printf("GEQ\n"); $$ = $<obj_val>2; $$.type = 8;}
-    | Expression EQL Expression { printf("EQL\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ }
-    | Expression NEQ Expression { printf("NEQ\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ } 
-    | Expression LAN Expression { printf("LAN\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ }
-    | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8;} 
+    | Expression EQL Expression { printf("EQL\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理等於運算 */ }
+    | Expression NEQ Expression { printf("NEQ\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理運算 */ } 
+    | Expression LAN Expression { printf("LAN\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iand");/* 處理and運算 */ }
+    | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("ior"); } 
     | Expression BAN Expression { printf("BAN\n"); $$ = $<obj_val>2; $$.type = 8;/* and & */} 
     | BNT Expression %prec UMINUS { printf("BNT\n"); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}    
     | Expression BOR Expression { printf("BOR\n"); $$ = $<obj_val>2; $$.type = 8;} 
     | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8;} 
     | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;} 
-    | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理取餘運算 */ }
-    | INT_LIT  {printf("INT_LIT %d\n",$1); $$ = $<obj_val>1; $$.type = 4;}
+    | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iconst_0");/* 處理NOT運算，iconst_1 做xor */ }
+    | INT_LIT  {printf("INT_LIT %d\n",$1); code("ldc %d",$1); $$ = $<obj_val>1; $$.type = 4;}
     | STR_LIT  { 
         $$ = $<obj_val>1; 
         $$.type = 9; 
@@ -250,9 +258,14 @@ Expression
         code("ldc \"%s\"",$1);
         }
     | '(' Expression ')'  { $$ = $<obj_val>2; }
-    | BOOL_LIT  {printf("BOOL_LIT %s\n",($1 %2 == 1)?"TRUE":"FALSE"); $$ = $<obj_val>1; $$.type = 8;}
+    | BOOL_LIT  {  // 處理true false
+        printf("BOOL_LIT %s\n",($1 %2 == 1)?"TRUE":"FALSE"); 
+        $$ = $<obj_val>1; 
+        $$.type = 8;
+        ($1 %2 == 1)?codeRaw("iconst_1"):codeRaw("iconst_0");
+        }
     | '(' VARIABLE_T ')' Expression %prec UMINUS { castTo($<var_type>2); }    /// 提高它的優先權 使之較 ( exp ) 更早執行
-    | FLOAT_LIT {printf("FLOAT_LIT %f\n",$1); $$ = $<obj_val>1; $$.type = 6;}
+    | FLOAT_LIT {printf("FLOAT_LIT %f\n",$1); code("ldc %f",$1); $$ = $<obj_val>1; $$.type = 6;}
     | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);}
     | IDENT '['INT_LIT { printf("INT_LIT %d\n",$3);} ']' {$$ = $<obj_val>1; $$.type = findObjectType($<s_var>1); }
     |
