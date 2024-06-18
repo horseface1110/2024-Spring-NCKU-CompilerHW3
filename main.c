@@ -404,6 +404,11 @@ void castTo( ObjectType type){
     }
 }
 
+// 印出不同型別的 invokevirtual
+void invokevirtual(int type){
+    code("invokevirtual java/io/PrintStream/print(%s)%s",objectJavaTypeName[type],"V");
+}
+
 
 int main(int argc, char* argv[]) {
     char* outputFileName = NULL;

@@ -206,11 +206,12 @@ InArr
 /*SHL : <<*/     
 CoutParmListStmt
     : CoutParmListStmt  SHL {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;"); } Expression {
+        printf("adsadsfd %d \n",$4.type);
         if(strcmp($4.name,"endl")){
-                    codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V"); 
+            invokevirtual($4.type);
         }
         pushFunInParm(&$<obj_val>4); } // 後
-    | SHL {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;"); } Expression { codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V");  pushFunInParm(&$<obj_val>3); } // 先
+    | SHL {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;"); } Expression { invokevirtual($3.type);} // 先
     |
 ;
 // IDENT => 變數的意思
@@ -257,7 +258,7 @@ Expression
         printf("STR_LIT \"%s\"\n", $1); 
         code("ldc \"%s\"",$1);
         }
-    | '(' Expression ')'  { $$ = $<obj_val>2; }
+    | '(' Expression ')'  { $$ = $<obj_val>2;}
     | BOOL_LIT  {  // 處理true false
         printf("BOOL_LIT %s\n",($1 %2 == 1)?"TRUE":"FALSE"); 
         $$ = $<obj_val>1; 

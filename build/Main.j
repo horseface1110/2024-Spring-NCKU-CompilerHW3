@@ -17,7 +17,7 @@
     ldc 7
     idiv
     isub
-    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
+    invokevirtual java/io/PrintStream/print(I)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -49,7 +49,7 @@
     iconst_0
     iconst_0
     iand
-    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
+    invokevirtual java/io/PrintStream/print(Z)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -65,7 +65,7 @@
     ldc 7.000000
     idiv
     isub
-    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
+    invokevirtual java/io/PrintStream/print(F)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -95,7 +95,7 @@
     iconst_0
     iconst_0
     iand
-    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
+    invokevirtual java/io/PrintStream/print(Z)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -121,7 +121,7 @@
     irem
     ldc 0
     iadd
-    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
+    invokevirtual java/io/PrintStream/print(I)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     ldc 0
