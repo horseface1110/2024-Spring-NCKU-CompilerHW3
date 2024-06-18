@@ -205,8 +205,12 @@ InArr
 
 /*SHL : <<*/     
 CoutParmListStmt
-    : CoutParmListStmt {codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V");} SHL Expression { pushFunInParm(&$<obj_val>3); } // 後
-    | SHL Expression { pushFunInParm(&$<obj_val>2); } // 先
+    : CoutParmListStmt  SHL {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;"); } Expression {
+        if(strcmp($4.name,"endl")){
+                    codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V"); 
+        }
+        pushFunInParm(&$<obj_val>4); } // 後
+    | SHL {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;"); } Expression { codeRaw("invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V");  pushFunInParm(&$<obj_val>3); } // 先
     |
 ;
 // IDENT => 變數的意思
@@ -215,7 +219,7 @@ Expression
         printf("IDENT (name=endl, address=-1)\n");
         $$ = $<obj_val>2; 
         $$.type = 9;
-        codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;");
+        $$.name = "endl";
         codeRaw("invokevirtual java/io/PrintStream/println()V");} 
     | Expression ADD Expression { printf("ADD\n"); /* 處理加法運算 */ }
     | Expression SUB Expression { printf("SUB\n"); /* 處理減法運算 */ }    
@@ -241,10 +245,8 @@ Expression
     | STR_LIT  { 
         $$ = $<obj_val>1; 
         $$.type = 9; 
+        $$.name = $1;
         printf("STR_LIT \"%s\"\n", $1); 
-        if(strcmp($1,"endl")){
-            codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;");
-        }
         code("ldc \"%s\"",$1);
         }
     | '(' Expression ')'  { $$ = $<obj_val>2; }

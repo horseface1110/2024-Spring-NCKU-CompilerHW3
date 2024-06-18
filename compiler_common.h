@@ -55,6 +55,7 @@ typedef struct _object {
     uint8_t flag;
     SymbolData* symbol;
     LinkedList* arraySubscript;
+    char* name;
 } Object;
 
 
