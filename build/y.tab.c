@@ -76,9 +76,10 @@
     int yydebug = 1;
     int arrNum = 0;
     int autoType = 100;   // 為了對付auto型別，平時為100，用完回歸100
+    int Label_num = 0;
 
 
-#line 82 "./build/y.tab.c"
+#line 83 "./build/y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -545,7 +546,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  40
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  113
+#define YYNRULES  112
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  213
 
@@ -602,18 +603,18 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    74,    74,    74,    75,    79,    80,    84,    85,    89,
-      91,    95,    96,    97,    98,    99,    99,   110,   110,   110,
-     110,   114,   114,   117,   118,   119,   122,   123,   139,   140,
-     143,   144,   145,   146,   147,   148,   149,   150,   158,   158,
-     159,   159,   160,   160,   166,   166,   166,   171,   171,   175,
-     177,   178,   182,   183,   189,   190,   196,   197,   198,   202,
-     202,   203,   208,   208,   214,   214,   215,   219,   225,   226,
-     227,   228,   229,   230,   231,   240,   241,   242,   243,   244,
-     245,   246,   247,   248,   249,   250,   251,   252,   253,   254,
-     261,   262,   268,   269,   270,   271,   271,   272,   277,   278,
-     279,   280,   281,   282,   283,   284,   285,   286,   287,   288,
-     289,   292,   293,   294
+       0,    75,    75,    75,    76,    80,    81,    85,    86,    90,
+      92,    96,    97,    98,    99,   100,   100,   111,   111,   111,
+     111,   115,   115,   118,   119,   120,   123,   124,   140,   141,
+     144,   145,   146,   147,   148,   149,   150,   151,   159,   159,
+     160,   160,   161,   161,   167,   167,   167,   172,   172,   176,
+     178,   179,   183,   184,   190,   191,   197,   198,   199,   203,
+     203,   204,   209,   209,   215,   215,   216,   220,   226,   227,
+     228,   229,   230,   231,   232,   252,   253,   254,   255,   265,
+     266,   267,   268,   269,   270,   271,   272,   273,   274,   281,
+     282,   288,   289,   290,   291,   291,   292,   297,   298,   299,
+     300,   301,   302,   303,   304,   305,   306,   307,   308,   309,
+     312,   313,   314
 };
 #endif
 
@@ -698,28 +699,28 @@ static const yytype_int16 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       2,     0,    97,     1,    97,    97,    97,    97,     0,    91,
-      88,    93,    89,    94,    97,     6,     7,     8,     0,    83,
-      73,    87,     0,     0,    12,     0,     0,     5,    97,    97,
-      97,    97,    97,    97,    97,    97,    97,    97,    97,    97,
-      97,    97,    97,    97,    97,    97,    97,    97,    97,    97,
-      97,    97,    97,    97,    97,    97,    97,    97,     0,    97,
-      90,    97,     0,     0,    14,     9,     0,    95,    67,    86,
-      82,    84,    85,    68,    69,    70,    71,    72,    74,    75,
-      77,    78,    79,    80,    76,    98,   100,   101,   110,   102,
-     105,   106,   107,   103,   104,   108,   109,    99,    10,    92,
-      94,    97,   111,    15,    21,    11,     0,    97,     0,    57,
-       0,     0,    25,    13,    96,     0,    55,    97,   113,     0,
-      18,     0,    22,    24,   112,    97,    56,    16,    61,     0,
-      27,     0,    54,     0,    19,     0,    23,    59,    97,    26,
-       0,    66,     0,    47,    44,    97,     0,     0,    30,    31,
-      97,    29,    60,    64,     0,    97,    34,    36,     0,    35,
-       0,     0,    37,    12,    20,    28,    97,    62,    32,     0,
-      40,    97,     0,    97,    33,    65,    97,    38,     0,     0,
-       0,     0,    97,     0,    63,     0,     0,    97,    49,    97,
-       0,    50,    97,    45,    97,    97,    97,     0,     0,    48,
-       0,    97,     0,    41,    97,    53,    97,    39,    43,     0,
-      97,    52,    46
+       2,     0,    96,     1,    96,    96,    96,    96,     0,    90,
+      87,    92,    88,    93,    96,     6,     7,     8,     0,    82,
+      73,    86,     0,     0,    12,     0,     0,     5,    96,    96,
+      96,    96,    96,    96,    96,    96,    96,    96,    96,    96,
+      96,    96,    96,    96,    96,    96,    96,    96,    96,    96,
+      96,    96,    96,    96,    96,    96,    96,    96,     0,    96,
+      89,    96,     0,     0,    14,     9,     0,    94,    67,    85,
+      81,    83,    84,    68,    69,    70,    71,    72,    74,    75,
+      76,    77,    78,    79,    80,    97,    99,   100,   109,   101,
+     104,   105,   106,   102,   103,   107,   108,    98,    10,    91,
+      93,    96,   110,    15,    21,    11,     0,    96,     0,    57,
+       0,     0,    25,    13,    95,     0,    55,    96,   112,     0,
+      18,     0,    22,    24,   111,    96,    56,    16,    61,     0,
+      27,     0,    54,     0,    19,     0,    23,    59,    96,    26,
+       0,    66,     0,    47,    44,    96,     0,     0,    30,    31,
+      96,    29,    60,    64,     0,    96,    34,    36,     0,    35,
+       0,     0,    37,    12,    20,    28,    96,    62,    32,     0,
+      40,    96,     0,    96,    33,    65,    96,    38,     0,     0,
+       0,     0,    96,     0,    63,     0,     0,    96,    49,    96,
+       0,    50,    96,    45,    96,    96,    96,     0,     0,    48,
+       0,    96,     0,    41,    96,    53,    96,    39,    43,     0,
+      96,    52,    46
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -937,9 +938,9 @@ static const yytype_int8 yyr1[] =
       96,    96,    99,    98,   100,    98,    98,   101,   101,   101,
      101,   101,   101,   101,   101,   101,   101,   101,   101,   101,
      101,   101,   101,   101,   101,   101,   101,   101,   101,   101,
-     101,   101,   101,   101,   101,   102,   101,   101,   103,   103,
+     101,   101,   101,   101,   102,   101,   101,   103,   103,   103,
      103,   103,   103,   103,   103,   103,   103,   103,   103,   103,
-     103,   104,   104,   104
+     104,   104,   104
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -953,10 +954,10 @@ static const yytype_int8 yyr2[] =
        2,     0,     7,     5,     3,     1,     3,     1,     0,     0,
        5,     1,     0,     4,     0,     3,     0,     3,     3,     3,
        3,     3,     3,     2,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     2,     3,     3,     3,     2,     1,     1,
-       3,     1,     4,     1,     1,     0,     5,     0,     2,     2,
+       3,     3,     2,     3,     3,     3,     2,     1,     1,     3,
+       1,     4,     1,     1,     0,     5,     0,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     5,     4
+       2,     5,     4
 };
 
 
@@ -1420,439 +1421,453 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* $@1: %empty  */
-#line 74 "./compiler.y"
+#line 75 "./compiler.y"
       { pushScope(); }
-#line 1426 "./build/y.tab.c"
+#line 1427 "./build/y.tab.c"
     break;
 
   case 3: /* Program: $@1 GlobalStmtList  */
-#line 74 "./compiler.y"
+#line 75 "./compiler.y"
                                       { dumpScope(); }
-#line 1432 "./build/y.tab.c"
+#line 1433 "./build/y.tab.c"
     break;
 
   case 5: /* GlobalStmtList: GlobalStmtList GlobalStmt  */
-#line 79 "./compiler.y"
+#line 80 "./compiler.y"
                                 {}
-#line 1438 "./build/y.tab.c"
+#line 1439 "./build/y.tab.c"
     break;
 
   case 6: /* GlobalStmtList: GlobalStmt  */
-#line 80 "./compiler.y"
+#line 81 "./compiler.y"
                  {}
-#line 1444 "./build/y.tab.c"
+#line 1445 "./build/y.tab.c"
     break;
 
   case 7: /* GlobalStmt: DefineVariableStmt  */
-#line 84 "./compiler.y"
+#line 85 "./compiler.y"
                          {}
-#line 1450 "./build/y.tab.c"
+#line 1451 "./build/y.tab.c"
     break;
 
   case 8: /* GlobalStmt: FunctionDefStmt  */
-#line 85 "./compiler.y"
+#line 86 "./compiler.y"
                       {}
-#line 1456 "./build/y.tab.c"
+#line 1457 "./build/y.tab.c"
     break;
 
   case 9: /* DefineVariableStmt: VARIABLE_T IDENTS ';'  */
-#line 89 "./compiler.y"
+#line 90 "./compiler.y"
                             { changePSD((yyvsp[-2].var_type)); }
-#line 1462 "./build/y.tab.c"
+#line 1463 "./build/y.tab.c"
     break;
 
   case 11: /* IDENTS: IDENTS ',' IDENT  */
-#line 95 "./compiler.y"
+#line 96 "./compiler.y"
                        { pushSymbleData(autoType , (yyvsp[0].s_var)); autoType = 100; }
-#line 1468 "./build/y.tab.c"
+#line 1469 "./build/y.tab.c"
     break;
 
   case 12: /* IDENTS: IDENT  */
-#line 96 "./compiler.y"
+#line 97 "./compiler.y"
             {  pushSymbleData(autoType, (yyvsp[0].s_var)); autoType = 100; }
-#line 1474 "./build/y.tab.c"
+#line 1475 "./build/y.tab.c"
     break;
 
   case 13: /* IDENTS: IDENTS ',' IDENT Assign2  */
-#line 97 "./compiler.y"
+#line 98 "./compiler.y"
                                { pushSymbleData(autoType, (yyvsp[-1].s_var)); autoType = 100; }
-#line 1480 "./build/y.tab.c"
+#line 1481 "./build/y.tab.c"
     break;
 
   case 14: /* IDENTS: IDENT Assign2  */
-#line 98 "./compiler.y"
+#line 99 "./compiler.y"
                      { pushSymbleData(autoType, (yyvsp[-1].s_var)); autoType = 100; }
-#line 1486 "./build/y.tab.c"
+#line 1487 "./build/y.tab.c"
     break;
 
   case 15: /* $@2: %empty  */
-#line 99 "./compiler.y"
+#line 100 "./compiler.y"
                         { printf("INT_LIT %d\n",(yyvsp[0].i_var));}
-#line 1492 "./build/y.tab.c"
+#line 1493 "./build/y.tab.c"
     break;
 
   case 16: /* IDENTS: IDENT '[' INT_LIT $@2 ']' InArr  */
-#line 99 "./compiler.y"
+#line 100 "./compiler.y"
                                                                   { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, (yyvsp[-5].s_var)); autoType = 100;}
-#line 1498 "./build/y.tab.c"
+#line 1499 "./build/y.tab.c"
     break;
 
   case 17: /* $@3: %empty  */
-#line 110 "./compiler.y"
+#line 111 "./compiler.y"
                        { createFunction((yyvsp[-1].var_type), (yyvsp[0].s_var)); }
-#line 1504 "./build/y.tab.c"
+#line 1505 "./build/y.tab.c"
     break;
 
   case 18: /* $@4: %empty  */
-#line 110 "./compiler.y"
+#line 111 "./compiler.y"
                                                                                                             { record_JNI((yyvsp[-4].s_var));}
-#line 1510 "./build/y.tab.c"
+#line 1511 "./build/y.tab.c"
     break;
 
   case 19: /* $@5: %empty  */
-#line 110 "./compiler.y"
+#line 111 "./compiler.y"
                                                                                                                                           {resetPushsym();}
-#line 1516 "./build/y.tab.c"
+#line 1517 "./build/y.tab.c"
     break;
 
   case 20: /* FunctionDefStmt: VARIABLE_T IDENT $@3 '(' FunctionParameterStmtListFirst ')' $@4 '{' $@5 StmtList '}'  */
-#line 110 "./compiler.y"
+#line 111 "./compiler.y"
                                                                                                                                                                          { dumpScope(); }
-#line 1522 "./build/y.tab.c"
+#line 1523 "./build/y.tab.c"
     break;
 
   case 21: /* $@6: %empty  */
-#line 114 "./compiler.y"
+#line 115 "./compiler.y"
       { pushFun();}
-#line 1528 "./build/y.tab.c"
+#line 1529 "./build/y.tab.c"
     break;
 
   case 23: /* FunctionParameterStmtList: FunctionParameterStmtList ',' FunctionParameterStmt  */
-#line 117 "./compiler.y"
+#line 118 "./compiler.y"
                                                           {  }
-#line 1534 "./build/y.tab.c"
+#line 1535 "./build/y.tab.c"
     break;
 
   case 24: /* FunctionParameterStmtList: FunctionParameterStmt  */
-#line 118 "./compiler.y"
+#line 119 "./compiler.y"
                             {   }
-#line 1540 "./build/y.tab.c"
+#line 1541 "./build/y.tab.c"
     break;
 
   case 26: /* FunctionParameterStmt: VARIABLE_T IDENT '[' ']'  */
-#line 122 "./compiler.y"
+#line 123 "./compiler.y"
                               { pushFunParm((yyvsp[-3].var_type), (yyvsp[-2].s_var), VAR_FLAG_DEFAULT); }
-#line 1546 "./build/y.tab.c"
+#line 1547 "./build/y.tab.c"
     break;
 
   case 27: /* FunctionParameterStmt: VARIABLE_T IDENT  */
-#line 123 "./compiler.y"
+#line 124 "./compiler.y"
                        { pushFunParm((yyvsp[-1].var_type), (yyvsp[0].s_var), VAR_FLAG_DEFAULT); }
-#line 1552 "./build/y.tab.c"
+#line 1553 "./build/y.tab.c"
     break;
 
   case 28: /* StmtList: StmtList Stmt  */
-#line 139 "./compiler.y"
+#line 140 "./compiler.y"
                       {}
-#line 1558 "./build/y.tab.c"
+#line 1559 "./build/y.tab.c"
     break;
 
   case 29: /* StmtList: Stmt  */
-#line 140 "./compiler.y"
+#line 141 "./compiler.y"
             {}
-#line 1564 "./build/y.tab.c"
+#line 1565 "./build/y.tab.c"
     break;
 
   case 32: /* Stmt: COUT CoutParmListStmt ';'  */
-#line 145 "./compiler.y"
+#line 146 "./compiler.y"
                                  {stdoutPrint(); resetPushsym();}
-#line 1570 "./build/y.tab.c"
+#line 1571 "./build/y.tab.c"
     break;
 
   case 33: /* Stmt: RETURN Expression ';'  */
-#line 146 "./compiler.y"
+#line 147 "./compiler.y"
                             { printf("RETURN\n"); }
-#line 1576 "./build/y.tab.c"
+#line 1577 "./build/y.tab.c"
     break;
 
   case 37: /* Stmt: BREAK ';'  */
-#line 150 "./compiler.y"
+#line 151 "./compiler.y"
                 {printf("BREAK\n");}
-#line 1582 "./build/y.tab.c"
+#line 1583 "./build/y.tab.c"
     break;
 
   case 38: /* $@9: %empty  */
-#line 158 "./compiler.y"
+#line 159 "./compiler.y"
                         {printf("IF\n"); pushFun(); }
-#line 1588 "./build/y.tab.c"
+#line 1589 "./build/y.tab.c"
     break;
 
   case 39: /* IfStmt: '(' Expression ')' $@9 '{' StmtList '}'  */
-#line 158 "./compiler.y"
+#line 159 "./compiler.y"
                                                                         { dumpScope(); }
-#line 1594 "./build/y.tab.c"
+#line 1595 "./build/y.tab.c"
     break;
 
   case 40: /* $@10: %empty  */
-#line 159 "./compiler.y"
+#line 160 "./compiler.y"
                   { printf("ELSE\n"); pushFun(); }
-#line 1600 "./build/y.tab.c"
+#line 1601 "./build/y.tab.c"
     break;
 
   case 41: /* IfStmt: IfStmt ELSE $@10 '{' StmtList '}'  */
-#line 159 "./compiler.y"
+#line 160 "./compiler.y"
                                                                      { dumpScope(); }
-#line 1606 "./build/y.tab.c"
+#line 1607 "./build/y.tab.c"
     break;
 
   case 42: /* $@11: %empty  */
-#line 160 "./compiler.y"
+#line 161 "./compiler.y"
                         {printf("IF\n"); }
-#line 1612 "./build/y.tab.c"
+#line 1613 "./build/y.tab.c"
     break;
 
   case 43: /* IfStmt: '(' Expression ')' $@11 RETURN Expression ';'  */
-#line 160 "./compiler.y"
+#line 161 "./compiler.y"
                                                                   { printf("RETURN\n"); }
-#line 1618 "./build/y.tab.c"
+#line 1619 "./build/y.tab.c"
     break;
 
   case 44: /* $@12: %empty  */
-#line 166 "./compiler.y"
+#line 167 "./compiler.y"
       {printf("WHILE\n"); }
-#line 1624 "./build/y.tab.c"
+#line 1625 "./build/y.tab.c"
     break;
 
   case 45: /* $@13: %empty  */
-#line 166 "./compiler.y"
+#line 167 "./compiler.y"
                                                {pushFun(); }
-#line 1630 "./build/y.tab.c"
+#line 1631 "./build/y.tab.c"
     break;
 
   case 46: /* WhileStmt: $@12 '(' Expression ')' $@13 '{' StmtList '}'  */
-#line 166 "./compiler.y"
+#line 167 "./compiler.y"
                                                                                { dumpScope(); }
-#line 1636 "./build/y.tab.c"
+#line 1637 "./build/y.tab.c"
     break;
 
   case 47: /* $@14: %empty  */
-#line 171 "./compiler.y"
+#line 172 "./compiler.y"
       {printf("FOR\n"); pushFun(); }
-#line 1642 "./build/y.tab.c"
+#line 1643 "./build/y.tab.c"
     break;
 
   case 48: /* ForStmt: $@14 ForThrid '{' StmtList '}'  */
-#line 171 "./compiler.y"
+#line 172 "./compiler.y"
                                                                  { dumpScope(); }
-#line 1648 "./build/y.tab.c"
+#line 1649 "./build/y.tab.c"
     break;
 
   case 49: /* ForSecond: VARIABLE_T IDENTS  */
-#line 175 "./compiler.y"
+#line 176 "./compiler.y"
                           { changePSD((yyvsp[-1].var_type)); }
-#line 1654 "./build/y.tab.c"
+#line 1655 "./build/y.tab.c"
     break;
 
   case 53: /* ForThrid: '(' ForSecond ':' IDENT ')'  */
-#line 183 "./compiler.y"
+#line 184 "./compiler.y"
                                                 { changePSD(findObjectType((yyvsp[0].s_var)));}
-#line 1660 "./build/y.tab.c"
+#line 1661 "./build/y.tab.c"
     break;
 
   case 56: /* Arr: Arr ',' Expression  */
-#line 196 "./compiler.y"
+#line 197 "./compiler.y"
                           {arrNum++;}
-#line 1666 "./build/y.tab.c"
+#line 1667 "./build/y.tab.c"
     break;
 
   case 57: /* Arr: Expression  */
-#line 197 "./compiler.y"
+#line 198 "./compiler.y"
                       {arrNum++;}
-#line 1672 "./build/y.tab.c"
+#line 1673 "./build/y.tab.c"
     break;
 
   case 59: /* $@15: %empty  */
-#line 202 "./compiler.y"
+#line 203 "./compiler.y"
                        { printf("INT_LIT %d\n",(yyvsp[0].i_var));}
-#line 1678 "./build/y.tab.c"
+#line 1679 "./build/y.tab.c"
     break;
 
   case 62: /* $@16: %empty  */
-#line 208 "./compiler.y"
+#line 209 "./compiler.y"
                             {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;"); }
-#line 1684 "./build/y.tab.c"
+#line 1685 "./build/y.tab.c"
     break;
 
   case 63: /* CoutParmListStmt: CoutParmListStmt SHL $@16 Expression  */
-#line 208 "./compiler.y"
+#line 209 "./compiler.y"
                                                                                                            {
         printf("adsadsfd %d \n",(yyvsp[0].obj_val).type);
         if(strcmp((yyvsp[0].obj_val).name,"endl")){
             invokevirtual((yyvsp[0].obj_val).type);
         }
         pushFunInParm(&(yyvsp[0].obj_val)); }
-#line 1695 "./build/y.tab.c"
+#line 1696 "./build/y.tab.c"
     break;
 
   case 64: /* $@17: %empty  */
-#line 214 "./compiler.y"
+#line 215 "./compiler.y"
           {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;"); }
-#line 1701 "./build/y.tab.c"
+#line 1702 "./build/y.tab.c"
     break;
 
   case 65: /* CoutParmListStmt: SHL $@17 Expression  */
-#line 214 "./compiler.y"
+#line 215 "./compiler.y"
                                                                                          { invokevirtual((yyvsp[0].obj_val).type);}
-#line 1707 "./build/y.tab.c"
+#line 1708 "./build/y.tab.c"
     break;
 
   case 67: /* Expression: Expression ENDL Expression  */
-#line 219 "./compiler.y"
+#line 220 "./compiler.y"
                                  {
         printf("IDENT (name=endl, address=-1)\n");
         (yyval.obj_val) = (yyvsp[-1].obj_val); 
         (yyval.obj_val).type = 9;
         (yyval.obj_val).name = "endl";
         codeRaw("invokevirtual java/io/PrintStream/println()V");}
-#line 1718 "./build/y.tab.c"
+#line 1719 "./build/y.tab.c"
     break;
 
   case 68: /* Expression: Expression ADD Expression  */
-#line 225 "./compiler.y"
-                                { printf("ADD\n"); codeRaw("iadd"); /* 處理加法運算 */ }
-#line 1724 "./build/y.tab.c"
+#line 226 "./compiler.y"
+                                { printf("ADD\n"); code("%sadd",((yyvsp[-2].obj_val).type == 4)?"i":"f"); /* 處理加法運算 */ }
+#line 1725 "./build/y.tab.c"
     break;
 
   case 69: /* Expression: Expression SUB Expression  */
-#line 226 "./compiler.y"
-                                { printf("SUB\n"); codeRaw("isub"); /* 處理減法運算 */ }
-#line 1730 "./build/y.tab.c"
+#line 227 "./compiler.y"
+                                { printf("SUB\n"); code("%ssub",((yyvsp[-2].obj_val).type == 4)?"i":"f"); /* 處理減法運算 */ }
+#line 1731 "./build/y.tab.c"
     break;
 
   case 70: /* Expression: Expression MUL Expression  */
-#line 227 "./compiler.y"
-                                { printf("MUL\n"); codeRaw("imul"); /* 處理乘法運算 */ }
-#line 1736 "./build/y.tab.c"
+#line 228 "./compiler.y"
+                                { printf("MUL\n"); code("%smul",((yyvsp[-2].obj_val).type == 4)?"i":"f"); /* 處理乘法運算 */ }
+#line 1737 "./build/y.tab.c"
     break;
 
   case 71: /* Expression: Expression DIV Expression  */
-#line 228 "./compiler.y"
-                                { printf("DIV\n"); codeRaw("idiv"); /* 處理除法運算 */ }
-#line 1742 "./build/y.tab.c"
+#line 229 "./compiler.y"
+                                { printf("DIV\n"); code("%sdiv",((yyvsp[-2].obj_val).type == 4)?"i":"f"); /* 處理除法運算 */ }
+#line 1743 "./build/y.tab.c"
     break;
 
   case 72: /* Expression: Expression REM Expression  */
-#line 229 "./compiler.y"
+#line 230 "./compiler.y"
                                 { printf("REM\n"); codeRaw("irem"); /* 處理取餘運算 */ }
-#line 1748 "./build/y.tab.c"
+#line 1749 "./build/y.tab.c"
     break;
 
   case 73: /* Expression: SUB Expression  */
-#line 230 "./compiler.y"
-                                  { printf("NEG\n"); codeRaw("ineg");  }
-#line 1754 "./build/y.tab.c"
+#line 231 "./compiler.y"
+                                  { printf("NEG\n"); code("%sneg",((yyvsp[0].obj_val).type == 4)?"i":"f");  }
+#line 1755 "./build/y.tab.c"
     break;
 
   case 74: /* Expression: Expression GTR Expression  */
-#line 231 "./compiler.y"
+#line 232 "./compiler.y"
                                 { printf("GTR\n"); /*大於*/
         (yyval.obj_val) = (yyvsp[-1].obj_val); 
         (yyval.obj_val).type = 8; 
-        codeRaw("if_icmpgt greaterThanLabel0");  //如果大於就跳
-        codeRaw("iconst_0");
-        codeRaw("goto endLable0");
-        codeRaw("greaterThanLable0:");           //大於的話做這邊
-        codeRaw("iconst_1");
-        codeRaw("endLabel0:");  }
-#line 1768 "./build/y.tab.c"
-    break;
-
-  case 75: /* Expression: Expression LES Expression  */
-#line 240 "./compiler.y"
-                                { printf("LES\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; /* 小於 */ }
-#line 1774 "./build/y.tab.c"
-    break;
-
-  case 76: /* Expression: Expression LOR Expression  */
-#line 241 "./compiler.y"
-                                { printf("LOR\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; }
+        if((yyvsp[-2].obj_val).type == 4){  // int
+            code("if_icmpgt greaterThanLabel%d",Label_num);  //如果大於就跳
+            codeRaw("iconst_0");
+            code("goto endLabel%d",Label_num);
+            code("greaterThanLabel%d:",Label_num);           //大於的話做這邊
+            codeRaw("iconst_1");
+            code("endLabel%d:",Label_num++);  
+        }else if((yyvsp[-2].obj_val).type == 6){  // float
+            codeRaw("fcmpg");
+            code("ifgt greaterThanLabel%d",Label_num);  //如果大於就跳
+            codeRaw("iconst_0");
+            code("goto endLabel%d",Label_num);
+            code("greaterThanLabel%d:",Label_num);           //大於的話做這邊
+            codeRaw("iconst_1");
+            code("endLabel%d:",Label_num++);  
+        }
+         }
 #line 1780 "./build/y.tab.c"
     break;
 
-  case 77: /* Expression: Expression GEQ Expression  */
-#line 242 "./compiler.y"
-                                { printf("GEQ\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;}
+  case 75: /* Expression: Expression LES Expression  */
+#line 252 "./compiler.y"
+                                { printf("LES\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; /* 小於 */ }
 #line 1786 "./build/y.tab.c"
     break;
 
-  case 78: /* Expression: Expression EQL Expression  */
-#line 243 "./compiler.y"
-                                { printf("EQL\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;/* 處理等於運算 */ }
+  case 76: /* Expression: Expression GEQ Expression  */
+#line 253 "./compiler.y"
+                                { printf("GEQ\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;}
 #line 1792 "./build/y.tab.c"
     break;
 
-  case 79: /* Expression: Expression NEQ Expression  */
-#line 244 "./compiler.y"
-                                { printf("NEQ\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;/* 處理運算 */ }
+  case 77: /* Expression: Expression EQL Expression  */
+#line 254 "./compiler.y"
+                                { printf("EQL\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;/* 處理等於運算 */ }
 #line 1798 "./build/y.tab.c"
     break;
 
-  case 80: /* Expression: Expression LAN Expression  */
-#line 245 "./compiler.y"
+  case 78: /* Expression: Expression NEQ Expression  */
+#line 255 "./compiler.y"
+                                { /* 處理運算 */
+        printf("NEQ\n"); 
+        (yyval.obj_val) = (yyvsp[-1].obj_val); 
+        (yyval.obj_val).type = 8;
+        code("if_icmpne notEqualToLabel%d",Label_num);
+        codeRaw("iconst_0");
+        code("goto endLabel%d",Label_num);
+        code("notEqualToLabel%d:",Label_num);
+        codeRaw("iconst_1");
+        code("endLabel%d:",Label_num++); }
+#line 1813 "./build/y.tab.c"
+    break;
+
+  case 79: /* Expression: Expression LAN Expression  */
+#line 265 "./compiler.y"
                                 { printf("LAN\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; codeRaw("iand");/* 處理and運算 */ }
-#line 1804 "./build/y.tab.c"
+#line 1819 "./build/y.tab.c"
     break;
 
-  case 81: /* Expression: Expression LOR Expression  */
-#line 246 "./compiler.y"
+  case 80: /* Expression: Expression LOR Expression  */
+#line 266 "./compiler.y"
                                 { printf("LOR\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; codeRaw("ior"); }
-#line 1810 "./build/y.tab.c"
+#line 1825 "./build/y.tab.c"
     break;
 
-  case 82: /* Expression: Expression BAN Expression  */
-#line 247 "./compiler.y"
+  case 81: /* Expression: Expression BAN Expression  */
+#line 267 "./compiler.y"
                                 { printf("BAN\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;/* and & */}
-#line 1816 "./build/y.tab.c"
+#line 1831 "./build/y.tab.c"
     break;
 
-  case 83: /* Expression: BNT Expression  */
-#line 248 "./compiler.y"
+  case 82: /* Expression: BNT Expression  */
+#line 268 "./compiler.y"
                                   { printf("BNT\n"); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}
-#line 1822 "./build/y.tab.c"
+#line 1837 "./build/y.tab.c"
     break;
 
-  case 84: /* Expression: Expression BOR Expression  */
-#line 249 "./compiler.y"
+  case 83: /* Expression: Expression BOR Expression  */
+#line 269 "./compiler.y"
                                 { printf("BOR\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;}
-#line 1828 "./build/y.tab.c"
+#line 1843 "./build/y.tab.c"
     break;
 
-  case 85: /* Expression: Expression BXO Expression  */
-#line 250 "./compiler.y"
+  case 84: /* Expression: Expression BXO Expression  */
+#line 270 "./compiler.y"
                                 { printf("BXO\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;}
-#line 1834 "./build/y.tab.c"
+#line 1849 "./build/y.tab.c"
     break;
 
-  case 86: /* Expression: Expression SHR Expression  */
-#line 251 "./compiler.y"
+  case 85: /* Expression: Expression SHR Expression  */
+#line 271 "./compiler.y"
                                 { printf("SHR\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;}
-#line 1840 "./build/y.tab.c"
+#line 1855 "./build/y.tab.c"
     break;
 
-  case 87: /* Expression: NOT Expression  */
-#line 252 "./compiler.y"
-                                  { printf("NOT\n"); (yyval.obj_val) = (yyvsp[0].obj_val); (yyval.obj_val).type = 8; codeRaw("iconst_0");/* 處理NOT運算，iconst_1 做xor */ }
-#line 1846 "./build/y.tab.c"
+  case 86: /* Expression: NOT Expression  */
+#line 272 "./compiler.y"
+                                  { printf("NOT\n"); (yyval.obj_val) = (yyvsp[0].obj_val); (yyval.obj_val).type = 8; codeRaw("iconst_1"); codeRaw("ixor");/* 處理NOT運算，iconst_1 做xor */ }
+#line 1861 "./build/y.tab.c"
     break;
 
-  case 88: /* Expression: INT_LIT  */
-#line 253 "./compiler.y"
+  case 87: /* Expression: INT_LIT  */
+#line 273 "./compiler.y"
                {printf("INT_LIT %d\n",(yyvsp[0].i_var)); code("ldc %d",(yyvsp[0].i_var)); (yyval.obj_val) = (yyvsp[0].obj_val); (yyval.obj_val).type = 4;}
-#line 1852 "./build/y.tab.c"
+#line 1867 "./build/y.tab.c"
     break;
 
-  case 89: /* Expression: STR_LIT  */
-#line 254 "./compiler.y"
+  case 88: /* Expression: STR_LIT  */
+#line 274 "./compiler.y"
                { 
         (yyval.obj_val) = (yyvsp[0].obj_val); 
         (yyval.obj_val).type = 9; 
@@ -1860,148 +1875,148 @@ yyreduce:
         printf("STR_LIT \"%s\"\n", (yyvsp[0].s_var)); 
         code("ldc \"%s\"",(yyvsp[0].s_var));
         }
-#line 1864 "./build/y.tab.c"
+#line 1879 "./build/y.tab.c"
     break;
 
-  case 90: /* Expression: '(' Expression ')'  */
-#line 261 "./compiler.y"
+  case 89: /* Expression: '(' Expression ')'  */
+#line 281 "./compiler.y"
                           { (yyval.obj_val) = (yyvsp[-1].obj_val);}
-#line 1870 "./build/y.tab.c"
+#line 1885 "./build/y.tab.c"
     break;
 
-  case 91: /* Expression: BOOL_LIT  */
-#line 262 "./compiler.y"
+  case 90: /* Expression: BOOL_LIT  */
+#line 282 "./compiler.y"
                 {  // 處理true false
         printf("BOOL_LIT %s\n",((yyvsp[0].b_var) %2 == 1)?"TRUE":"FALSE"); 
         (yyval.obj_val) = (yyvsp[0].obj_val); 
         (yyval.obj_val).type = 8;
         ((yyvsp[0].b_var) %2 == 1)?codeRaw("iconst_1"):codeRaw("iconst_0");
         }
-#line 1881 "./build/y.tab.c"
+#line 1896 "./build/y.tab.c"
     break;
 
-  case 92: /* Expression: '(' VARIABLE_T ')' Expression  */
-#line 268 "./compiler.y"
-                                                 { castTo((yyvsp[-2].var_type)); }
-#line 1887 "./build/y.tab.c"
-    break;
-
-  case 93: /* Expression: FLOAT_LIT  */
-#line 269 "./compiler.y"
-                {printf("FLOAT_LIT %f\n",(yyvsp[0].f_var)); code("ldc %f",(yyvsp[0].f_var)); (yyval.obj_val) = (yyvsp[0].obj_val); (yyval.obj_val).type = 6;}
-#line 1893 "./build/y.tab.c"
-    break;
-
-  case 94: /* Expression: IDENT  */
-#line 270 "./compiler.y"
-            {  (yyval.obj_val) = (yyvsp[0].obj_val); (yyval.obj_val).type = findObjectType((yyvsp[0].s_var));}
-#line 1899 "./build/y.tab.c"
-    break;
-
-  case 95: /* $@18: %empty  */
-#line 271 "./compiler.y"
-                       { printf("INT_LIT %d\n",(yyvsp[0].i_var));}
-#line 1905 "./build/y.tab.c"
-    break;
-
-  case 96: /* Expression: IDENT '[' INT_LIT $@18 ']'  */
-#line 271 "./compiler.y"
-                                                         {(yyval.obj_val) = (yyvsp[-4].obj_val); (yyval.obj_val).type = findObjectType((yyvsp[-4].s_var)); }
-#line 1911 "./build/y.tab.c"
-    break;
-
-  case 98: /* Assign: ADD_ASSIGN Expression  */
-#line 277 "./compiler.y"
-                            { printf("ADD_ASSIGN\n"); }
-#line 1917 "./build/y.tab.c"
-    break;
-
-  case 99: /* Assign: EQL_ASSIGN Expression  */
-#line 278 "./compiler.y"
-                            { printf("EQL_ASSIGN\n"); }
-#line 1923 "./build/y.tab.c"
-    break;
-
-  case 100: /* Assign: SUB_ASSIGN Expression  */
-#line 279 "./compiler.y"
-                            { printf("SUB_ASSIGN\n"); }
-#line 1929 "./build/y.tab.c"
-    break;
-
-  case 101: /* Assign: MUL_ASSIGN Expression  */
-#line 280 "./compiler.y"
-                            { printf("MUL_ASSIGN\n"); }
-#line 1935 "./build/y.tab.c"
-    break;
-
-  case 102: /* Assign: REM_ASSIGN Expression  */
-#line 281 "./compiler.y"
-                            { printf("REM_ASSIGN\n"); }
-#line 1941 "./build/y.tab.c"
-    break;
-
-  case 103: /* Assign: SHR_ASSIGN Expression  */
-#line 282 "./compiler.y"
-                            { printf("SHR_ASSIGN\n"); }
-#line 1947 "./build/y.tab.c"
-    break;
-
-  case 104: /* Assign: SHL_ASSIGN Expression  */
-#line 283 "./compiler.y"
-                            { printf("SHL_ASSIGN\n"); }
-#line 1953 "./build/y.tab.c"
-    break;
-
-  case 105: /* Assign: BAN_ASSIGN Expression  */
-#line 284 "./compiler.y"
-                            { printf("BAN_ASSIGN\n"); }
-#line 1959 "./build/y.tab.c"
-    break;
-
-  case 106: /* Assign: BOR_ASSIGN Expression  */
-#line 285 "./compiler.y"
-                            { printf("BOR_ASSIGN\n"); }
-#line 1965 "./build/y.tab.c"
-    break;
-
-  case 107: /* Assign: BXO_ASSIGN Expression  */
-#line 286 "./compiler.y"
-                            { printf("BXO_ASSIGN\n"); }
-#line 1971 "./build/y.tab.c"
-    break;
-
-  case 108: /* Assign: INC_ASSIGN Expression  */
-#line 287 "./compiler.y"
-                            { printf("INC_ASSIGN\n"); }
-#line 1977 "./build/y.tab.c"
-    break;
-
-  case 109: /* Assign: DEC_ASSIGN Expression  */
+  case 91: /* Expression: '(' VARIABLE_T ')' Expression  */
 #line 288 "./compiler.y"
-                            { printf("DEC_ASSIGN\n"); }
-#line 1983 "./build/y.tab.c"
+                                                 { castTo((yyvsp[-2].var_type)); }
+#line 1902 "./build/y.tab.c"
     break;
 
-  case 110: /* Assign: DIV_ASSIGN Expression  */
+  case 92: /* Expression: FLOAT_LIT  */
 #line 289 "./compiler.y"
+                {printf("FLOAT_LIT %f\n",(yyvsp[0].f_var)); code("ldc %f",(yyvsp[0].f_var)); (yyval.obj_val) = (yyvsp[0].obj_val); (yyval.obj_val).type = 6;}
+#line 1908 "./build/y.tab.c"
+    break;
+
+  case 93: /* Expression: IDENT  */
+#line 290 "./compiler.y"
+            {  (yyval.obj_val) = (yyvsp[0].obj_val); (yyval.obj_val).type = findObjectType((yyvsp[0].s_var));}
+#line 1914 "./build/y.tab.c"
+    break;
+
+  case 94: /* $@18: %empty  */
+#line 291 "./compiler.y"
+                       { printf("INT_LIT %d\n",(yyvsp[0].i_var));}
+#line 1920 "./build/y.tab.c"
+    break;
+
+  case 95: /* Expression: IDENT '[' INT_LIT $@18 ']'  */
+#line 291 "./compiler.y"
+                                                         {(yyval.obj_val) = (yyvsp[-4].obj_val); (yyval.obj_val).type = findObjectType((yyvsp[-4].s_var)); }
+#line 1926 "./build/y.tab.c"
+    break;
+
+  case 97: /* Assign: ADD_ASSIGN Expression  */
+#line 297 "./compiler.y"
+                            { printf("ADD_ASSIGN\n"); }
+#line 1932 "./build/y.tab.c"
+    break;
+
+  case 98: /* Assign: EQL_ASSIGN Expression  */
+#line 298 "./compiler.y"
+                            { printf("EQL_ASSIGN\n"); }
+#line 1938 "./build/y.tab.c"
+    break;
+
+  case 99: /* Assign: SUB_ASSIGN Expression  */
+#line 299 "./compiler.y"
+                            { printf("SUB_ASSIGN\n"); }
+#line 1944 "./build/y.tab.c"
+    break;
+
+  case 100: /* Assign: MUL_ASSIGN Expression  */
+#line 300 "./compiler.y"
+                            { printf("MUL_ASSIGN\n"); }
+#line 1950 "./build/y.tab.c"
+    break;
+
+  case 101: /* Assign: REM_ASSIGN Expression  */
+#line 301 "./compiler.y"
+                            { printf("REM_ASSIGN\n"); }
+#line 1956 "./build/y.tab.c"
+    break;
+
+  case 102: /* Assign: SHR_ASSIGN Expression  */
+#line 302 "./compiler.y"
+                            { printf("SHR_ASSIGN\n"); }
+#line 1962 "./build/y.tab.c"
+    break;
+
+  case 103: /* Assign: SHL_ASSIGN Expression  */
+#line 303 "./compiler.y"
+                            { printf("SHL_ASSIGN\n"); }
+#line 1968 "./build/y.tab.c"
+    break;
+
+  case 104: /* Assign: BAN_ASSIGN Expression  */
+#line 304 "./compiler.y"
+                            { printf("BAN_ASSIGN\n"); }
+#line 1974 "./build/y.tab.c"
+    break;
+
+  case 105: /* Assign: BOR_ASSIGN Expression  */
+#line 305 "./compiler.y"
+                            { printf("BOR_ASSIGN\n"); }
+#line 1980 "./build/y.tab.c"
+    break;
+
+  case 106: /* Assign: BXO_ASSIGN Expression  */
+#line 306 "./compiler.y"
+                            { printf("BXO_ASSIGN\n"); }
+#line 1986 "./build/y.tab.c"
+    break;
+
+  case 107: /* Assign: INC_ASSIGN Expression  */
+#line 307 "./compiler.y"
+                            { printf("INC_ASSIGN\n"); }
+#line 1992 "./build/y.tab.c"
+    break;
+
+  case 108: /* Assign: DEC_ASSIGN Expression  */
+#line 308 "./compiler.y"
+                            { printf("DEC_ASSIGN\n"); }
+#line 1998 "./build/y.tab.c"
+    break;
+
+  case 109: /* Assign: DIV_ASSIGN Expression  */
+#line 309 "./compiler.y"
                             { printf("DIV_ASSIGN\n"); }
-#line 1989 "./build/y.tab.c"
+#line 2004 "./build/y.tab.c"
     break;
 
-  case 111: /* Assign2: EQL_ASSIGN Expression  */
-#line 292 "./compiler.y"
+  case 110: /* Assign2: EQL_ASSIGN Expression  */
+#line 312 "./compiler.y"
                             { autoType = (yyvsp[0].i_var) ;}
-#line 1995 "./build/y.tab.c"
+#line 2010 "./build/y.tab.c"
     break;
 
-  case 112: /* Assign2: EQL_ASSIGN IDENT '(' Func ')'  */
-#line 293 "./compiler.y"
+  case 111: /* Assign2: EQL_ASSIGN IDENT '(' Func ')'  */
+#line 313 "./compiler.y"
                                     {  findObjectType((yyvsp[-3].s_var));printf("call: check(IILjava/lang/String;B)B\n");}
-#line 2001 "./build/y.tab.c"
+#line 2016 "./build/y.tab.c"
     break;
 
 
-#line 2005 "./build/y.tab.c"
+#line 2020 "./build/y.tab.c"
 
       default: break;
     }
@@ -2194,6 +2209,6 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 296 "./compiler.y"
+#line 316 "./compiler.y"
 
 /* C code section */

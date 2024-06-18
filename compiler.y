@@ -7,6 +7,7 @@
     int yydebug = 1;
     int arrNum = 0;
     int autoType = 100;   // 為了對付auto型別，平時為100，用完回歸100
+    int Label_num = 0;
 
 %}
 
@@ -222,26 +223,45 @@ Expression
         $$.type = 9;
         $$.name = "endl";
         codeRaw("invokevirtual java/io/PrintStream/println()V");} 
-    | Expression ADD Expression { printf("ADD\n"); codeRaw("iadd"); /* 處理加法運算 */ }
-    | Expression SUB Expression { printf("SUB\n"); codeRaw("isub"); /* 處理減法運算 */ }    
-    | Expression MUL Expression { printf("MUL\n"); codeRaw("imul"); /* 處理乘法運算 */ }
-    | Expression DIV Expression { printf("DIV\n"); codeRaw("idiv"); /* 處理除法運算 */ }
+    | Expression ADD Expression { printf("ADD\n"); code("%sadd",($1.type == 4)?"i":"f"); /* 處理加法運算 */ }
+    | Expression SUB Expression { printf("SUB\n"); code("%ssub",($1.type == 4)?"i":"f"); /* 處理減法運算 */ }    
+    | Expression MUL Expression { printf("MUL\n"); code("%smul",($1.type == 4)?"i":"f"); /* 處理乘法運算 */ }
+    | Expression DIV Expression { printf("DIV\n"); code("%sdiv",($1.type == 4)?"i":"f"); /* 處理除法運算 */ }
     | Expression REM Expression { printf("REM\n"); codeRaw("irem"); /* 處理取餘運算 */ }
-    | SUB Expression %prec UMINUS { printf("NEG\n"); codeRaw("ineg");  } // 處理負號
+    | SUB Expression %prec UMINUS { printf("NEG\n"); code("%sneg",($2.type == 4)?"i":"f");  } // 處理負號
     | Expression GTR Expression { printf("GTR\n"); /*大於*/
         $$ = $<obj_val>2; 
         $$.type = 8; 
-        codeRaw("if_icmpgt greaterThanLabel0");  //如果大於就跳
-        codeRaw("iconst_0");
-        codeRaw("goto endLable0");
-        codeRaw("greaterThanLable0:");           //大於的話做這邊
-        codeRaw("iconst_1");
-        codeRaw("endLabel0:");  }                // 大於的處理結束
+        if($1.type == 4){  // int
+            code("if_icmpgt greaterThanLabel%d",Label_num);  //如果大於就跳
+            codeRaw("iconst_0");
+            code("goto endLabel%d",Label_num);
+            code("greaterThanLabel%d:",Label_num);           //大於的話做這邊
+            codeRaw("iconst_1");
+            code("endLabel%d:",Label_num++);  
+        }else if($1.type == 6){  // float
+            codeRaw("fcmpg");
+            code("ifgt greaterThanLabel%d",Label_num);  //如果大於就跳
+            codeRaw("iconst_0");
+            code("goto endLabel%d",Label_num);
+            code("greaterThanLabel%d:",Label_num);           //大於的話做這邊
+            codeRaw("iconst_1");
+            code("endLabel%d:",Label_num++);  
+        }
+         }                // 大於的處理結束
     | Expression LES Expression { printf("LES\n"); $$ = $<obj_val>2; $$.type = 8; /* 小於 */ }
-    | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8; }
     | Expression GEQ Expression { printf("GEQ\n"); $$ = $<obj_val>2; $$.type = 8;}
     | Expression EQL Expression { printf("EQL\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理等於運算 */ }
-    | Expression NEQ Expression { printf("NEQ\n"); $$ = $<obj_val>2; $$.type = 8;/* 處理運算 */ } 
+    | Expression NEQ Expression { /* 處理運算 */
+        printf("NEQ\n"); 
+        $$ = $<obj_val>2; 
+        $$.type = 8;
+        code("if_icmpne notEqualToLabel%d",Label_num);
+        codeRaw("iconst_0");
+        code("goto endLabel%d",Label_num);
+        code("notEqualToLabel%d:",Label_num);
+        codeRaw("iconst_1");
+        code("endLabel%d:",Label_num++); } 
     | Expression LAN Expression { printf("LAN\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iand");/* 處理and運算 */ }
     | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("ior"); } 
     | Expression BAN Expression { printf("BAN\n"); $$ = $<obj_val>2; $$.type = 8;/* and & */} 
@@ -249,7 +269,7 @@ Expression
     | Expression BOR Expression { printf("BOR\n"); $$ = $<obj_val>2; $$.type = 8;} 
     | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8;} 
     | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;} 
-    | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iconst_0");/* 處理NOT運算，iconst_1 做xor */ }
+    | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iconst_1"); codeRaw("ixor");/* 處理NOT運算，iconst_1 做xor */ }
     | INT_LIT  {printf("INT_LIT %d\n",$1); code("ldc %d",$1); $$ = $<obj_val>1; $$.type = 4;}
     | STR_LIT  { 
         $$ = $<obj_val>1; 
