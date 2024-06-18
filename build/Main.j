@@ -5,12 +5,6 @@
     .limit stack 100
     .limit locals 100
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    ldc "Hello "
-     
-    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    ldc "World"
-     
-    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
+    ldc "Hello World!"
     return
     .end method

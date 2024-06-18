@@ -211,7 +211,12 @@ CoutParmListStmt
 ;
 // IDENT => 變數的意思
 Expression
-    : Expression ENDL Expression { printf("IDENT (name=endl, address=-1)\n");$$ = $<obj_val>2; $$.type = 9;} 
+    : Expression ENDL Expression {
+        printf("IDENT (name=endl, address=-1)\n");
+        $$ = $<obj_val>2; 
+        $$.type = 9;
+        codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;");
+        codeRaw("invokevirtual java/io/PrintStream/println()V");} 
     | Expression ADD Expression { printf("ADD\n"); /* 處理加法運算 */ }
     | Expression SUB Expression { printf("SUB\n"); /* 處理減法運算 */ }    
     | Expression MUL Expression { printf("MUL\n"); /* 處理乘法運算 */ }
