@@ -288,7 +288,7 @@ Expression
         }
     | '(' VARIABLE_T ')' Expression %prec UMINUS { castTo($<var_type>2); }    /// 提高它的優先權 使之較 ( exp ) 更早執行
     | FLOAT_LIT {printf("FLOAT_LIT %f\n",$1); code("ldc %f",$1); $$ = $<obj_val>1; $$.type = 6;}
-    | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1); }
+    | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);}
     | IDENT '['INT_LIT { printf("INT_LIT %d\n",$3);} ']' {$$ = $<obj_val>1; $$.type = findObjectType($<s_var>1); }
     |
 ;
