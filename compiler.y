@@ -7,7 +7,8 @@
     int yydebug = 1;
     int arrNum = 0;
     int autoType = 100;   // 為了對付auto型別，平時為100，用完回歸100
-    int Label_num = 0;
+    int Label_num = 0;    // lablel數量
+    int var_num = 1;      // 變數數量，參照booker 從1開始
 
 %}
 
@@ -96,7 +97,7 @@ IDENTS
     : IDENTS ',' IDENT { pushSymbleData(autoType , $<s_var>3); autoType = 100; }    // 傳入100是為了對付 int a , b 這種狀況
     | IDENT {  pushSymbleData(autoType, $<s_var>1); autoType = 100; }
     | IDENTS ',' IDENT Assign2 { pushSymbleData(autoType, $<s_var>3); autoType = 100; }
-    | IDENT  Assign2 { pushSymbleData(autoType, $<s_var>1); autoType = 100; }  //// d 走這邊
+    | IDENT  Assign2 { pushSymbleData(autoType, $<s_var>1); autoType = 100; } 
     | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, $<s_var>1); autoType = 100;} 
                                                                         ///  這邊要改成實際幾個數字
 
@@ -119,9 +120,9 @@ FunctionParameterStmtList
     | FunctionParameterStmt {   }
     | /* Empty function parameter */
 ;
-FunctionParameterStmt
+FunctionParameterStmt   
     : VARIABLE_T IDENT '[' ']'{ pushFunParm($<var_type>1, $<s_var>2, VAR_FLAG_DEFAULT); }
-    | VARIABLE_T IDENT { pushFunParm($<var_type>1, $<s_var>2, VAR_FLAG_DEFAULT); }
+    | VARIABLE_T IDENT { pushFunParm($<var_type>1, $<s_var>2, VAR_FLAG_DEFAULT);}
     /*變數類型  變數名稱*/
 ;
 
@@ -287,7 +288,7 @@ Expression
         }
     | '(' VARIABLE_T ')' Expression %prec UMINUS { castTo($<var_type>2); }    /// 提高它的優先權 使之較 ( exp ) 更早執行
     | FLOAT_LIT {printf("FLOAT_LIT %f\n",$1); code("ldc %f",$1); $$ = $<obj_val>1; $$.type = 6;}
-    | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);}
+    | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1); }
     | IDENT '['INT_LIT { printf("INT_LIT %d\n",$3);} ']' {$$ = $<obj_val>1; $$.type = findObjectType($<s_var>1); }
     |
 ;
@@ -309,7 +310,7 @@ Assign
     | DIV_ASSIGN Expression { printf("DIV_ASSIGN\n"); } 
 ;     
 Assign2
-    : EQL_ASSIGN Expression { autoType = $<i_var>2 ;}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);
+    : EQL_ASSIGN Expression { autoType = $<i_var>2 ;  code("istore %d",var_num);}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);
     | EQL_ASSIGN IDENT  '(' Func')' {  findObjectType($<s_var>2);printf("call: check(IILjava/lang/String;B)B\n");}
     | EQL_ASSIGN '{'Arr'}' 
 ;    
