@@ -435,6 +435,18 @@ void invokevirtual(int type){
 }
 
 
+// 印出istore用的
+void y_store(char *target){
+    for(int j = 0 ; j <= scopeLevel ; j++){
+        for(int i = 0 ; i < symbolsLevel[j] ; i++){     ///  有可能在 scope = 2 時使用scope = 1 的東西，會壞掉
+            if( strcmp(symbols[j][i].name, target)==0 ){
+                storeMatrix(symbols[j][i]);     /// FIXME:吃屎ˋ吧
+            }
+        }
+    }
+}
+
+
 int main(int argc, char* argv[]) {
     char* outputFileName = NULL;
     if (argc == 3) {

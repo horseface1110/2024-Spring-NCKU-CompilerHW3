@@ -1476,7 +1476,7 @@ yyreduce:
 
   case 11: /* DefineVariableStmt: Expression Assign ';'  */
 #line 93 "./compiler.y"
-                            {printf("name = %s\n",(yyvsp[-2].obj_val).name);}
+                            {y_store((yyvsp[-2].obj_val).name);}
 #line 1481 "./build/y.tab.c"
     break;
 

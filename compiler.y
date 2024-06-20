@@ -90,7 +90,7 @@ GlobalStmt
 DefineVariableStmt
     : VARIABLE_T { autoType = $<var_type>1;} IDENTS';' { changePSD($<var_type>1); autoType = 100; }
     /*變數類型  變數名稱 賦值運算符    */
-    | Expression Assign ';' {printf("name = %s\n",$1.name);}   // = 走這邊 怪怪的             需要想個辦法抓到 x = 10  這邊的 x 變數名稱  
+    | Expression Assign ';' {y_store($1.name);}   // = 走這邊 怪怪的             需要想個辦法抓到 x = 10  這邊的 x 變數名稱  
 ;
 
 IDENTS
