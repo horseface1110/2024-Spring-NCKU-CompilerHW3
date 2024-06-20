@@ -1725,25 +1725,25 @@ yyreduce:
 
   case 69: /* Expression: Expression ADD Expression  */
 #line 226 "./compiler.y"
-                                { printf("ADD\n"); code("%sadd",((yyvsp[-2].obj_val).type == 4)?"i":"f"); /* 處理加法運算 */ }
+                                { printf("ADD\n"); code("%sadd",getIdentTypeString((yyvsp[-2].obj_val).type)); /* 處理加法運算 */ }
 #line 1730 "./build/y.tab.c"
     break;
 
   case 70: /* Expression: Expression SUB Expression  */
 #line 227 "./compiler.y"
-                                { printf("SUB\n"); code("%ssub",((yyvsp[-2].obj_val).type == 4)?"i":"f"); /* 處理減法運算 */ }
+                                { printf("SUB\n"); code("%ssub",getIdentTypeString((yyvsp[-2].obj_val).type)); /* 處理減法運算 */ }
 #line 1736 "./build/y.tab.c"
     break;
 
   case 71: /* Expression: Expression MUL Expression  */
 #line 228 "./compiler.y"
-                                { printf("MUL\n"); code("%smul",((yyvsp[-2].obj_val).type == 4)?"i":"f"); /* 處理乘法運算 */ }
+                                { printf("MUL\n"); code("%smul",getIdentTypeString((yyvsp[-2].obj_val).type)); /* 處理乘法運算 */ }
 #line 1742 "./build/y.tab.c"
     break;
 
   case 72: /* Expression: Expression DIV Expression  */
 #line 229 "./compiler.y"
-                                { printf("DIV\n"); code("%sdiv",((yyvsp[-2].obj_val).type == 4)?"i":"f"); /* 處理除法運算 */ }
+                                { printf("DIV\n"); code("%sdiv",getIdentTypeString((yyvsp[-2].obj_val).type)); /* 處理除法運算 */ }
 #line 1748 "./build/y.tab.c"
     break;
 
@@ -1755,7 +1755,7 @@ yyreduce:
 
   case 74: /* Expression: SUB Expression  */
 #line 231 "./compiler.y"
-                                  { printf("NEG\n"); code("%sneg",((yyvsp[0].obj_val).type == 4)?"i":"f");  }
+                                  { printf("NEG\n"); code("%sneg",getIdentTypeString((yyvsp[0].obj_val).type));  }
 #line 1760 "./build/y.tab.c"
     break;
 

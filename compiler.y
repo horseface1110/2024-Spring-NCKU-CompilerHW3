@@ -223,12 +223,12 @@ Expression
         $$.type = 9;
         $$.name = "endl";
         codeRaw("invokevirtual java/io/PrintStream/println()V");} 
-    | Expression ADD Expression { printf("ADD\n"); code("%sadd",($1.type == 4)?"i":"f"); /* 處理加法運算 */ }
-    | Expression SUB Expression { printf("SUB\n"); code("%ssub",($1.type == 4)?"i":"f"); /* 處理減法運算 */ }    
-    | Expression MUL Expression { printf("MUL\n"); code("%smul",($1.type == 4)?"i":"f"); /* 處理乘法運算 */ }
-    | Expression DIV Expression { printf("DIV\n"); code("%sdiv",($1.type == 4)?"i":"f"); /* 處理除法運算 */ }
+    | Expression ADD Expression { printf("ADD\n"); code("%sadd",getIdentTypeString($1.type)); /* 處理加法運算 */ }
+    | Expression SUB Expression { printf("SUB\n"); code("%ssub",getIdentTypeString($1.type)); /* 處理減法運算 */ }    
+    | Expression MUL Expression { printf("MUL\n"); code("%smul",getIdentTypeString($1.type)); /* 處理乘法運算 */ }
+    | Expression DIV Expression { printf("DIV\n"); code("%sdiv",getIdentTypeString($1.type)); /* 處理除法運算 */ }
     | Expression REM Expression { printf("REM\n"); codeRaw("irem"); /* 處理取餘運算 */ }
-    | SUB Expression %prec UMINUS { printf("NEG\n"); code("%sneg",($2.type == 4)?"i":"f");  } // 處理負號
+    | SUB Expression %prec UMINUS { printf("NEG\n"); code("%sneg",getIdentTypeString($2.type));  } // 處理負號
     | Expression GTR Expression { printf("GTR\n"); /*大於*/
         $$ = $<obj_val>2; 
         $$.type = 8; 
