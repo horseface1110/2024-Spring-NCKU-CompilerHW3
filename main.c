@@ -106,6 +106,7 @@ int pushsym = 0;            // 紀錄這段時間推了幾個參數進來，這�
 int JNI[9][2] = {0};        // 紀錄函式參數給JNI用，前為陣列TF，後為type
 int JNI_count = 0;
 bool now_Fun = false;        // 紀錄現在是不是在創建一個fun 預設false
+bool printLoad = false;     // 能不能印load 預設不能
 
 
 void pushScope() {
@@ -411,7 +412,10 @@ int findObjectType(char* target){
         for(int i = 0 ; i < symbolsLevel[j] ; i++){     ///  有可能在 scope = 2 時使用scope = 1 的東西，會壞掉
             if( strcmp(symbols[j][i].name, target)==0 ){
                 printf("IDENT (name=%s, address=%d)\n",symbols[j][i].name,symbols[j][i].addr);
-                loadMatrix(symbols[j][i]);     /// FIXME:吃屎ˋ吧
+                if(printLoad){
+                    loadMatrix(symbols[j][i]);   
+                    printLoad = false;
+                }
                 return symbols[j][i].func_var;
             }
         }
@@ -456,6 +460,10 @@ char* getIdentTypeString(int type){
         case 6: return "f";
         case 7: return "d";
     }
+}
+
+void setLoad(bool target){
+    printLoad = target;
 }
 
 
