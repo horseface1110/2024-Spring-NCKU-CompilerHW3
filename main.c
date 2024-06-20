@@ -363,10 +363,12 @@ void pushSymbleData(ObjectType variableType, char* Name){
         printf("> Insert `%s` (addr: %d) to scope level %d\n",Name,symbols[scopeLevel][symbolsLevel[scopeLevel]].addr,scopeLevel,symbols[scopeLevel][symbolsLevel[scopeLevel]].func_var);
         variableAddress++;
     }
-    
+
+    // 以下處理作業三：
+
+
     pushsym++;
     symbolsLevel[scopeLevel]++;
-    // printf("symbolsLevel[%d] = %d, pushsym = %d\n",scopeLevel,symbolsLevel[scopeLevel],pushsym);
 }
 
 // 專門給 變數 IDENT 用的

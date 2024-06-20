@@ -88,17 +88,17 @@ GlobalStmt
 ;
 
 DefineVariableStmt
-    : VARIABLE_T  IDENTS';' { changePSD($<var_type>1); }  
+    : VARIABLE_T { autoType = $<var_type>1;} IDENTS';' { changePSD($<var_type>1); autoType = 100; }
     /*變數類型  變數名稱 賦值運算符    */
     | Expression Assign ';' 
 ;
 
 IDENTS
-    : IDENTS ',' IDENT { pushSymbleData(autoType , $<s_var>3); autoType = 100; }    // 傳入100是為了對付 int a , b 這種狀況
-    | IDENT {  pushSymbleData(autoType, $<s_var>1); autoType = 100; }
-    | IDENTS ',' IDENT Assign2 { pushSymbleData(autoType, $<s_var>3); autoType = 100; }
-    | IDENT  Assign2 { pushSymbleData(autoType, $<s_var>1); autoType = 100; } 
-    | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, $<s_var>1); autoType = 100;} 
+    : IDENTS ',' IDENT { pushSymbleData(autoType , $<s_var>3); }    // 傳入100是為了對付 int a , b 這種狀況
+    | IDENT {  pushSymbleData(autoType, $<s_var>1); }
+    | IDENTS ',' IDENT Assign2 { pushSymbleData(autoType, $<s_var>3); }
+    | IDENT  Assign2 { pushSymbleData(autoType, $<s_var>1);  } 
+    | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, $<s_var>1); } 
                                                                         ///  這邊要改成實際幾個數字
 
 ;
@@ -174,7 +174,7 @@ ForStmt
 ;
 
 ForSecond
-    : VARIABLE_T  IDENTS  { changePSD($<var_type>1); }  
+    : VARIABLE_T  IDENTS  
     /*變數類型  變數名稱 賦值運算符    */
     | Expression Assign 
     |
@@ -182,7 +182,7 @@ ForSecond
 
 ForThrid
     : '(' ForSecond';' Expression ';' ForSecond ')'
-    |  %prec UMINUS '(' ForSecond ':' IDENT ')' { changePSD(findObjectType($<s_var>5));}
+    |  %prec UMINUS '(' ForSecond ':' IDENT ')' 
 ;
 
 /* funct scope */
