@@ -21,6 +21,7 @@
     invokevirtual java/io/PrintStream/println()V
     iload 1 ; x
     ldc 2
+    iadd
     istore 1 ; x
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 1 ; x
@@ -29,6 +30,7 @@
     invokevirtual java/io/PrintStream/println()V
     iload 1 ; x
     ldc 3
+    isub
     istore 1 ; x
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 1 ; x
@@ -37,6 +39,7 @@
     invokevirtual java/io/PrintStream/println()V
     iload 1 ; x
     ldc 4
+    imul
     istore 1 ; x
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 1 ; x
@@ -45,6 +48,7 @@
     invokevirtual java/io/PrintStream/println()V
     iload 1 ; x
     ldc 5
+    idiv
     istore 1 ; x
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 1 ; x
@@ -53,6 +57,7 @@
     invokevirtual java/io/PrintStream/println()V
     iload 1 ; x
     ldc 6
+    irem
     istore 1 ; x
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 1 ; x
@@ -61,6 +66,7 @@
     invokevirtual java/io/PrintStream/println()V
     iload 1 ; x
     ldc 4092
+    ior
     istore 1 ; x
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 1 ; x
@@ -69,6 +75,7 @@
     invokevirtual java/io/PrintStream/println()V
     iload 1 ; x
     ldc 255
+    iand
     istore 1 ; x
     getstatic java/lang/System/out Ljava/io/PrintStream;
     iload 1 ; x
@@ -92,6 +99,7 @@
     invokevirtual java/io/PrintStream/println()V
     fload 2 ; yy
     ldc 2.000000
+    fadd
     fstore 2 ; yy
     getstatic java/lang/System/out Ljava/io/PrintStream;
     fload 2 ; yy
@@ -100,6 +108,7 @@
     invokevirtual java/io/PrintStream/println()V
     fload 2 ; yy
     ldc 3.000000
+    fsub
     fstore 2 ; yy
     getstatic java/lang/System/out Ljava/io/PrintStream;
     fload 2 ; yy
@@ -108,6 +117,7 @@
     invokevirtual java/io/PrintStream/println()V
     fload 2 ; yy
     ldc 4.000000
+    fmul
     fstore 2 ; yy
     getstatic java/lang/System/out Ljava/io/PrintStream;
     fload 2 ; yy
@@ -116,6 +126,7 @@
     invokevirtual java/io/PrintStream/println()V
     fload 2 ; yy
     ldc 5.000000
+    fdiv
     fstore 2 ; yy
     getstatic java/lang/System/out Ljava/io/PrintStream;
     fload 2 ; yy

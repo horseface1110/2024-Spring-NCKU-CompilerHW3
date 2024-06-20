@@ -447,6 +447,18 @@ void y_store(char *target){
 }
 
 
+char* getIdentTypeString(int type){
+    switch(type){
+        case 4: return "i";
+        case 8: return "i";
+        case 5: return "l";
+        case 9: return "a";
+        case 6: return "f";
+        case 7: return "d";
+    }
+}
+
+
 int main(int argc, char* argv[]) {
     char* outputFileName = NULL;
     if (argc == 3) {

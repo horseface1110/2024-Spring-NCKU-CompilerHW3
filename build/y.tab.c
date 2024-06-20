@@ -1932,7 +1932,7 @@ yyreduce:
 
   case 98: /* Assign: ADD_ASSIGN Expression  */
 #line 297 "./compiler.y"
-                            { printf("ADD_ASSIGN\n"); }
+                            { printf("ADD_ASSIGN\n"); code("%sadd",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1937 "./build/y.tab.c"
     break;
 
@@ -1944,67 +1944,67 @@ yyreduce:
 
   case 100: /* Assign: SUB_ASSIGN Expression  */
 #line 299 "./compiler.y"
-                            { printf("SUB_ASSIGN\n"); }
+                            { printf("SUB_ASSIGN\n"); code("%ssub",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1949 "./build/y.tab.c"
     break;
 
   case 101: /* Assign: MUL_ASSIGN Expression  */
 #line 300 "./compiler.y"
-                            { printf("MUL_ASSIGN\n"); }
+                            { printf("MUL_ASSIGN\n"); code("%smul",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1955 "./build/y.tab.c"
     break;
 
   case 102: /* Assign: REM_ASSIGN Expression  */
 #line 301 "./compiler.y"
-                            { printf("REM_ASSIGN\n"); }
+                            { printf("REM_ASSIGN\n"); code("%srem",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1961 "./build/y.tab.c"
     break;
 
   case 103: /* Assign: SHR_ASSIGN Expression  */
 #line 302 "./compiler.y"
-                            { printf("SHR_ASSIGN\n"); }
+                            { printf("SHR_ASSIGN\n"); code("%sadd",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1967 "./build/y.tab.c"
     break;
 
   case 104: /* Assign: SHL_ASSIGN Expression  */
 #line 303 "./compiler.y"
-                            { printf("SHL_ASSIGN\n"); }
+                            { printf("SHL_ASSIGN\n"); code("%sadd",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1973 "./build/y.tab.c"
     break;
 
   case 105: /* Assign: BAN_ASSIGN Expression  */
 #line 304 "./compiler.y"
-                            { printf("BAN_ASSIGN\n"); }
+                            { printf("BAN_ASSIGN\n"); code("%sand",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1979 "./build/y.tab.c"
     break;
 
   case 106: /* Assign: BOR_ASSIGN Expression  */
 #line 305 "./compiler.y"
-                            { printf("BOR_ASSIGN\n"); }
+                            { printf("BOR_ASSIGN\n"); code("%sor",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1985 "./build/y.tab.c"
     break;
 
   case 107: /* Assign: BXO_ASSIGN Expression  */
 #line 306 "./compiler.y"
-                            { printf("BXO_ASSIGN\n"); }
+                            { printf("BXO_ASSIGN\n"); code("%sadd",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1991 "./build/y.tab.c"
     break;
 
   case 108: /* Assign: INC_ASSIGN Expression  */
 #line 307 "./compiler.y"
-                            { printf("INC_ASSIGN\n"); }
+                            { printf("INC_ASSIGN\n"); code("%sadd",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1997 "./build/y.tab.c"
     break;
 
   case 109: /* Assign: DEC_ASSIGN Expression  */
 #line 308 "./compiler.y"
-                            { printf("DEC_ASSIGN\n"); }
+                            { printf("DEC_ASSIGN\n"); code("%sadd",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 2003 "./build/y.tab.c"
     break;
 
   case 110: /* Assign: DIV_ASSIGN Expression  */
 #line 309 "./compiler.y"
-                            { printf("DIV_ASSIGN\n"); }
+                            { printf("DIV_ASSIGN\n"); code("%sdiv",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 2009 "./build/y.tab.c"
     break;
 

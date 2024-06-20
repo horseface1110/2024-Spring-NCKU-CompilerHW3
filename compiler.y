@@ -294,19 +294,19 @@ Expression
 
 
 Assign
-    : ADD_ASSIGN Expression { printf("ADD_ASSIGN\n"); } // +=
-    | EQL_ASSIGN Expression { printf("EQL_ASSIGN\n"); }
-    | SUB_ASSIGN Expression { printf("SUB_ASSIGN\n"); }
-    | MUL_ASSIGN Expression { printf("MUL_ASSIGN\n"); }
-    | REM_ASSIGN Expression { printf("REM_ASSIGN\n"); }
-    | SHR_ASSIGN Expression { printf("SHR_ASSIGN\n"); }
-    | SHL_ASSIGN Expression { printf("SHL_ASSIGN\n"); }
-    | BAN_ASSIGN Expression { printf("BAN_ASSIGN\n"); }
-    | BOR_ASSIGN Expression { printf("BOR_ASSIGN\n"); }
-    | BXO_ASSIGN Expression { printf("BXO_ASSIGN\n"); }
-    | INC_ASSIGN Expression { printf("INC_ASSIGN\n"); } // ++
-    | DEC_ASSIGN Expression { printf("DEC_ASSIGN\n"); }
-    | DIV_ASSIGN Expression { printf("DIV_ASSIGN\n"); } 
+    : ADD_ASSIGN Expression { printf("ADD_ASSIGN\n"); code("%sadd",getIdentTypeString($2.type));} // +=
+    | EQL_ASSIGN Expression { printf("EQL_ASSIGN\n"); } // ==
+    | SUB_ASSIGN Expression { printf("SUB_ASSIGN\n"); code("%ssub",getIdentTypeString($2.type));} // -=
+    | MUL_ASSIGN Expression { printf("MUL_ASSIGN\n"); code("%smul",getIdentTypeString($2.type));} // *=
+    | REM_ASSIGN Expression { printf("REM_ASSIGN\n"); code("%srem",getIdentTypeString($2.type));} // /=
+    | SHR_ASSIGN Expression { printf("SHR_ASSIGN\n"); code("%sadd",getIdentTypeString($2.type));}
+    | SHL_ASSIGN Expression { printf("SHL_ASSIGN\n"); code("%sadd",getIdentTypeString($2.type));}
+    | BAN_ASSIGN Expression { printf("BAN_ASSIGN\n"); code("%sand",getIdentTypeString($2.type));}
+    | BOR_ASSIGN Expression { printf("BOR_ASSIGN\n"); code("%sor",getIdentTypeString($2.type));}
+    | BXO_ASSIGN Expression { printf("BXO_ASSIGN\n"); code("%sadd",getIdentTypeString($2.type));}
+    | INC_ASSIGN Expression { printf("INC_ASSIGN\n"); code("%sadd",getIdentTypeString($2.type));} // ++
+    | DEC_ASSIGN Expression { printf("DEC_ASSIGN\n"); code("%sadd",getIdentTypeString($2.type));}
+    | DIV_ASSIGN Expression { printf("DIV_ASSIGN\n"); code("%sdiv",getIdentTypeString($2.type));} 
 ;     
 Assign2
     : EQL_ASSIGN Expression { autoType = $<i_var>2 ;}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);

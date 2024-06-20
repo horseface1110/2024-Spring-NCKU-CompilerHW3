@@ -95,6 +95,7 @@ void record_JNI(char* variableName);
 char* change_JNI(int main);
 
 void invokevirtual(int type);
+char* getIdentTypeString(int type);
 
 
 #endif
