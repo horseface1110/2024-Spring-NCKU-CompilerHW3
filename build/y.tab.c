@@ -2302,6 +2302,6 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 318 "./compiler.y"
+#line 321 "./compiler.y"
 
 /* C code section */

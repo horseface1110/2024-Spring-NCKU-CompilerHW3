@@ -6,6 +6,8 @@ Nonterminals useless in grammar
     $@10
     ManualScopeStmt
     BodyStmt
+    Assign3
+    $@35
 
 
 Terminals unused in grammar
@@ -34,6 +36,10 @@ Rules useless in grammar
   136                | BodyStmt
 
   137 BodyStmt: ';'
+
+  138 $@35: ε
+
+  139 Assign3: EQL_ASSIGN $@35 Expression
 
 
 Rules useless in parser due to conflicts
