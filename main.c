@@ -13,10 +13,10 @@
 #define toupper(_char) (_char - (char)32)
 
 #define iload(var) code("iload %" PRId64 " ; %s", (var).addr, (var).name)    /// 太牛逼了 原來address是這樣用的
-#define lload(var) code("lload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
-#define fload(var) code("fload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
-#define dload(var) code("dload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
-#define aload(var) code("aload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
+#define lload(var) code("lload %" PRId64 " ; %s", (var).addr, (var).name)
+#define fload(var) code("fload %" PRId64 " ; %s", (var).addr, (var).name)
+#define dload(var) code("dload %" PRId64 " ; %s", (var).addr, (var).name)
+#define aload(var) code("aload %" PRId64 " ; %s", (var).addr, (var).name)
 
 #define istore(var) code("istore %" PRId64 " ; %s", (var).addr, (var).name)
 #define lstore(var) code("lstore %" PRId64 " ; %s", (var).addr, (var).name)
@@ -49,16 +49,16 @@
   }
 
 #define loadMatrix(var)                                                        \
-  if ((var)->type == OBJECT_TYPE_FLOAT) {                                      \
+  if ((var).func_var == OBJECT_TYPE_FLOAT) {                                      \
     fload(var);                                                                \
-  } else if ((var)->type == OBJECT_TYPE_INT ||                                 \
-             (var)->type == OBJECT_TYPE_BOOL) {                                \
+  } else if ((var).func_var == OBJECT_TYPE_INT ||                                 \
+             (var).func_var == OBJECT_TYPE_BOOL) {                                \
     iload(var);                                                                \
-  } else if ((var)->type == OBJECT_TYPE_LONG) {                                \
+  } else if ((var).func_var == OBJECT_TYPE_LONG) {                                \
     lload(var);                                                                \
-  } else if ((var)->type == OBJECT_TYPE_DOUBLE) {                              \
+  } else if ((var).func_var == OBJECT_TYPE_DOUBLE) {                              \
     dload(var);                                                                \
-  } else if ((var)->type == OBJECT_TYPE_STR) {                                 \
+  } else if ((var).func_var == OBJECT_TYPE_STR) {                                 \
     aload(var);                                                                \
   }
 
@@ -407,26 +407,15 @@ void pushSymbleData(ObjectType variableType, char* Name){
 
 // 專門給 變數 IDENT 用的
 int findObjectType(char* target){   
-    // printf("hi\n"); 
-    // printf("target = %s\n",target);
     for(int j = 0 ; j <= scopeLevel ; j++){
         for(int i = 0 ; i < symbolsLevel[j] ; i++){     ///  有可能在 scope = 2 時使用scope = 1 的東西，會壞掉
-            // printf("symbols[%d][%d].name = %s\n",j,i,symbols[j][i].name);
             if( strcmp(symbols[j][i].name, target)==0 ){
                 printf("IDENT (name=%s, address=%d)\n",symbols[j][i].name,symbols[j][i].addr);
+                iload(symbols[j][i]);
                 return symbols[j][i].func_var;
             }
         }
     }
-
-    // for(int i = 0 ; i < symbolsLevel[scopeLevel] ; i++){     ///  有可能在 scope = 2 時使用scope = 1 的東西，會壞掉
-    //     if( strcmp(symbols[scopeLevel][i].name, target)==0 ){
-           
-    //         printf("IDENT (name=%s, address=%d)\n",symbols[scopeLevel][i].name,symbols[scopeLevel][i].addr);
-    //         return symbols[scopeLevel][i].func_var;
-    //     }
-    // }
-    
 }
 
 // 給強轉型用的，傳入一個objectType

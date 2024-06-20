@@ -208,7 +208,6 @@ InArr
 /*SHL : <<*/     
 CoutParmListStmt
     : CoutParmListStmt  SHL {codeRaw("getstatic java/lang/System/out Ljava/io/PrintStream;"); } Expression {
-        printf("adsadsfd %d \n",$4.type);
         if(strcmp($4.name,"endl")){
             invokevirtual($4.type);
         }
