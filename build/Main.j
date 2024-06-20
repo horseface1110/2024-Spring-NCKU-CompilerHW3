@@ -14,6 +14,7 @@
     iconst_m1
     ixor
     ldc 15
+    iand
     istore 1 ; a
     iload 2 ; b
     iload 1 ; a

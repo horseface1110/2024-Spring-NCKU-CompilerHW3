@@ -262,9 +262,9 @@ Expression
         code("notEqualToLabel%d:",Label_num);
         codeRaw("iconst_1");      
         code("endLabel%d:",Label_num++); } 
-    | Expression LAN Expression { printf("LAN\n"); $$ = $<obj_val>2; $$.type = 8; code("%sand",getIdentTypeString($3.type));/* 處理and運算 */ }
+    | Expression LAN Expression { printf("LAN\n"); $$ = $<obj_val>2; $$.type = 8; code("%sand",getIdentTypeString($3.type));/* 處理&&運算 */ }
     | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8; code("%sor",getIdentTypeString($3.type)); } 
-    | Expression BAN Expression { printf("BAN\n"); $$ = $<obj_val>2; $$.type = 8;/* and & */} 
+    | Expression BAN Expression { printf("BAN\n"); $$ = $<obj_val>2; $$.type = 8; code("%sand",getIdentTypeString($3.type));/* and & */} 
     | BNT Expression %prec UMINUS { printf("BNT\n");codeRaw("iconst_m1");code("%sxor",getIdentTypeString($2.type)); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}    
     | Expression BOR Expression { printf("BOR\n"); $$ = $<obj_val>2; $$.type = 8;} 
     | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8;} 

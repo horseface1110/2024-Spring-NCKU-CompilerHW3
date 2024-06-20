@@ -1819,7 +1819,7 @@ yyreduce:
 
   case 80: /* Expression: Expression LAN Expression  */
 #line 265 "./compiler.y"
-                                { printf("LAN\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; code("%sand",getIdentTypeString((yyvsp[0].obj_val).type));/* 處理and運算 */ }
+                                { printf("LAN\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; code("%sand",getIdentTypeString((yyvsp[0].obj_val).type));/* 處理&&運算 */ }
 #line 1824 "./build/y.tab.c"
     break;
 
@@ -1831,7 +1831,7 @@ yyreduce:
 
   case 82: /* Expression: Expression BAN Expression  */
 #line 267 "./compiler.y"
-                                { printf("BAN\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;/* and & */}
+                                { printf("BAN\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; code("%sand",getIdentTypeString((yyvsp[0].obj_val).type));/* and & */}
 #line 1836 "./build/y.tab.c"
     break;
 
