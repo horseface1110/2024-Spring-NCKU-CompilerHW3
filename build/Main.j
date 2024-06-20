@@ -4,27 +4,22 @@
     .method public static main([Ljava/lang/String;)V
     .limit stack 100
     .limit locals 100
-    iload 1 ; a
     ldc 243
     iconst_m1
     ixor
     ldc 15
     iand
     istore 1 ; a
-    iload 2 ; b
     iload 1 ; a
     ldc 1
     ishr
     istore 2 ; b
-    iload 3 ; c
     iload 1 ; a
     istore 3 ; c
-    iload 4 ; d
     iload 2 ; b
     ldc 9
     ior
     istore 4 ; d
-    iload 5 ; e
     iload 2 ; b
     istore 5 ; e
     iload 1 ; a
@@ -68,7 +63,6 @@
     invokevirtual java/io/PrintStream/print(I)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
-    iload 5 ; e
     ldc 100
     ldc 255
     ixor

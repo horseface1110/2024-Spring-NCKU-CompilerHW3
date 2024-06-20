@@ -297,7 +297,7 @@ Expression
 
 Assign
     : Expression ADD_ASSIGN {setLoad(1);} Expression { printf("ADD_ASSIGN\n"); code("%sadd",getIdentTypeString($4.type)); y_store($1.name);} // +=
-    | Expression EQL_ASSIGN {setLoad(1);} Expression { printf("EQL_ASSIGN\n"); y_store($1.name); } // ==
+    | IDENT EQL_ASSIGN {setLoad(1);} Expression { printf("EQL_ASSIGN\n"); y_store($<s_var>1); } // ==
     | Expression SUB_ASSIGN {setLoad(1);} Expression { printf("SUB_ASSIGN\n"); code("%ssub",getIdentTypeString($4.type)); y_store($1.name);} // -=
     | Expression MUL_ASSIGN {setLoad(1);} Expression { printf("MUL_ASSIGN\n"); code("%smul",getIdentTypeString($4.type)); y_store($1.name);} // *=
     | Expression REM_ASSIGN {setLoad(1);} Expression { printf("REM_ASSIGN\n"); code("%srem",getIdentTypeString($4.type)); y_store($1.name);} // /=
@@ -309,6 +309,7 @@ Assign
     | Expression INC_ASSIGN {setLoad(1);} Expression { printf("INC_ASSIGN\n"); code("%sadd",getIdentTypeString($4.type)); y_store($1.name);} // ++
     | Expression DEC_ASSIGN {setLoad(1);} Expression { printf("DEC_ASSIGN\n"); code("%sadd",getIdentTypeString($4.type)); y_store($1.name);}
     | Expression DIV_ASSIGN {setLoad(1);} Expression { printf("DIV_ASSIGN\n"); code("%sdiv",getIdentTypeString($4.type)); y_store($1.name);} 
+    |
 ;     
 Assign2
     : EQL_ASSIGN Expression { autoType = $<i_var>2 ;}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);
