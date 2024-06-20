@@ -403,7 +403,7 @@ void pushSymbleData(ObjectType variableType, char* Name){
 
     pushsym++;
     symbolsLevel[scopeLevel]++;
-}
+} 
 
 // 專門給 變數 IDENT 用的
 int findObjectType(char* target){   
