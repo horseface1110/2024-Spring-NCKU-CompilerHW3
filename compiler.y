@@ -268,7 +268,7 @@ Expression
     | Expression BAN Expression { printf("BAN\n"); $$ = $<obj_val>2; $$.type = 8; code("%sand",getIdentTypeString($3.type));/* and & */} 
     | BNT Expression %prec UMINUS { printf("BNT\n");codeRaw("iconst_m1");code("%sxor",getIdentTypeString($2.type)); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}    
     | Expression BOR Expression { printf("BOR\n"); $$ = $<obj_val>2; $$.type = 8; code("%sor",getIdentTypeString($3.type));} 
-    | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8;} 
+    | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8; code("%sor",getIdentTypeString($3.type));} 
     | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;code("%sshr",getIdentTypeString($3.type));} 
     | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iconst_1"); codeRaw("ixor");/* 處理NOT運算，iconst_1 做xor */ }
     | INT_LIT  {printf("INT_LIT %d\n",$1); code("ldc %d",$1); $$ = $<obj_val>1; $$.type = 4;}
@@ -300,8 +300,8 @@ Assign
     | SUB_ASSIGN {setLoad(1);} Expression { printf("SUB_ASSIGN\n"); code("%ssub",getIdentTypeString($3.type));} // -=
     | MUL_ASSIGN {setLoad(1);} Expression { printf("MUL_ASSIGN\n"); code("%smul",getIdentTypeString($3.type));} // *=
     | REM_ASSIGN {setLoad(1);} Expression { printf("REM_ASSIGN\n"); code("%srem",getIdentTypeString($3.type));} // /=
-    | SHR_ASSIGN {setLoad(1);} Expression { printf("SHR_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));}
-    | SHL_ASSIGN {setLoad(1);} Expression { printf("SHL_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));}
+    | SHR_ASSIGN {setLoad(1);} Expression { printf("SHR_ASSIGN\n"); code("%sshr",getIdentTypeString($3.type));}
+    | SHL_ASSIGN {setLoad(1);} Expression { printf("SHL_ASSIGN\n"); code("%sshl",getIdentTypeString($3.type));}
     | BAN_ASSIGN {setLoad(1);} Expression { printf("BAN_ASSIGN\n"); code("%sand",getIdentTypeString($3.type));}
     | BOR_ASSIGN {setLoad(1);} Expression { printf("BOR_ASSIGN\n"); code("%sor",getIdentTypeString($3.type));}
     | BXO_ASSIGN {setLoad(1);} Expression { printf("BXO_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));}
