@@ -8,7 +8,7 @@
     int arrNum = 0;
     int autoType = 100;   // 為了對付auto型別，平時為100，用完回歸100
     int Label_num = 0;    // lablel數量
-    int var_num = 1;      // 變數數量，參照booker 從1開始
+
 
 %}
 
@@ -310,7 +310,7 @@ Assign
     | DIV_ASSIGN Expression { printf("DIV_ASSIGN\n"); } 
 ;     
 Assign2
-    : EQL_ASSIGN Expression { autoType = $<i_var>2 ;  code("istore %d",var_num);}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);
+    : EQL_ASSIGN Expression { autoType = $<i_var>2 ;}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);
     | EQL_ASSIGN IDENT  '(' Func')' {  findObjectType($<s_var>2);printf("call: check(IILjava/lang/String;B)B\n");}
     | EQL_ASSIGN '{'Arr'}' 
 ;    
