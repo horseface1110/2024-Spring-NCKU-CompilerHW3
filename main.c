@@ -34,6 +34,34 @@
 #define ldd(val) code("ldc_w %lf", getDouble(val))
 #define ldt(val) code("ldc \"%s\"", getString(val))
 
+#define storeMatrix(var)                                                       \
+  if ((var)->type == OBJECT_TYPE_FLOAT) {                                      \
+    fstore(var);                                                               \
+  } else if ((var)->type == OBJECT_TYPE_INT ||                                 \
+             (var)->type == OBJECT_TYPE_BOOL) {                                \
+    istore(var);                                                               \
+  } else if ((var)->type == OBJECT_TYPE_LONG) {                                \
+    lstore(var);                                                               \
+  } else if ((var)->type == OBJECT_TYPE_DOUBLE) {                              \
+    dstore(var);                                                               \
+  } else if ((var)->type == OBJECT_TYPE_STR) {                                 \
+    astore(var);                                                               \
+  }
+  
+#define loadMatrix(var)                                                        \
+  if ((var)->type == OBJECT_TYPE_FLOAT) {                                      \
+    fload(var);                                                                \
+  } else if ((var)->type == OBJECT_TYPE_INT ||                                 \
+             (var)->type == OBJECT_TYPE_BOOL) {                                \
+    iload(var);                                                                \
+  } else if ((var)->type == OBJECT_TYPE_LONG) {                                \
+    lload(var);                                                                \
+  } else if ((var)->type == OBJECT_TYPE_DOUBLE) {                              \
+    dload(var);                                                                \
+  } else if ((var)->type == OBJECT_TYPE_STR) {                                 \
+    aload(var);                                                                \
+  }
+
 const char* objectTypeName[] = {
     [OBJECT_TYPE_UNDEFINED] = "undefined",
     [OBJECT_TYPE_VOID] = "void",
