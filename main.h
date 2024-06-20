@@ -75,7 +75,7 @@ bool arraySubscriptEnd(LinkedList* arraySubscripts);
 
 char* ObjectTypeToString(ObjectType type);
 void resetPushsym();
-void pushSymbleData(ObjectType variableType, char* Name);
+void pushSymbleData(ObjectType variableType, char* Name,bool store);
 void changePSD(ObjectType variableType);
 void createFunction(ObjectType variableType, char* funcName);
 void pushFunInParm(Object* variable); 
@@ -85,7 +85,6 @@ void stdoutPrint();
 
 char* ObjectTypeToString(ObjectType type);
 void pushFun();
-void pushSymbleData();
 int  findObjectType(char* target);
 void assignIDENT(ObjectType target);
 void changePSD(ObjectType variableType);

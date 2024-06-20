@@ -256,7 +256,7 @@ char* change_JNI(int main){       // 回傳字串的話就要 char*
 void createFunction(ObjectType variableType, char* funcName) {
     printf("func: %s\n", funcName);
     now_Fun = true;
-    pushSymbleData(variableType,funcName); 
+    pushSymbleData(variableType,funcName,false); 
     now_Fun = false;
     
 }
@@ -379,7 +379,7 @@ void changePSD(ObjectType variableType){
 
 }
 
-void pushSymbleData(ObjectType variableType, char* Name){
+void pushSymbleData(ObjectType variableType, char* Name,bool store){
     symbols[scopeLevel][symbolsLevel[scopeLevel]].index = symbolsLevel[scopeLevel];
     symbols[scopeLevel][symbolsLevel[scopeLevel]].name = Name;
     symbols[scopeLevel][symbolsLevel[scopeLevel]].lineno = yylineno;   
@@ -396,7 +396,7 @@ void pushSymbleData(ObjectType variableType, char* Name){
     }
 
     // 以下處理作業三：
-    if(!now_Fun){
+    if(!now_Fun && store){
         storeMatrix(symbols[scopeLevel][symbolsLevel[scopeLevel]]);
     }
     

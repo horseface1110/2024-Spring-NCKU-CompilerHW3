@@ -4,11 +4,6 @@
     .method public static main([Ljava/lang/String;)V
     .limit stack 100
     .limit locals 100
-    istore 1 ; a
-    istore 2 ; b
-    istore 3 ; c
-    istore 4 ; d
-    istore 5 ; e
     iload 1 ; a
     ldc 243
     iconst_m1

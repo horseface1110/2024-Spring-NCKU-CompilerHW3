@@ -1482,25 +1482,25 @@ yyreduce:
 
   case 12: /* IDENTS: IDENTS ',' IDENT  */
 #line 97 "./compiler.y"
-                       { pushSymbleData(autoType , (yyvsp[0].s_var)); }
+                       { pushSymbleData(autoType , (yyvsp[0].s_var),false); }
 #line 1487 "./build/y.tab.c"
     break;
 
   case 13: /* IDENTS: IDENT  */
 #line 98 "./compiler.y"
-            {  pushSymbleData(autoType, (yyvsp[0].s_var)); }
+            {  pushSymbleData(autoType, (yyvsp[0].s_var),false); }
 #line 1493 "./build/y.tab.c"
     break;
 
   case 14: /* IDENTS: IDENTS ',' IDENT Assign2  */
 #line 99 "./compiler.y"
-                               { pushSymbleData(autoType, (yyvsp[-1].s_var)); }
+                               { pushSymbleData(autoType, (yyvsp[-1].s_var),1); }
 #line 1499 "./build/y.tab.c"
     break;
 
   case 15: /* IDENTS: IDENT Assign2  */
 #line 100 "./compiler.y"
-                     { pushSymbleData(autoType, (yyvsp[-1].s_var));  }
+                     { pushSymbleData(autoType, (yyvsp[-1].s_var),1);  }
 #line 1505 "./build/y.tab.c"
     break;
 
@@ -1512,7 +1512,7 @@ yyreduce:
 
   case 17: /* IDENTS: IDENT '[' INT_LIT $@3 ']' InArr  */
 #line 101 "./compiler.y"
-                                                                  { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, (yyvsp[-5].s_var)); }
+                                                                  { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, (yyvsp[-5].s_var),1); }
 #line 1517 "./build/y.tab.c"
     break;
 

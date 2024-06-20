@@ -94,11 +94,11 @@ DefineVariableStmt
 ;
 
 IDENTS
-    : IDENTS ',' IDENT { pushSymbleData(autoType , $<s_var>3); }    // 傳入100是為了對付 int a , b 這種狀況
-    | IDENT {  pushSymbleData(autoType, $<s_var>1); }
-    | IDENTS ',' IDENT Assign2 { pushSymbleData(autoType, $<s_var>3); }
-    | IDENT  Assign2 { pushSymbleData(autoType, $<s_var>1);  } 
-    | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, $<s_var>1); } 
+    : IDENTS ',' IDENT { pushSymbleData(autoType , $<s_var>3,false); }    // 傳入100是為了對付 int a , b 這種狀況
+    | IDENT {  pushSymbleData(autoType, $<s_var>1,false); }
+    | IDENTS ',' IDENT Assign2 { pushSymbleData(autoType, $<s_var>3,1); }
+    | IDENT  Assign2 { pushSymbleData(autoType, $<s_var>1,1);  } 
+    | IDENT '[' INT_LIT { printf("INT_LIT %d\n",$3);}  ']' InArr  { printf("create array: %d\n",arrNum); arrNum = 0; pushSymbleData(autoType, $<s_var>1,1); } 
                                                                         ///  這邊要改成實際幾個數字
 
 ;
