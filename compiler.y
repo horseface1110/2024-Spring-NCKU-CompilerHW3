@@ -90,7 +90,8 @@ GlobalStmt
 DefineVariableStmt
     : VARIABLE_T { autoType = $<var_type>1;} IDENTS';' { changePSD($<var_type>1); autoType = 100; }
     /*變數類型  變數名稱 賦值運算符    */
-    | Expression Assign ';' {y_store($1.name);}   // = 走這邊 怪怪的             需要想個辦法抓到 x = 10  這邊的 x 變數名稱  
+    | DefineVariableStmt {setLoad(1);} Expression  Assign ';' {y_store($3.name);}   // = 走這邊 怪怪的             需要想個辦法抓到 x = 10  這邊的 x 變數名稱  
+    |
 ;
 
 IDENTS
@@ -176,7 +177,7 @@ ForStmt
 ForSecond
     : VARIABLE_T  IDENTS  
     /*變數類型  變數名稱 賦值運算符    */
-    | Expression Assign 
+    | Expression {setLoad(1);} Assign 
     |
 ;
 
@@ -268,7 +269,7 @@ Expression
     | Expression BAN Expression { printf("BAN\n"); $$ = $<obj_val>2; $$.type = 8; code("%sand",getIdentTypeString($3.type));/* and & */} 
     | BNT Expression %prec UMINUS { printf("BNT\n");codeRaw("iconst_m1");code("%sxor",getIdentTypeString($2.type)); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}    
     | Expression BOR Expression { printf("BOR\n"); $$ = $<obj_val>2; $$.type = 8; code("%sor",getIdentTypeString($3.type));} 
-    | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8; code("%sor",getIdentTypeString($3.type));} 
+    | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8; code("%sxor",getIdentTypeString($3.type));} 
     | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;code("%sshr",getIdentTypeString($3.type));} 
     | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iconst_1"); codeRaw("ixor");/* 處理NOT運算，iconst_1 做xor */ }
     | INT_LIT  {printf("INT_LIT %d\n",$1); code("ldc %d",$1); $$ = $<obj_val>1; $$.type = 4;}
@@ -304,7 +305,7 @@ Assign
     | SHL_ASSIGN {setLoad(1);} Expression { printf("SHL_ASSIGN\n"); code("%sshl",getIdentTypeString($3.type));}
     | BAN_ASSIGN {setLoad(1);} Expression { printf("BAN_ASSIGN\n"); code("%sand",getIdentTypeString($3.type));}
     | BOR_ASSIGN {setLoad(1);} Expression { printf("BOR_ASSIGN\n"); code("%sor",getIdentTypeString($3.type));}
-    | BXO_ASSIGN {setLoad(1);} Expression { printf("BXO_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));}
+    | BXO_ASSIGN {setLoad(1);} Expression { printf("BXO_ASSIGN\n"); code("%sxor",getIdentTypeString($3.type));}
     | INC_ASSIGN {setLoad(1);} Expression { printf("INC_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));} // ++
     | DEC_ASSIGN {setLoad(1);} Expression { printf("DEC_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));}
     | DIV_ASSIGN {setLoad(1);} Expression { printf("DIV_ASSIGN\n"); code("%sdiv",getIdentTypeString($3.type));} 
