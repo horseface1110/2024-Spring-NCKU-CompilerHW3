@@ -1925,7 +1925,7 @@ yyreduce:
 
   case 96: /* Expression: '(' VARIABLE_T ')' $@21 Expression  */
 #line 290 "./compiler.y"
-                                                               { castTo((yyvsp[-3].var_type)); }
+                                                               { castTo((yyvsp[-3].var_type), (yyvsp[0].obj_val).type); }
 #line 1930 "./build/y.tab.c"
     break;
 

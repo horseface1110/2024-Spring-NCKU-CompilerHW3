@@ -423,14 +423,22 @@ int findObjectType(char* target){
 }
 
 // 給強轉型用的，傳入一個objectType
-void castTo( ObjectType type){
+void castTo( ObjectType type, int behind_type){
+    char two[2];
     printf("Cast to");
     switch(type){
-        case 4: printf(" int\n");break;
-        case 6: printf(" float\n"); break;
-        case 8: printf(" bool\n"); break;
-        case 9: printf(" string\n"); break;
+        case 4: printf(" int\n");two[0] = 'i';break;
+        case 6: printf(" float\n");two[0] = 'f'; break;
+        case 8: printf(" bool\n");two[0] = 'b'; break;
+        case 9: printf(" string\n"); two[0] = 's';break;
     }
+    switch(behind_type){
+        case 4: two[1] = 'i';break;
+        case 6: two[1] = 'f'; break;
+        case 8: two[1] = 'b'; break;
+        case 9: two[1] = 's';break;
+    }
+    code("%c2%c",two[1],two[0]);    ////TODO:f21
 }
 
 // 印出不同型別的 invokevirtual
