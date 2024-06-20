@@ -90,7 +90,7 @@ GlobalStmt
 DefineVariableStmt
     : VARIABLE_T { autoType = $<var_type>1;} IDENTS';' { changePSD($<var_type>1); autoType = 100; }
     /*變數類型  變數名稱 賦值運算符    */
-    | Expression Assign ';'    // = 走這邊 怪怪的             需要想個辦法抓到 x = 10  這邊的 x 變數名稱  
+    | Expression Assign ';' {printf("name = %s\n",$1.name);}   // = 走這邊 怪怪的             需要想個辦法抓到 x = 10  這邊的 x 變數名稱  
 ;
 
 IDENTS
@@ -287,8 +287,8 @@ Expression
         }
     | '(' VARIABLE_T ')' Expression %prec UMINUS { castTo($<var_type>2); }    /// 提高它的優先權 使之較 ( exp ) 更早執行
     | FLOAT_LIT {printf("FLOAT_LIT %f\n",$1); code("ldc %f",$1); $$ = $<obj_val>1; $$.type = 6;}
-    | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);}
-    | IDENT '['INT_LIT { printf("INT_LIT %d\n",$3);} ']' {$$ = $<obj_val>1; $$.type = findObjectType($<s_var>1); }
+    | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);$$.name = $<s_var>1;}
+    | IDENT '['INT_LIT { printf("INT_LIT %d\n",$3);} ']' {$$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);$$.name = $<s_var>1; }
     |
 ;
 
