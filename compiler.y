@@ -90,7 +90,7 @@ GlobalStmt
 DefineVariableStmt
     : VARIABLE_T { autoType = $<var_type>1;} IDENTS';' { changePSD($<var_type>1); autoType = 100; }
     /*變數類型  變數名稱 賦值運算符    */
-    | DefineVariableStmt {setLoad(1);} Expression  Assign ';' {y_store($3.name);}   // = 走這邊 怪怪的             需要想個辦法抓到 x = 10  這邊的 x 變數名稱  
+    | DefineVariableStmt {setLoad(1);}   Assign ';'  // = 走這邊 怪怪的             需要想個辦法抓到 x = 10  這邊的 x 變數名稱  
     |
 ;
 
@@ -296,19 +296,19 @@ Expression
 
 
 Assign
-    : ADD_ASSIGN {setLoad(1);} Expression { printf("ADD_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));} // +=
-    | EQL_ASSIGN {setLoad(1);} Expression { printf("EQL_ASSIGN\n"); } // ==
-    | SUB_ASSIGN {setLoad(1);} Expression { printf("SUB_ASSIGN\n"); code("%ssub",getIdentTypeString($3.type));} // -=
-    | MUL_ASSIGN {setLoad(1);} Expression { printf("MUL_ASSIGN\n"); code("%smul",getIdentTypeString($3.type));} // *=
-    | REM_ASSIGN {setLoad(1);} Expression { printf("REM_ASSIGN\n"); code("%srem",getIdentTypeString($3.type));} // /=
-    | SHR_ASSIGN {setLoad(1);} Expression { printf("SHR_ASSIGN\n"); code("%sshr",getIdentTypeString($3.type));}
-    | SHL_ASSIGN {setLoad(1);} Expression { printf("SHL_ASSIGN\n"); code("%sshl",getIdentTypeString($3.type));}
-    | BAN_ASSIGN {setLoad(1);} Expression { printf("BAN_ASSIGN\n"); code("%sand",getIdentTypeString($3.type));}
-    | BOR_ASSIGN {setLoad(1);} Expression { printf("BOR_ASSIGN\n"); code("%sor",getIdentTypeString($3.type));}
-    | BXO_ASSIGN {setLoad(1);} Expression { printf("BXO_ASSIGN\n"); code("%sxor",getIdentTypeString($3.type));}
-    | INC_ASSIGN {setLoad(1);} Expression { printf("INC_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));} // ++
-    | DEC_ASSIGN {setLoad(1);} Expression { printf("DEC_ASSIGN\n"); code("%sadd",getIdentTypeString($3.type));}
-    | DIV_ASSIGN {setLoad(1);} Expression { printf("DIV_ASSIGN\n"); code("%sdiv",getIdentTypeString($3.type));} 
+    : Expression ADD_ASSIGN {setLoad(1);} Expression { printf("ADD_ASSIGN\n"); code("%sadd",getIdentTypeString($4.type)); y_store($1.name);} // +=
+    | Expression EQL_ASSIGN {setLoad(1);} Expression { printf("EQL_ASSIGN\n"); y_store($1.name); } // ==
+    | Expression SUB_ASSIGN {setLoad(1);} Expression { printf("SUB_ASSIGN\n"); code("%ssub",getIdentTypeString($4.type)); y_store($1.name);} // -=
+    | Expression MUL_ASSIGN {setLoad(1);} Expression { printf("MUL_ASSIGN\n"); code("%smul",getIdentTypeString($4.type)); y_store($1.name);} // *=
+    | Expression REM_ASSIGN {setLoad(1);} Expression { printf("REM_ASSIGN\n"); code("%srem",getIdentTypeString($4.type)); y_store($1.name);} // /=
+    | Expression SHR_ASSIGN {setLoad(1);} Expression { printf("SHR_ASSIGN\n"); code("%sshr",getIdentTypeString($4.type)); y_store($1.name);}
+    | Expression SHL_ASSIGN {setLoad(1);} Expression { printf("SHL_ASSIGN\n"); code("%sshl",getIdentTypeString($4.type)); y_store($1.name);}
+    | Expression BAN_ASSIGN {setLoad(1);} Expression { printf("BAN_ASSIGN\n"); code("%sand",getIdentTypeString($4.type)); y_store($1.name);}
+    | Expression BOR_ASSIGN {setLoad(1);} Expression { printf("BOR_ASSIGN\n"); code("%sor",getIdentTypeString($4.type)); y_store($1.name);}
+    | Expression BXO_ASSIGN {setLoad(1);} Expression { printf("BXO_ASSIGN\n"); code("%sxor",getIdentTypeString($4.type)); y_store($1.name);}
+    | Expression INC_ASSIGN {setLoad(1);} Expression { printf("INC_ASSIGN\n"); code("%sadd",getIdentTypeString($4.type)); y_store($1.name);} // ++
+    | Expression DEC_ASSIGN {setLoad(1);} Expression { printf("DEC_ASSIGN\n"); code("%sadd",getIdentTypeString($4.type)); y_store($1.name);}
+    | Expression DIV_ASSIGN {setLoad(1);} Expression { printf("DIV_ASSIGN\n"); code("%sdiv",getIdentTypeString($4.type)); y_store($1.name);} 
 ;     
 Assign2
     : EQL_ASSIGN Expression { autoType = $<i_var>2 ;}// =   這邊回傳值會有 問題  但不知道錯在哪 printf("auto11 = %d\n",autoType);
