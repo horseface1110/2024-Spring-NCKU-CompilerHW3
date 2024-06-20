@@ -37,7 +37,7 @@ typedef struct _symbolData {
     int32_t index;
     int64_t addr;
     int32_t lineno;
-     char func_sig[30];
+    char func_sig[30];
     uint8_t func_var;   // int 是因為直接丟enum進來，enum以int方式呈現
 } SymbolData;
 

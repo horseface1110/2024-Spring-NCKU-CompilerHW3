@@ -12,17 +12,17 @@
 
 #define toupper(_char) (_char - (char)32)
 
-#define iload(var) code("iload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)    /// 太牛逼了 原來address是這樣用的
+#define iload(var) code("iload %" PRId64 " ; %s", (var).addr, (var).name)    /// 太牛逼了 原來address是這樣用的
 #define lload(var) code("lload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
 #define fload(var) code("fload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
 #define dload(var) code("dload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
 #define aload(var) code("aload %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
 
-#define istore(var) code("istore %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
-#define lstore(var) code("lstore %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
-#define fstore(var) code("fstore %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
-#define dstore(var) code("dstore %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
-#define astore(var) code("astore %" PRId64 " ; %s", (var)->symbol->addr, (var)->symbol->name)
+#define istore(var) code("istore %" PRId64 " ; %s", (var).addr, (var).name)
+#define lstore(var) code("lstore %" PRId64 " ; %s", (var).addr, (var).name)
+#define fstore(var) code("fstore %" PRId64 " ; %s", (var).addr, (var).name)
+#define dstore(var) code("dstore %" PRId64 " ; %s", (var).addr, (var).name)
+#define astore(var) code("astore %" PRId64 " ; %s", (var).addr, (var).name)
 
 #define ldz(val) code("ldc %d", getBool(val))
 #define ldb(val) code("ldc %d", getByte(val))
@@ -35,19 +35,19 @@
 #define ldt(val) code("ldc \"%s\"", getString(val))
 
 #define storeMatrix(var)                                                       \
-  if ((var)->type == OBJECT_TYPE_FLOAT) {                                      \
+  if ((var).func_var == OBJECT_TYPE_FLOAT) {                                      \
     fstore(var);                                                               \
-  } else if ((var)->type == OBJECT_TYPE_INT ||                                 \
-             (var)->type == OBJECT_TYPE_BOOL) {                                \
+  } else if ((var).func_var == OBJECT_TYPE_INT ||                                 \
+             (var).func_var == OBJECT_TYPE_BOOL) {                                \
     istore(var);                                                               \
-  } else if ((var)->type == OBJECT_TYPE_LONG) {                                \
+  } else if ((var).func_var == OBJECT_TYPE_LONG) {                                \
     lstore(var);                                                               \
-  } else if ((var)->type == OBJECT_TYPE_DOUBLE) {                              \
+  } else if ((var).func_var == OBJECT_TYPE_DOUBLE) {                              \
     dstore(var);                                                               \
-  } else if ((var)->type == OBJECT_TYPE_STR) {                                 \
+  } else if ((var).func_var == OBJECT_TYPE_STR) {                                 \
     astore(var);                                                               \
   }
-  
+
 #define loadMatrix(var)                                                        \
   if ((var)->type == OBJECT_TYPE_FLOAT) {                                      \
     fload(var);                                                                \
@@ -105,6 +105,7 @@ int coutCount = 0;          // 紀錄cout 陣列儲存多少東西了，幹不�
 int pushsym = 0;            // 紀錄這段時間推了幾個參數進來，這樣才可以改我要改的那些type
 int JNI[9][2] = {0};        // 紀錄函式參數給JNI用，前為陣列TF，後為type
 int JNI_count = 0;
+bool now_Fun = false;        // 紀錄現在是不是在創建一個fun 預設false
 
 
 void pushScope() {
@@ -254,7 +255,9 @@ char* change_JNI(int main){       // 回傳字串的話就要 char*
 // 把函數也當成變數看，傳入他的型別
 void createFunction(ObjectType variableType, char* funcName) {
     printf("func: %s\n", funcName);
+    now_Fun = true;
     pushSymbleData(variableType,funcName); 
+    now_Fun = false;
     
 }
 
@@ -393,7 +396,10 @@ void pushSymbleData(ObjectType variableType, char* Name){
     }
 
     // 以下處理作業三：
-
+    if(!now_Fun){
+        storeMatrix(symbols[scopeLevel][symbolsLevel[scopeLevel]]);
+    }
+    
 
     pushsym++;
     symbolsLevel[scopeLevel]++;

@@ -5,6 +5,7 @@
     .limit stack 100
     .limit locals 100
     ldc 0
+    istore 1 ; x
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/print(I)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -50,6 +51,7 @@
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     ldc 3.140000
+    fstore 2 ; yy
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/print(F)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -80,6 +82,7 @@
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     ldc ""
+    astore 3 ; s
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
@@ -90,6 +93,7 @@
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     iconst_0
+    istore 4 ; bbb
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/print(Z)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
