@@ -70,56 +70,56 @@
     ldc 3.140000
     fstore 2 ; yy
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 2 ; yy
+    fload 2 ; yy
     invokevirtual java/io/PrintStream/print(F)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
-    iload 2 ; yy
+    fload 2 ; yy
     ldc 10.400000
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 2 ; yy
+    fload 2 ; yy
     invokevirtual java/io/PrintStream/print(F)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
-    iload 2 ; yy
+    fload 2 ; yy
     ldc 2.000000
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 2 ; yy
+    fload 2 ; yy
     invokevirtual java/io/PrintStream/print(F)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
-    iload 2 ; yy
+    fload 2 ; yy
     ldc 3.000000
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 2 ; yy
+    fload 2 ; yy
     invokevirtual java/io/PrintStream/print(F)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
-    iload 2 ; yy
+    fload 2 ; yy
     ldc 4.000000
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 2 ; yy
+    fload 2 ; yy
     invokevirtual java/io/PrintStream/print(F)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
-    iload 2 ; yy
+    fload 2 ; yy
     ldc 5.000000
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 2 ; yy
+    fload 2 ; yy
     invokevirtual java/io/PrintStream/print(F)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
     ldc ""
     astore 3 ; s
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 3 ; s
+    aload 3 ; s
     invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V
-    iload 3 ; s
+    aload 3 ; s
     ldc "Hello"
     getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 3 ; s
+    aload 3 ; s
     invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
     getstatic java/lang/System/out Ljava/io/PrintStream;
     invokevirtual java/io/PrintStream/println()V

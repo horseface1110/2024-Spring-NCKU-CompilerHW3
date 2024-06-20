@@ -48,7 +48,7 @@
     astore(var);                                                               \
   }
 
-#define loadMatrix(var)                                                        \
+#define loadMatrix(var)                                                         \
   if ((var).func_var == OBJECT_TYPE_FLOAT) {                                      \
     fload(var);                                                                \
   } else if ((var).func_var == OBJECT_TYPE_INT ||                                 \
@@ -411,7 +411,7 @@ int findObjectType(char* target){
         for(int i = 0 ; i < symbolsLevel[j] ; i++){     ///  有可能在 scope = 2 時使用scope = 1 的東西，會壞掉
             if( strcmp(symbols[j][i].name, target)==0 ){
                 printf("IDENT (name=%s, address=%d)\n",symbols[j][i].name,symbols[j][i].addr);
-                iload(symbols[j][i]);
+                loadMatrix(symbols[j][i]);     /// FIXME:吃屎ˋ吧
                 return symbols[j][i].func_var;
             }
         }
