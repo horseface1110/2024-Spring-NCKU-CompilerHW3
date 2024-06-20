@@ -1812,20 +1812,20 @@ yyreduce:
         codeRaw("iconst_0");
         code("goto endLabel%d",Label_num);
         code("notEqualToLabel%d:",Label_num);
-        codeRaw("iconst_1");
+        codeRaw("iconst_1");      
         code("endLabel%d:",Label_num++); }
 #line 1818 "./build/y.tab.c"
     break;
 
   case 80: /* Expression: Expression LAN Expression  */
 #line 265 "./compiler.y"
-                                { printf("LAN\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; codeRaw("iand");/* 處理and運算 */ }
+                                { printf("LAN\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; code("%sand",getIdentTypeString((yyvsp[0].obj_val).type));/* 處理and運算 */ }
 #line 1824 "./build/y.tab.c"
     break;
 
   case 81: /* Expression: Expression LOR Expression  */
 #line 266 "./compiler.y"
-                                { printf("LOR\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; codeRaw("ior"); }
+                                { printf("LOR\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8; code("%sor",getIdentTypeString((yyvsp[0].obj_val).type)); }
 #line 1830 "./build/y.tab.c"
     break;
 
@@ -1837,7 +1837,7 @@ yyreduce:
 
   case 83: /* Expression: BNT Expression  */
 #line 268 "./compiler.y"
-                                  { printf("BNT\n"); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}
+                                  { printf("BNT\n");codeRaw("iconst_m1");code("%sxor",getIdentTypeString((yyvsp[0].obj_val).type)); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}
 #line 1842 "./build/y.tab.c"
     break;
 
@@ -1855,7 +1855,7 @@ yyreduce:
 
   case 86: /* Expression: Expression SHR Expression  */
 #line 271 "./compiler.y"
-                                { printf("SHR\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;}
+                                { printf("SHR\n"); (yyval.obj_val) = (yyvsp[-1].obj_val); (yyval.obj_val).type = 8;code("%sshr",getIdentTypeString((yyvsp[0].obj_val).type));}
 #line 1860 "./build/y.tab.c"
     break;
 

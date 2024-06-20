@@ -260,15 +260,15 @@ Expression
         codeRaw("iconst_0");
         code("goto endLabel%d",Label_num);
         code("notEqualToLabel%d:",Label_num);
-        codeRaw("iconst_1");
+        codeRaw("iconst_1");      
         code("endLabel%d:",Label_num++); } 
-    | Expression LAN Expression { printf("LAN\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iand");/* 處理and運算 */ }
-    | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("ior"); } 
+    | Expression LAN Expression { printf("LAN\n"); $$ = $<obj_val>2; $$.type = 8; code("%sand",getIdentTypeString($3.type));/* 處理and運算 */ }
+    | Expression LOR Expression { printf("LOR\n"); $$ = $<obj_val>2; $$.type = 8; code("%sor",getIdentTypeString($3.type)); } 
     | Expression BAN Expression { printf("BAN\n"); $$ = $<obj_val>2; $$.type = 8;/* and & */} 
-    | BNT Expression %prec UMINUS { printf("BNT\n"); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}    
+    | BNT Expression %prec UMINUS { printf("BNT\n");codeRaw("iconst_m1");code("%sxor",getIdentTypeString($2.type)); /*$$ = $<obj_val>2; $$.type = 8; not ~ */}    
     | Expression BOR Expression { printf("BOR\n"); $$ = $<obj_val>2; $$.type = 8;} 
     | Expression BXO Expression { printf("BXO\n"); $$ = $<obj_val>2; $$.type = 8;} 
-    | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;} 
+    | Expression SHR Expression { printf("SHR\n"); $$ = $<obj_val>2; $$.type = 8;code("%sshr",getIdentTypeString($3.type));} 
     | NOT Expression %prec UMINUS { printf("NOT\n"); $$ = $<obj_val>2; $$.type = 8; codeRaw("iconst_1"); codeRaw("ixor");/* 處理NOT運算，iconst_1 做xor */ }
     | INT_LIT  {printf("INT_LIT %d\n",$1); code("ldc %d",$1); $$ = $<obj_val>1; $$.type = 4;}
     | STR_LIT  { 

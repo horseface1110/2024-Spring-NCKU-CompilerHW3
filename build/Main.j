@@ -11,11 +11,14 @@
     istore 5 ; e
     iload 1 ; a
     ldc 243
+    iconst_m1
+    ixor
     ldc 15
     istore 1 ; a
     iload 2 ; b
     iload 1 ; a
     ldc 1
+    ishr
     istore 2 ; b
     iload 3 ; c
     iload 1 ; a
