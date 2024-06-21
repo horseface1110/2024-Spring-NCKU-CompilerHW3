@@ -4,50 +4,41 @@
     .method public static main([Ljava/lang/String;)V
     .limit stack 100
     .limit locals 100
-    ldc 3
-    istore 1 ; x
-    ldc 3.140000
-    fstore 2 ; y
-    iload 1 ; x
-    fload 2 ; y
-    f2i
-    iadd
-    istore 3 ; z1
-    iload 1 ; x
-    i2f
-    fadd
-    istore 4 ; z2
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 3 ; z1
-    invokevirtual java/io/PrintStream/print(I)V
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    ldc " "
-    invokevirtual java/io/PrintStream/print(Ljava/lang/String;)V
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 4 ; z2
-    invokevirtual java/io/PrintStream/print(I)V
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    invokevirtual java/io/PrintStream/println()V
-    iload 1 ; x
-    ldc 6.280000
-    f2i
-    iadd
-    istore 3 ; z1
-    ldc 6
-    i2f
-    fload 2 ; y
-    fadd
-    istore 4 ; z2
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 3 ; z1
-    invokevirtual java/io/PrintStream/print(I)V
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    invokevirtual java/io/PrintStream/println()V
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    iload 4 ; z2
-    invokevirtual java/io/PrintStream/print(I)V
-    getstatic java/lang/System/out Ljava/io/PrintStream;
-    invokevirtual java/io/PrintStream/println()V
     ldc 0
+    istore 1 ; a
+    ldc 0
+    istore 2 ; b
+    iload 1 ; a
+    iload 2 ; b
+    iadd
+    istore 1 ; a
+    ldc 3.140000
+    fstore 3 ; c
+    fload 3 ; c
+    f2i
+    ldc 2024.393433
+    f2i
+    iadd
+    istore 4 ; d
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    iload 4 ; d
+    invokevirtual java/io/PrintStream/print(I)V
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    invokevirtual java/io/PrintStream/println()V
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    iload 1 ; a
+    invokevirtual java/io/PrintStream/print(I)V
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    invokevirtual java/io/PrintStream/println()V
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    iload 2 ; b
+    invokevirtual java/io/PrintStream/print(I)V
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    invokevirtual java/io/PrintStream/println()V
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    fload 3 ; c
+    invokevirtual java/io/PrintStream/print(F)V
+    getstatic java/lang/System/out Ljava/io/PrintStream;
+    invokevirtual java/io/PrintStream/println()V
     return
     .end method

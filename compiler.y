@@ -151,6 +151,7 @@ Stmt
     | WHILE WhileStmt
     | FOR ForStmt
     | BREAK ';' {printf("BREAK\n");}
+    // | RETURN INT_LIT ';' { printf("RETURN\n"); }
 ;
 
 BodyStmt
@@ -225,11 +226,11 @@ Expression
         $$.type = 9;
         $$.name = "endl";
         codeRaw("invokevirtual java/io/PrintStream/println()V");} 
-    | Expression ADD Expression { printf("ADD\n");printf("type = %d\n",$1.type); code("%sadd",getIdentTypeString($1.type)); /* 處理加法運算 */ }
-    | Expression SUB Expression { printf("SUB\n"); code("%ssub",getIdentTypeString($1.type)); /* 處理減法運算 */ }    
-    | Expression MUL Expression { printf("MUL\n"); code("%smul",getIdentTypeString($1.type)); /* 處理乘法運算 */ }
-    | Expression DIV Expression { printf("DIV\n"); code("%sdiv",getIdentTypeString($1.type)); /* 處理除法運算 */ }
-    | Expression REM Expression { printf("REM\n"); codeRaw("irem"); /* 處理取餘運算 */ }
+    | Expression ADD {setLoad(1);} Expression { printf("ADD\n");printf("type = %d\n",$1.type); code("%sadd",getIdentTypeString($1.type)); /* 處理加法運算 */ }
+    | Expression SUB {setLoad(1);} Expression { printf("SUB\n"); code("%ssub",getIdentTypeString($1.type)); /* 處理減法運算 */ }    
+    | Expression MUL {setLoad(1);} Expression { printf("MUL\n"); code("%smul",getIdentTypeString($1.type)); /* 處理乘法運算 */ }
+    | Expression DIV {setLoad(1);} Expression { printf("DIV\n"); code("%sdiv",getIdentTypeString($1.type)); /* 處理除法運算 */ }
+    | Expression REM {setLoad(1);} Expression { printf("REM\n"); codeRaw("irem"); /* 處理取餘運算 */ }
     | SUB Expression %prec UMINUS { printf("NEG\n"); code("%sneg",getIdentTypeString($2.type));  } // 處理負號
     | Expression GTR Expression { printf("GTR\n"); /*大於*/
         $$ = $<obj_val>2; 
@@ -297,7 +298,12 @@ Expression
 
 Assign
     : Expression ADD_ASSIGN {setLoad(1);} Expression { printf("ADD_ASSIGN\n"); code("%sadd",getIdentTypeString($4.type)); y_store($1.name);} // +=
-    | IDENT EQL_ASSIGN {setLoad(1);} Expression { printf("EQL_ASSIGN\n"); y_store($<s_var>1); } // ==
+    | IDENT EQL_ASSIGN {setLoad(1);} Expression {
+        printf("EQL_ASSIGN\n");
+        if(findObjectTypeNoPrint($<s_var>1) != $4.type){
+            castTo(findObjectTypeNoPrint($<s_var>1), $4.type);
+        }
+        y_store($<s_var>1); } // ==
     | Expression SUB_ASSIGN {setLoad(1);} Expression { printf("SUB_ASSIGN\n"); code("%ssub",getIdentTypeString($4.type)); y_store($1.name);} // -=
     | Expression MUL_ASSIGN {setLoad(1);} Expression { printf("MUL_ASSIGN\n"); code("%smul",getIdentTypeString($4.type)); y_store($1.name);} // *=
     | Expression REM_ASSIGN {setLoad(1);} Expression { printf("REM_ASSIGN\n"); code("%srem",getIdentTypeString($4.type)); y_store($1.name);} // /=

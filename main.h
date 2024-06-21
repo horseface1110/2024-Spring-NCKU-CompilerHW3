@@ -95,6 +95,8 @@ char* change_JNI(int main);
 
 void invokevirtual(int type);
 char* getIdentTypeString(int type);
+int findObjectTypeNoPrint(char* target);
+void castTo_2( ObjectType type, int behind_type);
 
 
 #endif

@@ -425,21 +425,26 @@ int findObjectType(char* target){
 // 給強轉型用的，傳入一個objectType
 void castTo( ObjectType type, int behind_type){
     char two[2];
+    int pass = 0;
     printf("Cast to");
     switch(type){
-        case 4: printf(" int\n");two[0] = 'i';break;
-        case 6: printf(" float\n");two[0] = 'f'; break;
+        case 4: printf(" int\n");two[0] = 'i';pass+=1;break;
+        case 6: printf(" float\n");two[0] = 'f';pass+=1; break;
         case 8: printf(" bool\n");two[0] = 'b'; break;
-        case 9: printf(" string\n"); two[0] = 's';break;
+        case 9: printf(" string\n"); two[0] = 's';pass+=1;break;
     }
     switch(behind_type){
-        case 4: two[1] = 'i';break;
-        case 6: two[1] = 'f'; break;
+        case 4: two[1] = 'i';pass+=1;break;
+        case 6: two[1] = 'f';pass+=1; break;
         case 8: two[1] = 'b'; break;
-        case 9: two[1] = 's';break;
+        case 9: two[1] = 's';pass+=1;break;
     }
-    code("%c2%c",two[1],two[0]);    ////TODO:f21
+    if(pass == 2){
+        code("%c2%c",two[1],two[0]);    ////TODO:f21
+    }
 }
+
+
 
 // 印出不同型別的 invokevirtual
 void invokevirtual(int type){
@@ -473,6 +478,18 @@ char* getIdentTypeString(int type){
 void setLoad(bool target){
     printLoad = target;
 }
+
+// 專門給 變數 IDENT 用的 不印東西
+int findObjectTypeNoPrint(char* target){   
+    for(int j = 0 ; j <= scopeLevel ; j++){
+        for(int i = 0 ; i < symbolsLevel[j] ; i++){     ///  有可能在 scope = 2 時使用scope = 1 的東西，會壞掉
+            if( strcmp(symbols[j][i].name, target)==0 ){
+                return symbols[j][i].func_var;
+            }
+        }
+    }
+}
+
 
 
 int main(int argc, char* argv[]) {
