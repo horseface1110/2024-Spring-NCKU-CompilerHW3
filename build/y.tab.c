@@ -1742,7 +1742,7 @@ yyreduce:
 
   case 72: /* Expression: Expression ADD Expression  */
 #line 228 "./compiler.y"
-                                { printf("ADD\n"); code("%sadd",getIdentTypeString((yyvsp[-2].obj_val).type)); /* 處理加法運算 */ }
+                                { printf("ADD\n");printf("type = %d\n",(yyvsp[-2].obj_val).type); code("%sadd",getIdentTypeString((yyvsp[-2].obj_val).type)); /* 處理加法運算 */ }
 #line 1747 "./build/y.tab.c"
     break;
 
@@ -1925,7 +1925,7 @@ yyreduce:
 
   case 96: /* Expression: '(' VARIABLE_T ')' $@21 Expression  */
 #line 290 "./compiler.y"
-                                                               { castTo((yyvsp[-3].var_type), (yyvsp[0].obj_val).type); }
+                                                               { castTo((yyvsp[-3].var_type), (yyvsp[0].obj_val).type); (yyval.obj_val).type = (yyvsp[-3].var_type); }
 #line 1930 "./build/y.tab.c"
     break;
 
@@ -2315,6 +2315,6 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 322 "./compiler.y"
+#line 320 "./compiler.y"
 
 /* C code section */

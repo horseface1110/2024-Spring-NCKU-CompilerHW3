@@ -225,7 +225,7 @@ Expression
         $$.type = 9;
         $$.name = "endl";
         codeRaw("invokevirtual java/io/PrintStream/println()V");} 
-    | Expression ADD Expression { printf("ADD\n"); code("%sadd",getIdentTypeString($1.type)); /* 處理加法運算 */ }
+    | Expression ADD Expression { printf("ADD\n");printf("type = %d\n",$1.type); code("%sadd",getIdentTypeString($1.type)); /* 處理加法運算 */ }
     | Expression SUB Expression { printf("SUB\n"); code("%ssub",getIdentTypeString($1.type)); /* 處理減法運算 */ }    
     | Expression MUL Expression { printf("MUL\n"); code("%smul",getIdentTypeString($1.type)); /* 處理乘法運算 */ }
     | Expression DIV Expression { printf("DIV\n"); code("%sdiv",getIdentTypeString($1.type)); /* 處理除法運算 */ }
@@ -287,7 +287,7 @@ Expression
         $$.type = 8;
         ($1 %2 == 1)?codeRaw("iconst_1"):codeRaw("iconst_0");
         }
-    | '(' VARIABLE_T ')' {setLoad(1);} Expression %prec UMINUS { castTo($<var_type>2, $5.type); }    /// 提高它的優先權 使之較 ( exp ) 更早執行
+    | '(' VARIABLE_T ')' {setLoad(1);} Expression %prec UMINUS { castTo($<var_type>2, $5.type); $$.type = $<var_type>2; }    /// 提高它的優先權 使之較 ( exp ) 更早執行
     | FLOAT_LIT {printf("FLOAT_LIT %f\n",$1); code("ldc %f",$1); $$ = $<obj_val>1; $$.type = 6;}
     | IDENT {  $$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);$$.name = $<s_var>1;}
     | IDENT '['INT_LIT { printf("INT_LIT %d\n",$3);} ']' {$$ = $<obj_val>1; $$.type = findObjectType($<s_var>1);$$.name = $<s_var>1; }
@@ -316,8 +316,6 @@ Assign2
     | EQL_ASSIGN IDENT  '(' Func')' {  findObjectType($<s_var>2);printf("call: check(IILjava/lang/String;B)B\n");}
     | EQL_ASSIGN '{'Arr'}' 
 ; 
-Assign3
-    :EQL_ASSIGN {setLoad(1);} Expression { printf("EQL_ASSIGN\n"); } // ==
-;
+
 %%
 /* C code section */
